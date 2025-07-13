@@ -1,0 +1,835 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ONESPACE - Innovating Your Digital Future</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --primary-color: #86c33e;
+            --primary-light: #a0d468;
+            --primary-dark: #6aa82e;
+            --text-color-dark: #1a1a1a;
+            --text-color-light: #4a4a4a;
+            --bg-light-gray: #f2f2f7;
+            --bg-white-alt: #ffffff;
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: var(--bg-light-gray);
+            color: var(--text-color-light);
+            overflow-x: hidden;
+        }
+
+        ::-webkit-scrollbar {
+            width: 8px;
+        }
+
+        ::-webkit-scrollbar-track {
+            background: #e0e0e0;
+        }
+
+        ::-webkit-scrollbar-thumb {
+            background: var(--primary-color);
+            border-radius: 4px;
+        }
+
+        ::-webkit-scrollbar-thumb:hover {
+            background: var(--primary-dark);
+        }
+
+        .hero-bg {
+            background-image: url('https://placehold.co/1920x1080/86c33e/ffffff?text=ONESPACE+IMAGE');
+            background-size: cover;
+            background-position: center;
+            background-attachment: fixed;
+        }
+
+        .slider-container {
+            position: relative;
+            overflow: hidden;
+            border-radius: 1rem;
+            box-shadow: 0 10px 20px rgba(0,0,0,0.1);
+        }
+
+        .slider-wrapper {
+            display: flex;
+            transition: transform 0.5s ease-in-out;
+        }
+
+        .slider-wrapper img {
+            width: 100%;
+            flex-shrink: 0;
+            object-fit: cover;
+            border-radius: 1rem;
+        }
+
+        .btn-primary {
+            background-color: var(--primary-color);
+            color: white;
+            padding: 0.9rem 2.2rem;
+            border-radius: 9999px;
+            font-weight: 600;
+            letter-spacing: 0.03em;
+            transition: all 0.3s cubic-bezier(0.2, 0.8, 0.2, 1);
+            box-shadow: 0 8px 20px rgba(134, 195, 62, 0.4);
+            text-transform: uppercase;
+        }
+
+        .btn-primary:hover {
+            background-color: var(--primary-dark);
+            box-shadow: 0 12px 25px rgba(134, 195, 62, 0.55);
+            transform: translateY(-4px);
+        }
+
+        .section-heading {
+            font-size: 3.2rem;
+            font-weight: 800;
+            color: var(--text-color-dark);
+            margin-bottom: 2.5rem;
+            text-align: center;
+            letter-spacing: -0.03em;
+        }
+
+        h3 {
+            color: var(--text-color-dark);
+        }
+
+        @media (max-width: 767px) {
+            .mobile-menu {
+                display: none;
+                flex-direction: column;
+                width: 100%;
+                background-color: white;
+                position: absolute;
+                top: 4rem;
+                left: 0;
+                padding: 1rem 0;
+                box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+                z-index: 100;
+            }
+            .mobile-menu.open {
+                display: flex;
+            }
+            .mobile-menu a {
+                padding: 0.75rem 1.5rem;
+                text-align: center;
+                color: var(--text-color-light);
+                font-weight: 500;
+            }
+            .mobile-menu a:hover {
+                background-color: #f0f0f0;
+            }
+            .section-heading {
+                font-size: 2.5rem;
+            }
+        }
+
+        .page-content-section {
+            display: none;
+            padding-top: 4rem;
+            opacity: 0; 
+            transition: opacity 0.8s ease-out;
+        }
+        .page-content-section.active {
+            display: block;
+            opacity: 1;
+        }
+
+        #home.page-content-section.active {
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .card-hover-effect {
+            transition: all 0.4s cubic-bezier(0.2, 0.8, 0.2, 1);
+        }
+        .card-hover-effect:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 15px 30px rgba(0,0,0,0.2);
+        }
+
+        .about-section-animated {
+            background: linear-gradient(135deg, var(--bg-light-gray), var(--primary-light), var(--bg-light-gray), var(--primary-light));
+            background-size: 400% 400%;
+            animation: gradient-shift 25s ease infinite alternate;
+        }
+
+        @keyframes gradient-shift {
+            0% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+            100% { background-position: 0% 50%; }
+        }
+
+        @keyframes fadeInUp {
+            from { opacity: 0; transform: translateY(30px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        @keyframes slideInLeft {
+            from { opacity: 0; transform: translateX(-50px); }
+            to { opacity: 1; transform: translateX(0); }
+        }
+
+        @keyframes slideInRight {
+            from { opacity: 0; transform: translateX(50px); }
+            to { opacity: 1; transform: translateX(0); }
+        }
+
+        @keyframes zoomIn {
+            from { opacity: 0; transform: scale(0.9); }
+            to { opacity: 1; transform: scale(1); }
+        }
+
+        .animate-on-scroll {
+            opacity: 0;
+            transform: translateY(30px);
+            transition: none;
+        }
+
+        .animate-on-scroll.is-visible {
+            animation: fadeInUp 0.9s ease-out forwards;
+        }
+
+        .animate-on-scroll.slide-left.is-visible { animation: slideInLeft 0.9s ease-out forwards; }
+        .animate-on-scroll.slide-right.is-visible { animation: slideInRight 0.9s ease-out forwards; }
+        .animate-on-scroll.zoom-in.is-visible { animation: zoomIn 0.9s ease-out forwards; }
+        .animate-on-scroll.slide-up.is-visible { animation: fadeInUp 0.9s ease-out forwards; }
+
+        .image-glow:hover {
+            box-shadow: 0 0 30px rgba(134, 195, 62, 0.7), 0 0 60px rgba(134, 195, 62, 0.5);
+            transform: scale(1.03); /* Slightly more scale on hover */
+            transition: all 0.5s cubic-bezier(0.2, 0.8, 0.2, 1);
+        }
+
+        .contact-icon-link {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--text-color-dark);
+            transition: all 0.3s cubic-bezier(0.2, 0.8, 0.2, 1);
+            padding: 1rem 1.5rem;
+            border-radius: 0.75rem;
+            background-color: white;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.08);
+            font-size: 1.125rem;
+            font-weight: 500;
+            text-decoration: none;
+            border: 1px solid #e0e0e0;
+        }
+        .contact-icon-link:hover {
+            background: linear-gradient(45deg, var(--primary-color), var(--primary-dark)); /* Gradient hover */
+            color: white;
+            transform: translateY(-5px) scale(1.03); /* More pronounced lift and scale */
+            box-shadow: 0 12px 25px rgba(134, 195, 62, 0.5);
+            border-color: transparent; /* Hide border on hover */
+        }
+        .contact-icon-link svg {
+            transition: transform 0.3s ease, color 0.3s ease;
+            color: var(--primary-color); /* Default icon color */
+            flex-shrink: 0; /* Prevent icon from shrinking */
+        }
+        .contact-icon-link:hover svg {
+            transform: scale(1.15); /* More pronounced icon scale */
+            color: white !important; /* Override inline color on hover */
+        }
+        .contact-icon-link span {
+            margin-left: 0.75rem; /* More space between icon and text */
+            white-space: nowrap; /* Prevent text wrapping */
+        }
+    </style>
+</head>
+<body class="antialiased">
+
+    <nav class="bg-white shadow-sm py-4 px-6 md:px-12 fixed w-full z-50">
+        <div class="container mx-auto flex justify-between items-center">
+            <a href="#home" class="text-2xl font-extrabold text-gray-800 flex items-center nav-link">
+                <span class="text-primary-color" style="color: #86c33e;">ONE</span><span class="text-gray-800">SPACE</span>
+            </a>
+
+            <div class="hidden md:flex space-x-8">
+                <a href="#home" class="text-gray-600 hover:text-primary-color transition duration-300 font-medium nav-link">Home</a>
+                <a href="#about" class="text-gray-600 hover:text-primary-color transition duration-300 font-medium nav-link">About Us</a>
+                <a href="#services" class="text-gray-600 hover:text-primary-color transition duration-300 font-medium nav-link">Services</a>
+                <a href="#team" class="text-gray-600 hover:text-primary-color transition duration-300 font-medium nav-link">Team</a>
+                <a href="#why-choose-us" class="text-gray-600 hover:text-primary-color transition duration-300 font-medium nav-link">Why Choose Us</a>
+                <a href="#contact" class="text-gray-600 hover:text-primary-color transition duration-300 font-medium nav-link">Contact</a>
+            </div>
+
+            <button id="mobile-menu-button" class="md:hidden focus:outline-none">
+                <svg class="w-6 h-6 text-gray-600" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"></path>
+                </svg>
+            </button>
+        </div>
+
+        <div id="mobile-menu" class="mobile-menu md:hidden">
+            <a href="#home" class="block nav-link">Home</a>
+            <a href="#about" class="block nav-link">About Us</a>
+            <a href="#services" class="block nav-link">Services</a>
+            <a href="#team" class="block nav-link">Team</a>
+            <a href="#why-choose-us" class="block nav-link">Why Choose Us</a>
+            <a href="#contact" class="block nav-link">Contact</a>
+        </div>
+    </nav>
+
+    <div id="page-container">
+        <section id="home" class="page-content-section active hero-bg h-screen">
+            <div class="bg-white bg-opacity-90 p-8 md:p-16 rounded-xl shadow-2xl max-w-4xl mx-4 transform transition duration-500 hover:scale-105 animate-on-scroll zoom-in" data-delay="0.1s">
+                <h1 class="text-4xl md:text-6xl font-extrabold text-gray-900 leading-tight mb-4 tracking-tight animate-on-scroll slide-left" data-delay="0.3s">
+                    Innovating Your <span style="color: #86c33e;">Digital Future</span>
+                </h1>
+                <p class="text-lg md:text-xl text-gray-700 mb-8 max-w-2xl mx-auto font-light animate-on-scroll slide-right" data-delay="0.5s">
+                    At ONESPACE, we craft seamless digital experiences that elevate your brand and connect you with your audience.
+                </p>
+                <a href="#contact" class="btn-primary inline-block nav-link animate-on-scroll zoom-in" data-delay="0.7s">
+                    Get Started Today
+                </a>
+            </div>
+        </section>
+
+        <section class="py-20 bg-white page-content-section active" id="home-slider-section">
+            <div class="container mx-auto px-6 md:px-12">
+                <h2 class="section-heading animate-on-scroll zoom-in" data-delay="0.1s">Our Work in Action</h2>
+                <div class="slider-container max-w-4xl mx-auto animate-on-scroll slide-up" data-delay="0.3s">
+                    <div class="slider-wrapper" id="image-slider">
+                        <img src="https://placehold.co/1200x600/86c33e/ffffff?text=Project+Showcase+1" alt="Project Showcase 1" class="rounded-xl">
+                        <img src="https://placehold.co/1200x600/6aa82e/ffffff?text=Project+Showcase+2" alt="Project Showcase 2" class="rounded-xl">
+                        <img src="https://placehold.co/1200x600/4d8c1c/ffffff?text=Project+Showcase+3" alt="Project Showcase 3" class="rounded-xl">
+                        <img src="https://placehold.co/1200x600/86c33e/ffffff?text=Project+Showcase+4" alt="Project Showcase 4" class="rounded-xl">
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="home-features" class="page-content-section active py-24 bg-gray-50">
+            <div class="container mx-auto px-6 md:px-12">
+                <h2 class="section-heading animate-on-scroll zoom-in" data-delay="0.1s">Why Choose ONESPACE?</h2>
+                <p class="text-xl text-gray-700 text-center mb-12 max-w-3xl mx-auto font-light animate-on-scroll slide-up" data-delay="0.3s">
+                    We combine innovative design with strategic thinking to deliver impactful results for your brand.
+                </p>
+
+                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-10">
+                    <div class="bg-white p-10 rounded-xl shadow-lg card-hover-effect animate-on-scroll slide-up" data-delay="0.4s">
+                        <div class="text-primary-color text-5xl mb-6 flex justify-center" style="color: #86c33e;">
+                            <svg xmlns="http://www.w3.org/2000/svg" class="h-16 w-16" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.5">
+                                <path stroke-linecap="round" stroke-linejoin="round" d="M9.75 17L9 20l-1 1h8l-1-1l-.75-3M3 13h18M5 17h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v8a2 2 0 002 2z" />
+                            </svg>
+                        </div>
+                        <h3 class="text-2xl font-bold text-center mb-4">Holistic Approach</h3>
+                        <p class="text-lg text-gray-700 text-center font-light">
+                            From concept to execution, we cover every aspect of your brand's digital journey.
+                        </p>
+                    </div>
+
+                    <div class="bg-white p-10 rounded-xl shadow-lg card-hover-effect animate-on-scroll slide-up" data-delay="0.5s">
+                        <div class="text-primary-color text-5xl mb-6 flex justify-center" style="color: #86c33e;">
+                            <svg xmlns="http://www.w3.org/2000/svg" class="h-16 w-16" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.5">
+                                <path stroke-linecap="round" stroke-linejoin="round" d="M21 13.255A23.565 23.565 0 0112 15c-1.864 0-3.647-.245-5.33-.745L4 17l2-4V6a3 3 0 013-3h6a3 3 0 013 3v7.255z" />
+                            </svg>
+                        </div>
+                        <h3 class="text-2xl font-bold text-center mb-4">Client Collaboration</h3>
+                        <p class="text-lg text-gray-700 text-center font-light">
+                            Your vision is our blueprint. We work closely with you at every stage.
+                        </p>
+                    </div>
+
+                    <div class="bg-white p-10 rounded-xl shadow-lg card-hover-effect animate-on-scroll slide-up" data-delay="0.6s">
+                        <div class="text-primary-color text-5xl mb-6 flex justify-center" style="color: #86c33e;">
+                            <svg xmlns="http://www.w3.org/2000/svg" class="h-16 w-16" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.5">
+                                <path stroke-linecap="round" stroke-linejoin="round" d="M13 10V3L4 14h7v7l9-11h-7z" />
+                            </svg>
+                        </div>
+                        <h3 class="text-2xl font-bold text-center mb-4">Results-Driven</h3>
+                        <p class="text-lg text-gray-700 text-center font-light">
+                            Our focus is on delivering measurable outcomes that grow your business.
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="about" class="page-content-section py-24 bg-gray-50 about-section-animated">
+            <div class="container mx-auto px-6 md:px-12 flex flex-col md:flex-row items-center gap-16">
+                <div class="md:w-1/2 animate-on-scroll slide-left" data-delay="0.1s">
+                    <img src="https://placehold.co/600x400/86c33e/ffffff?text=About+ONESPACE" alt="About ONESPACE" class="rounded-xl shadow-lg transform transition duration-500 hover:scale-105 image-glow">
+                </div>
+                <div class="md:w-1/2 text-center md:text-left">
+                    <h2 class="text-4xl md:text-5xl font-extrabold text-gray-800 mb-8 leading-tight tracking-tight animate-on-scroll slide-right" data-delay="0.3s">Who We Are</h2>
+                    <p class="text-xl text-gray-700 leading-relaxed mb-6 font-light animate-on-scroll slide-up" data-delay="0.5s">
+                        ONESPACE is a leading digital agency dedicated to transforming innovative ideas into powerful online presences. We specialize in creating bespoke websites, intuitive web applications, and engaging digital marketing strategies that resonate with your target audience.
+                    </p>
+                    <p class="text-xl text-gray-700 leading-relaxed font-light animate-on-scroll slide-up" data-delay="0.7s">
+                        Our team of passionate designers, developers, and strategists work collaboratively to deliver cutting-edge solutions that not only look stunning but also drive measurable results for your business.
+                    </p>
+                </div>
+            </div>
+        </section>
+
+        <section id="services" class="page-content-section py-24 bg-white">
+            <div class="container mx-auto px-6 md:px-12">
+                <h2 class="section-heading animate-on-scroll zoom-in" data-delay="0.1s">Services We Provide</h2>
+                <p class="text-xl text-gray-700 text-center mb-12 max-w-3xl mx-auto font-light animate-on-scroll slide-up" data-delay="0.3s">
+                    At Onespace Graphics, we offer a full spectrum of creative and strategic services to help businesses build a strong brand presence and connect with their audience effectively.
+                </p>
+
+                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-10">
+                    <div class="bg-gray-50 p-10 rounded-xl shadow-md card-hover-effect animate-on-scroll slide-up" data-delay="0.4s">
+                        <h3 class="text-2xl font-bold text-gray-800 mb-5 flex items-center">
+                            <svg xmlns="http://www.w3.org/2000/svg" class="h-8 w-8 mr-3" style="color: #86c33e;" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                                <path stroke-linecap="round" stroke-linejoin="round" d="M9 12l2 2 4-4M7.817 17.032C5.955 16.29 4 13.11 4 10a8 8 0 0116 0c0 3.11-1.956 6.29-3.817 7.032M12 15h.01" />
+                            </svg>
+                            Brand Strategy & Identity
+                        </h3>
+                        <ul class="list-disc list-inside text-gray-600 space-y-3 text-lg font-light">
+                            <li>Brand positioning & messaging</li>
+                            <li>Brand naming & story development</li>
+                            <li>Visual identity systems</li>
+                            <li>Logo design & brand guidelines</li>
+                        </ul>
+                    </div>
+
+                    <div class="bg-gray-50 p-10 rounded-xl shadow-md card-hover-effect animate-on-scroll slide-up" data-delay="0.5s">
+                        <h3 class="text-2xl font-bold text-gray-800 mb-5 flex items-center">
+                            <svg xmlns="http://www.w3.org/2000/svg" class="h-8 w-8 mr-3" style="color: #86c33e;" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                                <path stroke-linecap="round" stroke-linejoin="round" d="M12 6V4m0 2a2 2 0 100 4m0-4a2 2 0 110 4m-6 8a2 2 0 100-4m0 4a2 2 0 110-4m0 4v2m0-6V4m6 6v10m6-2a2 2 0 100-4m0 4a2 2 0 110-4m0 4v2m0-6V4" />
+                            </svg>
+                            Graphic Design
+                        </h3>
+                        <ul class="list-disc list-inside text-gray-600 space-y-3 text-lg font-light">
+                            <li>Marketing collateral (brochures, flyers, posters)</li>
+                            <li>Packaging design</li>
+                            <li>Corporate presentations</li>
+                            <li>Business cards & stationery</li>
+                        </ul>
+                    </div>
+
+                    <div class="bg-gray-50 p-10 rounded-xl shadow-md card-hover-effect animate-on-scroll slide-up" data-delay="0.6s">
+                        <h3 class="text-2xl font-bold text-gray-800 mb-5 flex items-center">
+                            <svg xmlns="http://www.w3.org/2000/svg" class="h-8 w-8 mr-3" style="color: #86c33e;" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                                <path stroke-linecap="round" stroke-linejoin="round" d="M10 20l4-16m4 4l4 4-4 4M6 16l-4-4 4-4" />
+                            </svg>
+                            Web Design & Development
+                        </h3>
+                        <ul class="list-disc list-inside text-gray-600 space-y-3 text-lg font-light">
+                            <li>Custom website design</li>
+                            <li>Responsive UI/UX design</li>
+                            <li>Landing pages & microsites</li>
+                            <li>Website maintenance & optimization</li>
+                        </ul>
+                    </div>
+
+                    <div class="bg-gray-50 p-10 rounded-xl shadow-md card-hover-effect animate-on-scroll slide-up" data-delay="0.7s">
+                        <h3 class="text-2xl font-bold text-gray-800 mb-5 flex items-center">
+                            <svg xmlns="http://www.w3.org/2000/svg" class="h-8 w-8 mr-3" style="color: #86c33e;" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                                <path stroke-linecap="round" stroke-linejoin="round" d="M12 18h.01M8 21h8a2 2 0 002-2V5a2 2 0 00-2-2H8a2 2 0 00-2 2v14a2 2 0 002 2z" />
+                            </svg>
+                            App Development
+                        </h3>
+                        <ul class="list-disc list-inside text-gray-600 space-y-3 text-lg font-light">
+                            <li>iOS & Android native app development</li>
+                            <li>Cross-platform app solutions</li>
+                            <li>UI/UX for mobile applications</li>
+                            <li>App maintenance & updates</li>
+                        </ul>
+                    </div>
+
+                    <div class="bg-gray-50 p-10 rounded-xl shadow-md card-hover-effect animate-on-scroll slide-up" data-delay="0.8s">
+                        <h3 class="text-2xl font-bold text-gray-800 mb-5 flex items-center">
+                            <svg xmlns="http://www.w3.org/2000/svg" class="h-8 w-8 mr-3" style="color: #86c33e;" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                                <path stroke-linecap="round" stroke-linejoin="round" d="M13 7l5 5m0 0l-5 5m5-5H6" />
+                            </svg>
+                            Digital Marketing
+                        </h3>
+                        <ul class="list-disc list-inside text-gray-600 space-y-3 text-lg font-light">
+                            <li>Social media strategy & management</li>
+                            <li>Search engine optimization (SEO)</li>
+                            <li>Pay-per-click (PPC) advertising</li>
+                            <li>Email marketing campaigns</li>
+                        </ul>
+                    </div>
+
+                    <div class="bg-gray-50 p-10 rounded-xl shadow-md card-hover-effect animate-on-scroll slide-up" data-delay="0.9s">
+                        <h3 class="text-2xl font-bold text-gray-800 mb-5 flex items-center">
+                            <svg xmlns="http://www.w3.org/2000/svg" class="h-8 w-8 mr-3" style="color: #86c33e;" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                                <path stroke-linecap="round" stroke-linejoin="round" d="M19 11H5m14 0a2 2 0 012 2v6a2 2 0 01-2 2H5a2 2 0 01-2-2v-6a2 2 0 012-2m14 0V9a2 2 0 00-2-2M5 11V9a2 2 0 012-2m0 0V5a2 2 0 012-2h6a2 2 0 012 2v2M7 7h10" />
+                            </svg>
+                            Media Planning & Advertising
+                        </h3>
+                        <ul class="list-disc list-inside text-gray-600 space-y-3 text-lg font-light">
+                            <li>Campaign planning & execution</li>
+                            <li>Online & offline media buying</li>
+                            <li>Targeted ad placements</li>
+                            <li>Performance tracking & analytics</li>
+                        </ul>
+                    </div>
+
+                    <div class="bg-gray-50 p-10 rounded-xl shadow-md card-hover-effect animate-on-scroll slide-up" data-delay="1.0s">
+                        <h3 class="text-2xl font-bold text-gray-800 mb-5 flex items-center">
+                            <svg xmlns="http://www.w3.org/2000/svg" class="h-8 w-8 mr-3" style="color: #86c33e;" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                                <path stroke-linecap="round" stroke-linejoin="round" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z" />
+                            </svg>
+                            Event Branding & Activation
+                        </h3>
+                        <ul class="list-disc list-inside text-gray-600 space-y-3 text-lg font-light">
+                            <li>Event concept & visual design</li>
+                            <li>Branded merchandise</li>
+                            <li>Stage & environmental graphics</li>
+                            <li>Corporate event support</li>
+                        </ul>
+                    </div>
+
+                    <div class="bg-gray-50 p-10 rounded-xl shadow-md card-hover-effect animate-on-scroll slide-up" data-delay="1.1s">
+                        <h3 class="text-2xl font-bold text-gray-800 mb-5 flex items-center">
+                            <svg xmlns="http://www.w3.org/2000/svg" class="h-8 w-8 mr-3" style="color: #86c33e;" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                                <path stroke-linecap="round" stroke-linejoin="round" d="M15.232 5.232l3.536 3.536m-2.036-5.036a2.5 2.5 0 113.536 3.536L6.5 21.036H3v-3.572L16.732 3.732z" />
+                            </svg>
+                            Content Creation
+                        </h3>
+                        <ul class="list-disc list-inside text-gray-600 space-y-3 text-lg font-light">
+                            <li>Copywriting & storytelling</li>
+                            <li>Product photography</li>
+                            <li>Promotional videos</li>
+                            <li>Motion graphics & animation</li>
+                        </ul>
+                    </div>
+
+                    <div class="bg-gray-50 p-10 rounded-xl shadow-md card-hover-effect animate-on-scroll slide-up" data-delay="1.2s">
+                        <h3 class="text-2xl font-bold text-gray-800 mb-5 flex items-center">
+                            <svg xmlns="http://www.w3.org/2000/svg" class="h-8 w-8 mr-3" style="color: #86c33e;" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                                <path stroke-linecap="round" stroke-linejoin="round" d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z" />
+                            </svg>
+                            Public Relations
+                        </h3>
+                        <ul class="list-disc list-inside text-gray-600 space-y-3 text-lg font-light">
+                            <li>Brand reputation management</li>
+                            <li>Press release creation & distribution</li>
+                            <li>Media outreach</li>
+                            <li>Influencer collaborations</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="team" class="page-content-section py-24 bg-gray-50">
+            <div class="container mx-auto px-6 md:px-12">
+                <h2 class="section-heading animate-on-scroll zoom-in" data-delay="0.1s">Meet Our Team</h2>
+
+                <div class="bg-white p-10 rounded-xl shadow-lg card-hover-effect flex flex-col md:flex-row items-center gap-10 mb-16 animate-on-scroll slide-left" data-delay="0.3s">
+                    <div class="md:w-1/3 flex justify-center">
+                        <img src="assets/vishnu.png" alt="Vishnushankar V.M" class="rounded-full w-64 h-64 object-cover shadow-md border-4 border-primary-color image-glow">
+                    </div>
+                    <div class="md:w-2/3 text-center md:text-left">
+                        <h3 class="text-3xl font-extrabold text-gray-800 mb-3">Vishnushankar V.M</h3>
+                        <p class="text-primary-color font-semibold mb-6 text-xl" style="color: #86c33e;">Co-Founder, Onespace Graphics</p>
+                        <p class="text-lg text-gray-700 leading-relaxed mb-4 font-light">
+                            Vishnushankar V.M, a young visionary with a passion for creativity and branding, is the driving force behind Onespace Graphics. With a deep interest in design, marketing, and digital innovation, he founded the agency with a simple yet powerful goal — to help businesses craft bold, meaningful brands that stand the test of time.
+                        </p>
+                        <p class="text-lg text-gray-700 leading-relaxed font-light">
+                            His fresh perspective, combined with hands-on experience and a relentless pursuit of quality, has shaped Onespace Graphics into a space where ideas come to life. Vishnushankar believes in blending creative thinking with strategic execution, making sure every brand not only looks good but also performs well in the real world.
+                        </p>
+                        <p class="text-lg text-gray-700 leading-relaxed mt-4 font-light">
+                            Under his leadership, the agency continues to grow — driven by passion, purpose, and a clear vision for the future of branding.
+                        </p>
+                    </div>
+                </div>
+
+                <div class="bg-white p-10 rounded-xl shadow-lg card-hover-effect flex flex-col md:flex-row-reverse items-center gap-10 animate-on-scroll slide-right" data-delay="0.5s">
+                    <div class="md:w-1/3 flex justify-center">
+                        <img src="assets/naveen.jpg" alt="Naveen Prashath" class="rounded-full w-64 h-64 object-cover shadow-md border-4 border-primary-color image-glow">
+                    </div>
+                    <div class="md:w-2/3 text-center md:text-right">
+                        <h3 class="text-3xl font-extrabold text-gray-800 mb-3">Naveen Prashath</h3>
+                        <p class="text-primary-color font-semibold mb-6 text-xl" style="color: #86c33e;">Co-founder, Onespace Graphics</p>
+                        <p class="text-lg text-gray-700 leading-relaxed mb-4 font-light">
+                            Naveen Prashath, the Co-founder of Onespace Graphics, brings a strategic edge and thoughtful leadership to the creative process. With a keen eye for detail and a strong understanding of brand dynamics, he plays a pivotal role in shaping the agency’s vision and delivering client success.
+                        </p>
+                        <p class="text-lg text-gray-700 leading-relaxed font-light">
+                            His expertise lies in bridging the gap between creativity and functionality — ensuring every project not only looks great but also drives real results. Naveen’s calm approach, problem-solving mindset, and commitment to quality have helped position Onespace Graphics as a trusted name in the branding space.
+                        </p>
+                        <p class="text-lg text-gray-700 leading-relaxed mt-4 font-light">
+                            He continues to work closely with clients and the creative team, turning ideas into impactful brand experiences.
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="why-choose-us" class="page-content-section py-24 bg-white">
+            <div class="container mx-auto px-6 md:px-12">
+                <h2 class="section-heading animate-on-scroll zoom-in" data-delay="0.1s">Why Choose Us</h2>
+                <p class="text-xl text-gray-700 text-center mb-12 max-w-3xl mx-auto font-light animate-on-scroll slide-up" data-delay="0.3s">
+                    At Onespace Graphics, we do more than just design — we deliver strategic, creative, and result-driven solutions that elevate your brand and grow your business. Here’s why clients trust us:
+                </p>
+
+                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-10">
+                    <div class="bg-gray-50 p-10 rounded-xl shadow-md card-hover-effect animate-on-scroll slide-up" data-delay="0.4s">
+                        <h3 class="text-2xl font-bold text-gray-800 mb-3 flex items-center">
+                            <span class="text-primary-color text-3xl font-extrabold mr-3" style="color: #86c33e;">1.</span> Creative Expertise
+                        </h3>
+                        <p class="text-lg text-gray-600 font-light">
+                            Our team blends creativity with strategy to craft unique brand identities and impactful designs that truly resonate with your target audience.
+                        </p>
+                    </div>
+
+                    <div class="bg-gray-50 p-10 rounded-xl shadow-md card-hover-effect animate-on-scroll slide-up" data-delay="0.5s">
+                        <h3 class="text-2xl font-bold text-gray-800 mb-3 flex items-center">
+                            <span class="text-primary-color text-3xl font-extrabold mr-3" style="color: #86c33e;">2.</span> Client-Centric Approach
+                        </h3>
+                        <p class="text-lg text-gray-600 font-light">
+                            We listen, understand, and collaborate closely with you. Your goals become our mission, and we tailor every project to suit your specific needs.
+                        </p>
+                    </div>
+
+                    <div class="bg-gray-50 p-10 rounded-xl shadow-md card-hover-effect animate-on-scroll slide-up" data-delay="0.6s">
+                        <h3 class="text-2xl font-bold text-gray-800 mb-3 flex items-center">
+                            <span class="text-primary-color text-3xl font-extrabold mr-3" style="color: #86c33e;">3.</span> End-to-End Solutions
+                        </h3>
+                        <p class="text-lg text-gray-600 font-light">
+                            From brand strategy to digital marketing, web design to event branding — we offer a comprehensive suite of services under one roof.
+                        </p>
+                    </div>
+
+                    <div class="bg-gray-50 p-10 rounded-xl shadow-md card-hover-effect animate-on-scroll slide-up" data-delay="0.7s">
+                        <h3 class="text-2xl font-bold text-gray-800 mb-3 flex items-center">
+                            <span class="text-primary-color text-3xl font-extrabold mr-3" style="color: #86c33e;">4.</span> Innovation Meets Simplicity
+                        </h3>
+                        <p class="text-lg text-gray-600 font-light">
+                            We combine modern tools and fresh thinking with simple, effective solutions that make your brand stand out in a crowded market.
+                        </p>
+                    </div>
+
+                    <div class="bg-gray-50 p-10 rounded-xl shadow-md card-hover-effect animate-on-scroll slide-up" data-delay="0.8s">
+                        <h3 class="text-2xl font-bold text-gray-800 mb-3 flex items-center">
+                            <span class="text-primary-color text-3xl font-extrabold mr-3" style="color: #86c33e;">5.</span> Proven Track Record
+                        </h3>
+                        <p class="text-lg text-gray-600 font-light">
+                            We’ve helped startups, SMEs, and established brands across various industries bring their vision to life — and we’re proud of the results.
+                        </p>
+                    </div>
+
+                    <div class="bg-gray-50 p-10 rounded-xl shadow-md card-hover-effect animate-on-scroll slide-up" data-delay="0.9s">
+                        <h3 class="text-2xl font-bold text-gray-800 mb-3 flex items-center">
+                            <span class="text-primary-color text-3xl font-extrabold mr-3" style="color: #86c33e;">6.</span> Timely Delivery
+                        </h3>
+                        <p class="text-lg text-gray-600 font-light">
+                            We value your time. Our efficient workflow and dedicated project management ensure every deliverable meets deadlines without compromising quality.
+                        </p>
+                    </div>
+
+                    <div class="bg-gray-50 p-10 rounded-xl shadow-md card-hover-effect animate-on-scroll slide-up" data-delay="1.0s">
+                        <h3 class="text-2xl font-bold text-gray-800 mb-3 flex items-center">
+                            <span class="text-primary-color text-3xl font-extrabold mr-3" style="color: #86c33e;">7.</span> Based in Coimbatore, Serving Everywhere
+                        </h3>
+                        <p class="text-lg text-gray-600 font-light">
+                            Rooted in Coimbatore with a growing presence beyond, we bring local insights and global standards to every project.
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="contact" class="page-content-section py-24 bg-gray-50">
+    <div class="container mx-auto px-6 md:px-12">
+        <h2 class="section-heading animate-on-scroll zoom-in" data-delay="0.1s">Get in Touch</h2>
+        <p class="text-xl text-gray-700 text-center mb-12 max-w-3xl mx-auto font-light animate-on-scroll slide-up" data-delay="0.3s">
+            Connect with ONESPACE. We're here to help you craft bold, meaningful brands that stand the test of time.
+        </p>
+
+        <div class="max-w-3xl mx-auto grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+            <a href="tel:+91 8072423318" class="contact-icon-link animate-on-scroll slide-up" data-delay="0.4s">
+                <img src="images/icons/phone-icon.png" alt="Phone 1" class="h-8 w-8 mr-3" />
+                <span>+91 8072423318</span>
+            </a>
+
+            <a href="tel:+91 6369435979" class="contact-icon-link animate-on-scroll slide-up" data-delay="0.5s">
+                <img src="images/icons/phone-icon.png" alt="Phone 2" class="h-8 w-8 mr-3" />
+                <span>+91 6369435979</span>
+            </a>
+
+            <a href="https://www.instagram.com/onespace_graphics?igsh=bGg3MXJ6ZTZjZXN6" target="_blank" rel="noopener noreferrer" class="contact-icon-link animate-on-scroll slide-up" data-delay="0.7s">
+                <img src="images/icons/instagram-icon.png" alt="Instagram" class="h-8 w-8 mr-3" />
+                <span>Instagram</span>
+            </a>
+
+            <a href="https://linkedin.com/company/onespacegraphics" target="_blank" rel="noopener noreferrer" class="contact-icon-link animate-on-scroll slide-up" data-delay="0.8s">
+                <img src="https://tse1.mm.bing.net/th/id/OIP.NN_29U5mI6l_KAfhsxQksgHaHa?pid=Api&rs=1&c=1&qlt=95&w=100&h=100" alt="LinkedIn" class="h-8 w-8 mr-3" />
+                <span>LinkedIn</span>
+            </a>
+
+            <a href="https://pinterest.com/onespacegraphics" target="_blank" rel="noopener noreferrer" class="contact-icon-link animate-on-scroll slide-up" data-delay="0.9s">
+                <img src="images/icons/pinterest-icon.png" alt="Pinterest" class="h-8 w-8 mr-3" />
+                <span>Pinterest</span>
+            </a>
+
+            <a href="https://facebook.com/onespacegraphics" target="_blank" rel="noopener noreferrer" class="contact-icon-link animate-on-scroll slide-up" data-delay="1.0s">
+                <img src="images/icons/facebook-icon.png" alt="Facebook" class="h-8 w-8 mr-3" />
+                <span>Facebook</span>
+            </a>
+
+            <a href="mailto:onespacegraphicdesigns@gmail.com" class="contact-icon-link animate-on-scroll slide-up" data-delay="1.1s">
+                <img src="images/icons/email-icon.png" alt="Gmail" class="h-8 w-8 mr-3" />
+                <span>Gmail</span>
+            </a>
+        </div>
+    </div>
+</section>
+
+    </div>
+
+    <footer class="bg-gray-800 text-white py-8">
+        <div class="container mx-auto px-6 md:px-12 text-center">
+            <p class="text-gray-400">&copy; 2025 ONESPACE. All rights reserved.</p>
+            <div class="mt-4 space-x-4">
+                <a href="#" class="text-gray-400 hover:text-white transition duration-300">Privacy Policy</a>
+                <span class="text-gray-600">|</span>
+                <a href="#" class="text-gray-400 hover:text-white transition duration-300">Terms of Service</a>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        const mobileMenuButton = document.getElementById('mobile-menu-button');
+        const mobileMenu = document.getElementById('mobile-menu');
+
+        mobileMenuButton.addEventListener('click', () => {
+            mobileMenu.classList.toggle('open');
+        });
+
+        const observer = new IntersectionObserver((entries, observer) => {
+            entries.forEach(entry => {
+                const targetElement = entry.target;
+                if (entry.isIntersecting) {
+                    targetElement.classList.add('is-visible');
+                    const delay = targetElement.dataset.delay ? parseFloat(targetElement.dataset.delay) : 0;
+                    targetElement.style.animationDelay = `${delay}s`;
+                } else {
+                    if (!targetElement.closest('#home.active') && !targetElement.closest('.page-content-section.active')) {
+                        targetElement.classList.remove('is-visible');
+                        targetElement.style.animation = 'none';
+                        targetElement.style.opacity = '0';
+                    }
+                }
+            });
+        }, {
+            root: null,
+            rootMargin: '0px',
+            threshold: 0.1
+        });
+
+        document.querySelectorAll('.animate-on-scroll').forEach(element => {
+            observer.observe(element);
+        });
+
+        const pageSections = document.querySelectorAll('.page-content-section');
+        const navLinks = document.querySelectorAll('.nav-link');
+
+        function showPage(pageId) {
+            pageSections.forEach(section => {
+                section.classList.remove('active');
+                section.style.opacity = '0';
+
+                section.querySelectorAll('.animate-on-scroll').forEach(item => {
+                    item.classList.remove('is-visible');
+                    item.style.animation = 'none';
+                    item.style.opacity = '0'; // Ensure it's hidden
+                    item.style.animationDelay = '0s';
+                });
+            });
+
+            const targetSections = [];
+            if (pageId === 'home') {
+                targetSections.push(document.getElementById('home'));
+                targetSections.push(document.getElementById('home-slider-section'));
+                targetSections.push(document.getElementById('home-features'));
+            } else {
+                const specificSection = document.getElementById(pageId);
+                if (specificSection) {
+                    targetSections.push(specificSection);
+                }
+            }
+
+            targetSections.forEach(section => {
+                setTimeout(() => {
+                    section.classList.add('active');
+                    section.style.opacity = '1';
+
+                    section.querySelectorAll('.animate-on-scroll').forEach(item => {
+                        const delay = item.dataset.delay ? parseFloat(item.dataset.delay) : 0.1;
+                        item.style.animation = `fadeInUp 0.9s ease-out forwards ${delay}s`;
+                        if (item.classList.contains('slide-left')) {
+                            item.style.animation = `slideInLeft 0.9s ease-out forwards ${delay}s`;
+                        } else if (item.classList.contains('slide-right')) {
+                            item.style.animation = `slideInRight 0.9s ease-out forwards ${delay}s`;
+                        } else if (item.classList.contains('zoom-in')) {
+                            item.style.animation = `zoomIn 0.9s ease-out forwards ${delay}s`;
+                        } else if (item.classList.contains('slide-up')) { /* Explicitly handle slide-up */
+                             item.style.animation = `fadeInUp 0.9s ease-out forwards ${delay}s`;
+                        }
+                    });
+                }, 50);
+            });
+
+
+            if (mobileMenu.classList.contains('open')) {
+                mobileMenu.classList.remove('open');
+            }
+
+            setTimeout(() => {
+                const targetElement = document.getElementById(pageId);
+                if (targetElement) {
+                    const navHeight = document.querySelector('nav').offsetHeight;
+                    window.scrollTo({
+                        top: targetElement.offsetTop - navHeight,
+                        behavior: 'smooth'
+                    });
+                }
+            }, 100);
+        }
+
+        navLinks.forEach(link => {
+            link.addEventListener('click', function (e) {
+                e.preventDefault();
+                const pageId = this.getAttribute('href').substring(1);
+                showPage(pageId);
+            });
+        });
+
+        const slider = document.getElementById('image-slider');
+        let currentIndex = 0;
+        if (slider) {
+            const images = slider.children;
+            const totalImages = images.length;
+
+            function updateSlider() {
+                const offset = -currentIndex * 100;
+                slider.style.transform = `translateX(${offset}%)`;
+            }
+
+            function nextImage() {
+                currentIndex = (currentIndex + 1) % totalImages;
+                updateSlider();
+            }
+
+            setInterval(nextImage, 5000);
+            updateSlider(); // Initial slider position
+        }
+
+        window.addEventListener('DOMContentLoaded', () => {
+            const initialPage = window.location.hash ? window.location.hash.substring(1) : 'home';
+            showPage(initialPage);
+        });
+
+        window.addEventListener('hashchange', () => {
+            const newPage = window.location.hash ? window.location.hash.substring(1) : 'home';
+            showPage(newPage);
+        });
+    </script>
+</body>
+</html>
