@@ -1,0 +1,590 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Our Works - ONESPACE Graphics</title>
+    <link rel="icon" type="image/x-icon" href="assets/onespacegraphics.ico">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css" xintegrity="sha512-SnH5WK+bZxgPHs44uWIX+LLJAJ9/2PkPKZ5QiAj6Ta86w+fsb2TkcmfRyVX3pBnMFcV7oQPJkl9QevSCWr3W6A==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <style>
+        :root {
+            --brand: #86c33d;
+            --surface-1: black;
+            --surface-invert: white;
+            --text-1: white;
+            --text-invert: black;
+            --headline1-font-size: clamp(2.5rem, 5vw, 4.5rem);
+            --nav-block-size: 100px;
+            --space-md: 1rem;
+            --space-lg: 1.75rem;
+            --border-thin: 1px;
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            -webkit-font-smoothing: antialiased;
+            background-color: var(--surface-1);
+            color: var(--text-1);
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            overflow-x: hidden;
+            position: relative;
+        }
+
+        /* NEW: Blurry green gradient background effect - Consistent with homepage */
+        body::before {
+            content: '';
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(45deg, rgba(134, 195, 61, 0.4), rgba(0, 0, 0, 0.6));
+            background-size: 300% 300%;
+            animation: gradient-shift 15s ease infinite;
+            z-index: -1;
+            filter: blur(150px);
+            opacity: 1;
+            pointer-events: none;
+        }
+
+        @keyframes gradient-shift {
+            0% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+            100% { background-position: 0% 50%; }
+        }
+
+        #main-content { flex-grow: 1; }
+        .text-brand { color: var(--brand); }
+
+        /* --- Button Styles (Consistent with homepage) --- */
+        .button-link {
+            display: inline-block;
+            text-decoration: none;
+            font-weight: 700;
+            font-size: 1.1rem;
+            padding: 0.8em 2em;
+            border-radius: 9999px;
+            transition: background-color 0.3s ease, transform 0.2s ease;
+            cursor: pointer;
+            border: none;
+        }
+        .button-link.primary {
+            background-color: var(--brand);
+            color: var(--text-invert);
+        }
+        .button-link.primary:hover {
+            background-color: color-mix(in oklch, var(--brand), black 15%);
+            transform: scale(1.05);
+        }
+        .button-link.secondary {
+            background-color: transparent;
+            color: var(--text-1);
+            border: 2px solid var(--brand);
+            padding: 0.8em 1em;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 60px;
+            height: 60px;
+            border-radius: 50%;
+            transition: background-color 0.3s ease, transform 0.2s ease, box-shadow 0.3s ease;
+        }
+        .button-link.secondary:hover {
+            background-color: var(--brand);
+            color: var(--text-invert);
+            box-shadow: 0 0 15px var(--brand);
+            transform: scale(1.05);
+        }
+
+        /* --- Navigation (Consistent with homepage) --- */
+        .nav {
+            display: grid;
+            place-items: center;
+            position: fixed;
+            width: 100%;
+            z-index: 100;
+            background-color: rgba(0, 0, 0, 0.8);
+            backdrop-filter: blur(8px);
+        }
+        .nav-container {
+            display: grid;
+            grid-auto-flow: column;
+            justify-content: space-between;
+            place-items: center;
+            min-height: var(--nav-block-size);
+            width: min(100%, 1656px);
+            padding: 0 var(--space-lg);
+        }
+        .logo-wrapper { justify-self: start; width: 4rem; }
+        .logo-img { width: 100%; height: auto; display: block; }
+        .menu-wrapper { display: grid; grid-auto-flow: column; place-items: center; gap: var(--space-lg); }
+        .menu { display: grid; grid-auto-flow: column; gap: var(--space-lg); list-style: none; padding: 0; margin: 0; }
+        .nav-link { text-decoration: none; color: var(--text-1); font-size: 1rem; padding: 0.5rem 0; transition: color 0.3s, text-shadow 0.2s; display: flex; align-items: center; gap: 0.25rem; }
+        .nav-link:hover { color: var(--brand); }
+        .nav-link:active { text-shadow: 0 0 10px var(--brand); }
+        .nav-link[aria-current="page"] { color: var(--brand); text-shadow: 0 0 10px var(--brand); }
+        .icon-btn { display: none; color: var(--text-1); width: 2rem; height: 2rem; background-color: transparent; border: none; cursor: pointer; }
+        @media (max-width: 1056px) {
+            .menu-wrapper { display: none; }
+            .icon-btn { display: block; }
+            .nav.open .menu-wrapper {
+                display: flex;
+                flex-direction: column;
+                position: fixed;
+                top: 0;
+                right: 0;
+                height: 100vh;
+                width: 300px;
+                background-color: rgba(0, 0, 0, 0.95);
+                backdrop-filter: blur(12px);
+                justify-content: flex-start;
+                padding-top: 5rem;
+                transform: translateX(0);
+                transition: transform 0.3s ease-in-out;
+            }
+            .nav:not(.open) .menu-wrapper { transform: translateX(100%); }
+            .nav.open .menu { display: flex; flex-direction: column; gap: 1.5rem; }
+            .nav.open .icon-btn[aria-label="Open Menu"] { display: none; }
+            .nav-container .close-btn { display: block; position: absolute; top: 2rem; right: 2rem; color: white; }
+        }
+        .close-btn { display: none; }
+        .dropdown { position: relative; }
+        .dropdown-menu { display: none; position: absolute; top: 100%; left: 50%; transform: translateX(-50%); background-color: var(--brand); min-width: 150px; border-radius: 0.5rem; box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); padding: 0.5rem 0; margin-top: 0.5rem; z-index: 10; }
+        .dropdown:hover .dropdown-menu { display: block; }
+        .dropdown-menu a { display: block; padding: 0.75rem 1rem; color: var(--text-invert); text-decoration: none; transition: background-color 0.2s ease; text-align: center; }
+        .dropdown-menu a:hover { background-color: color-mix(in oklch, var(--brand), black 10%); }
+        .dropdown-arrow { transition: transform 0.2s ease-in-out; color: white; }
+        .dropdown:hover .dropdown-arrow { transform: rotate(180deg); }
+
+        /* --- Hero Section (Consistent with homepage) --- */
+        .hero { position: relative; height: 100vh; display: grid; place-items: center; text-align: center; padding-top: var(--nav-block-size); }
+        .hero-visual { position: absolute; inset: 0; width: 100%; height: 100%; z-index: -1; overflow: hidden; background: #000; }
+        .hero-visual::after { content: ''; position: absolute; inset: 0; background: rgba(0,0,0,0.6); }
+        .hero-video { width: 100%; height: 100%; object-fit: cover; opacity: 0; transition: opacity 1s ease-in-out; position: absolute; }
+        .hero-video.active { opacity: 1; }
+        .hero-content { position: relative; z-index: 1; padding: var(--space-md); max-width: 900px; }
+        .headline1 { font-size: var(--headline1-font-size); font-weight: 800; color: white; margin-bottom: 1rem; line-height: 1.2; }
+
+        /* NEW: Button container with scroll button - Consistent with homepage */
+        .hero-actions-container {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 1rem;
+            margin-top: 2.5rem;
+        }
+        .scroll-btn {
+            border: none;
+            background-color: transparent;
+            cursor: pointer;
+            z-index: 10;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 0;
+            width: 70px;
+            height: 70px;
+            border-radius: 50%;
+            transition: transform 0.3s ease;
+        }
+        .scroll-btn:hover { transform: scale(1.1); }
+        .scroll-btn svg { color: var(--text-invert); z-index: 2; animation: bounce 2s infinite; }
+        .gradient-circle {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            border-radius: 50%;
+            background: linear-gradient(45deg, #86c33d, #429f04, #86c33d, #429f04);
+            background-size: 400% 400%;
+            animation: bounce 2s infinite, gradient-move 8s ease infinite;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        @keyframes bounce {
+            0%, 20%, 50%, 80%, 100% { transform: translateY(0); }
+            40% { transform: translateY(-10px); }
+            60% { transform: translateY(-5px); }
+        }
+        @keyframes gradient-move {
+            0% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+            100% { background-position: 0% 50%; }
+        }
+
+        /* --- General Section Styles --- */
+        .section-container { padding: 6rem 1rem; text-align: center; }
+        .section-title { font-size: 3rem; font-weight: 800; margin-bottom: 1rem; color: var(--text-1); }
+        .section-subtitle { font-size: 1.125rem; color: #9ca3af; max-width: 56rem; margin-inline: auto; margin-bottom: 4rem; line-height: 1.7; }
+
+        /* --- Video Grid Section --- */
+        .video-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 2rem;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+        .video-card {
+            border-radius: 1rem;
+            overflow: hidden;
+            position: relative;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+            transition: transform 0.3s ease;
+        }
+        .video-card:hover { transform: scale(1.05); }
+        .video-card video {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+        .video-overlay {
+            position: absolute;
+            inset: 0;
+            background: rgba(0, 0, 0, 0.4);
+            display: flex;
+            align-items: flex-end;
+            justify-content: flex-start;
+            padding: 1rem;
+            color: white;
+            font-weight: bold;
+            opacity: 1;
+            transition: opacity 0.3s ease;
+        }
+        .video-card:hover .video-overlay { opacity: 0; }
+
+        /* --- Image Gallery Section --- */
+        .gallery-grid {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 2rem;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+        .gallery-item {
+            width: 180px;
+            height: 180px;
+            border-radius: 50%;
+            overflow: hidden;
+            cursor: pointer;
+            position: relative;
+            transition: all 0.5s ease-in-out;
+            box-shadow: 0 0 0 4px rgba(255, 255, 255, 0.1), 0 0 15px rgba(0, 0, 0, 0.5);
+        }
+        .gallery-item img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.5s ease;
+        }
+        .gallery-item:hover {
+            transform: scale(1.1);
+            box-shadow: 0 0 0 4px var(--brand), 0 0 25px var(--brand);
+        }
+        .gallery-item:hover img { transform: scale(1.2); }
+
+        /* --- Modal/Galaxy Overlay (Consistent with original) --- */
+        .galaxy-overlay {
+            position: fixed;
+            inset: 0;
+            background-color: rgba(0, 0, 0, 0.95);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            z-index: 200;
+            opacity: 0;
+            visibility: hidden;
+            transition: opacity 0.5s ease, visibility 0.5s ease;
+        }
+        .galaxy-overlay.show {
+            opacity: 1;
+            visibility: visible;
+        }
+        .galaxy-overlay img {
+            max-width: 90%;
+            max-height: 90%;
+            object-fit: contain;
+            border-radius: 1rem;
+            box-shadow: 0 0 50px var(--brand), 0 0 100px var(--brand);
+            transform: scale(0.5);
+            transition: transform 0.5s cubic-bezier(0.68, -0.55, 0.27, 1.55);
+        }
+        .galaxy-overlay.show img {
+            transform: scale(1);
+        }
+        .galaxy-overlay .close-btn {
+            position: absolute;
+            top: 2rem;
+            right: 2rem;
+            background: none;
+            border: none;
+            font-size: 2rem;
+            color: white;
+            cursor: pointer;
+            z-index: 201;
+            transition: color 0.3s;
+        }
+        .galaxy-overlay .close-btn:hover { color: var(--brand); }
+
+        /* --- Footer (Consistent with homepage) --- */
+        .apple-footer { background-color: black; color: #424245; font-size: 0.9rem; padding: 3rem 1.5rem; }
+        .apple-footer .footer-links { display: flex; justify-content: center; flex-wrap: wrap; gap: 1.5rem; padding-bottom: 1.5rem; border-bottom: 1px solid #424245; margin-bottom: 1.5rem; }
+        .apple-footer .footer-links a, .apple-footer .footer-contact a {
+            color: #d2d2d7;
+            transition: color 0.2s, text-shadow 0.2s;
+            font-weight: 500;
+        }
+        .apple-footer .footer-links a:hover, .apple-footer .footer-contact a:hover {
+            color: white;
+            text-shadow: 0 0 10px var(--brand);
+        }
+        .apple-footer .footer-links a:active { text-shadow: 0 0 10px var(--brand); }
+        .footer-social-icons a { display: inline-flex; align-items: center; justify-content: center; width: 36px; height: 36px; border-radius: 50%; background-color: #2c2c2e; transition: background-color 0.2s, box-shadow 0.2s; }
+        .apple-footer .social-link-icon { color: #d2d2d7; transition: color 0.2s ease-in-out; }
+        .apple-footer .social-link-icon:hover { color: white; }
+        .footer-social-icons a:hover { background-color: #3a3a3c; }
+        .footer-social-icons a:active { box-shadow: 0 0 12px 1px var(--brand); }
+        .apple-footer .copyright-text { color: #86868b; }
+    </style>
+</head>
+<body class="antialiased">
+
+    <!-- Navbar Section (Consistent with homepage) -->
+    <nav id="nav" class="nav">
+        <div class="nav-container">
+            <a href="index.html" class="logo-wrapper">
+                <img class="logo-img" src="assets/onespace.png" alt="ONESPACE Graphics logo"/>
+            </a>
+            <div class="menu-wrapper">
+                <menu class="menu">
+                    <li><a href="index.html" class="nav-link">Home</a></li>
+                    <li><a href="our-work.html" class="nav-link" aria-current="page">Our Works</a></li>
+                    <li class="dropdown">
+                        <a href="about.html" class="nav-link">
+                            About Us
+                            <svg class="dropdown-arrow" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="20" height="20" fill="currentColor">
+                                <path d="M12 15.0001L17.2929 9.70718L18.7071 11.1214L12 17.8285L5.29289 11.1214L6.70711 9.70718L12 15.0001Z"></path>
+                            </svg>
+                        </a>
+                        <ul class="dropdown-menu">
+                            <li><a href="about.html#our-mission">Our Mission</a></li>
+                            <li><a href="team.html">Team</a></li>
+                        </ul>
+                    </li>
+                    <li><a href="services.html" class="nav-link">Services</a></li>
+                    <li><a href="why-choose-us.html" class="nav-link">Why Choose Us</a></li>
+                    <li><a href="contact.html" class="nav-link">Contact</a></li>
+                </menu>
+            </div>
+            <button class="icon-btn close-btn" aria-label="Close Menu">
+                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="currentColor"><path d="M12.0007 10.5865L16.9504 5.63672L18.3646 7.05093L13.4149 12.0007L18.3646 16.9504L16.9504 18.3646L12.0007 13.4149L7.05093 18.3646L5.63672 16.9504L10.5865 12.0007L5.63672 7.05093L7.05093 5.63672L12.0007 10.5865Z"></path></svg>
+            </button>
+            <button class="icon-btn" aria-label="Open Menu">
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="24" height="24" fill="currentColor"><path d="M3 4H21V6H3V4ZM3 11H21V13H3V11ZM3 18H21V20H3V18Z"></path></svg>
+            </button>
+        </div>
+    </nav>
+
+    <main class="main" id="main-content">
+        <!-- Hero Section - Video Background (Updated to match homepage style) -->
+        <section class="hero">
+            <div class="hero-visual">
+                <video class="hero-video" id="video1" muted playsinline>
+                    <source src="https://assets.mixkit.co/videos/preview/mixkit-creative-workplace-with-a-graphic-designer-44473-large.mp4" type="video/mp4"/>
+                </video>
+                <video class="hero-video" id="video2" muted playsinline>
+                    <source src="https://assets.mixkit.co/videos/preview/mixkit-a-man-working-in-a-call-center-at-his-desk-43958-large.mp4" type="video/mp4"/>
+                </video>
+                <video class="hero-video" id="video3" muted playsinline>
+                    <source src="https://assets.mixkit.co/videos/preview/mixkit-a-male-graphic-designer-working-on-his-computer-50797-large.mp4" type="video/mp4"/>
+                </video>
+            </div>
+            <div class="hero-content">
+                <header class="hero-header">
+                    <h1 class="headline1"><span class="text-brand">Our</span> Creative Works</h1>
+                    <p class="hero-intro">
+                        A curated showcase of our latest projects in video, graphic design, and web development.
+                    </p>
+                    <div class="hero-actions-container">
+                        <a href="contact.html" class="button-link primary">Let's Connect</a>
+                        <a href="#video-grid-section" aria-label="Scroll to content" class="button-link secondary">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="currentColor">
+                                <path d="M13 16.1716L18.364 10.8076L19.7782 12.2218L12 20L4.2218 12.2218L5.63602 10.8076L11 16.1716V4H13V16.1716Z"></path>
+                            </svg>
+                        </a>
+                    </div>
+                </header>
+            </div>
+        </section>
+
+        <!-- Promotional Video Grid Section -->
+        <section id="video-grid-section" class="section-container bg-black text-white">
+            <h2 class="section-title"><span class="text-brand">Our</span> Video Promotions</h2>
+            <p class="section-subtitle">
+                Discover our work in motion, from eye-catching Instagram Reels to professional product videos and app demos.
+            </p>
+            <div class="video-grid">
+                <div class="video-card">
+                    <video autoplay loop muted playsinline>
+                        <source src="https://assets.mixkit.co/videos/preview/mixkit-beautiful-young-woman-with-her-hair-blowing-in-the-wind-32007-large.mp4" type="video/mp4">
+                    </video>
+                    <div class="video-overlay">Instagram Reel</div>
+                </div>
+                <div class="video-card">
+                    <video autoplay loop muted playsinline>
+                        <source src="https://assets.mixkit.co/videos/preview/mixkit-unboxing-of-a-new-mobile-phone-44445-large.mp4" type="video/mp4">
+                    </video>
+                    <div class="video-overlay">Product Promo</div>
+                </div>
+                <div class="video-card">
+                    <video autoplay loop muted playsinline>
+                        <source src="https://assets.mixkit.co/videos/preview/mixkit-young-man-showing-his-phone-42023-large.mp4" type="video/mp4">
+                    </video>
+                    <div class="video-overlay">App Showcase</div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Pinterest-style Galaxy Image Gallery -->
+        <section id="image-gallery-section" class="section-container bg-[#0a0a0a] text-white">
+            <h2 class="section-title"><span class="text-brand">Our</span> Design Portfolio</h2>
+            <p class="section-subtitle">
+                Explore a collection of our graphic design work, presented in a unique, interactive way.
+            </p>
+            <div class="gallery-grid">
+                <div class="gallery-item" data-src="https://placehold.co/1000x800/86c33d/000?text=Brand+Identity">
+                    <img src="https://placehold.co/180x180/86c33d/000?text=Brand" alt="Brand Identity">
+                </div>
+                <div class="gallery-item" data-src="https://placehold.co/1000x800/86c33d/000?text=Web+Design">
+                    <img src="https://placehold.co/180x180/86c33d/000?text=Web" alt="Web Design">
+                </div>
+                <div class="gallery-item" data-src="https://placehold.co/1000x800/86c33d/000?text=App+UI+UX">
+                    <img src="https://placehold.co/180x180/86c33d/000?text=App" alt="App UI/UX">
+                </div>
+                <div class="gallery-item" data-src="https://placehold.co/1000x800/86c33d/000?text=Social+Media">
+                    <img src="https://placehold.co/180x180/86c33d/000?text=Social" alt="Social Media">
+                </div>
+                <div class="gallery-item" data-src="https://placehold.co/1000x800/86c33d/000?text=Logo+Design">
+                    <img src="https://placehold.co/180x180/86c33d/000?text=Logo" alt="Logo Design">
+                </div>
+                <div class="gallery-item" data-src="https://placehold.co/1000x800/86c33d/000?text=Packaging">
+                    <img src="https://placehold.co/180x180/86c33d/000?text=Packaging" alt="Packaging Design">
+                </div>
+            </div>
+        </section>
+
+        <!-- The Galaxy Image Overlay -->
+        <div id="galaxy-overlay" class="galaxy-overlay">
+            <button class="close-btn">&times;</button>
+            <img src="" alt="Full-screen view of portfolio item" id="overlay-image">
+        </div>
+    </main>
+
+    <!-- Footer Section (Consistent with homepage) -->
+    <footer class="apple-footer text-center">
+        <div class="container mx-auto max-w-5xl">
+            <div class="mb-6">
+                <a href="index.html" class="inline-block mb-6">
+                    <img src="assets/onespace.png" alt="OneSpace Graphics" class="h-10 w-auto">
+                </a>
+                <div class="footer-links hidden md:flex">
+                    <a href="index.html">Home</a><a href="our-work.html">Our Works</a><a href="about.html">About Us</a><a href="services.html">Services</a><a href="why-choose-us.html">Why Choose Us</a><a href="contact.html">Contact</a>
+                </div>
+            </div>
+            <div class="flex flex-col md:flex-row justify-between items-center">
+                <div class="text-left mb-6 md:mb-0">
+                    <p class="copyright-text text-sm">© 2025 ONESPACE Graphics. All rights reserved.</p>
+                </div>
+                <div class="footer-contact text-right">
+                    <div class="flex justify-end gap-3 mb-2 footer-social-icons">
+                        <a href="#" aria-label="Instagram"><i class="fab fa-instagram text-xl social-link-icon"></i></a>
+                        <a href="#" aria-label="LinkedIn"><i class="fab fa-linkedin-in text-xl social-link-icon"></i></a>
+                        <a href="#" aria-label="Pinterest"><i class="fab fa-pinterest text-xl social-link-icon"></i></a>
+                        <a href="#" aria-label="Facebook"><i class="fab fa-facebook-f text-xl social-link-icon"></i></a>
+                        <a href="mailto:info@onespacegraphics.com" aria-label="Gmail"><i class="fas fa-envelope text-xl social-link-icon"></i></a>
+                    </div>
+                    <a href="tel:+918072423318" class="block">+91 8072423318</a>
+                    <a href="tel:+916369435979" class="block">+91 6369435979</a>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const nav = document.getElementById('nav');
+            const openBtn = nav.querySelector('.icon-btn[aria-label="Open Menu"]');
+            const closeBtn = nav.querySelector('.icon-btn[aria-label="Close Menu"]');
+
+            openBtn.addEventListener('click', () => { nav.classList.add('open'); });
+            closeBtn.addEventListener('click', () => { nav.classList.remove('open'); });
+
+            // Hero Video Carousel Logic
+            const videos = document.querySelectorAll('.hero-video');
+            let currentVideoIndex = 0;
+            const videoDuration = 10000; // 10 seconds per video
+
+            function playNextVideo() {
+                if (videos.length === 0) return;
+                videos.forEach(video => {
+                    video.classList.remove('active');
+                    video.pause();
+                });
+                const nextVideo = videos[currentVideoIndex];
+                nextVideo.classList.add('active');
+                nextVideo.play().catch(error => { console.warn("Video playback was interrupted:", error); });
+            }
+
+            function advanceVideo() {
+                currentVideoIndex = (currentVideoIndex + 1) % videos.length;
+                playNextVideo();
+            }
+
+            if (videos.length > 0) {
+                videos[0].addEventListener('canplaythrough', () => {
+                    playNextVideo();
+                    setInterval(advanceVideo, videoDuration);
+                }, { once: true });
+            }
+
+            // Scroll button to video grid
+            const scrollBtn = document.querySelector('.button-link.secondary');
+            if (scrollBtn) {
+                scrollBtn.addEventListener('click', (e) => {
+                    e.preventDefault();
+                    document.querySelector('#video-grid-section').scrollIntoView({ behavior: 'smooth' });
+                });
+            }
+
+            // Galaxy Image Gallery Logic
+            const galleryItems = document.querySelectorAll('.gallery-item');
+            const galaxyOverlay = document.getElementById('galaxy-overlay');
+            const overlayImage = document.getElementById('overlay-image');
+            const overlayCloseBtn = document.querySelector('.galaxy-overlay .close-btn');
+
+            galleryItems.forEach(item => {
+                item.addEventListener('click', () => {
+                    const imageUrl = item.dataset.src;
+                    overlayImage.src = imageUrl;
+                    galaxyOverlay.classList.add('show');
+                });
+            });
+
+            overlayCloseBtn.addEventListener('click', () => {
+                galaxyOverlay.classList.remove('show');
+            });
+
+            galaxyOverlay.addEventListener('click', (e) => {
+                if (e.target === galaxyOverlay) {
+                    galaxyOverlay.classList.remove('show');
+                }
+            });
+        });
+    </script>
+</body>
+</html>
