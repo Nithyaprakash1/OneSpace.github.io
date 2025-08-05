@@ -1,0 +1,323 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Home - ONESPACE Graphics</title>
+    <link rel="icon" type="image/x-icon" href="assets/onespacegraphics.ico">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css" integrity="sha512-SnH5WK+bZxgPHs44uWIX+LLJAJ9/2PkPKZ5QiAj6Ta86w+fsb2TkcmfRyVX3pBnMFcV7oQPJkl9QevSCWr3W6A==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <style>
+        :root {
+            --brand: #86c33d;
+            --surface-1: black;
+            --surface-invert: white;
+            --text-1: white;
+            --text-invert: black;
+            --headline1-font-size: clamp(2.5rem, 5vw, 4.5rem);
+            --nav-block-size: 100px;
+        }
+
+        body {
+            font-family: 'Inter', sans-serif; -webkit-font-smoothing: antialiased; background-color: var(--surface-1);
+            color: var(--text-1); min-height: 100vh; display: flex; flex-direction: column;
+            overflow-x: hidden; position: relative;
+        }
+
+        .blur-orb {
+            position: fixed; width: 500px; height: 500px; border-radius: 50%;
+            background: radial-gradient(circle, rgba(134, 195, 61, 0.3), transparent 70%);
+            filter: blur(120px); z-index: -2; pointer-events: none; will-change: transform;
+        }
+        #orb1 { top: -150px; left: -150px; animation: move-orb1 25s infinite alternate; }
+        #orb2 { bottom: -200px; right: -200px; animation: move-orb2 30s infinite alternate; }
+        @keyframes move-orb1 { 0% { transform: translate(0, 0); } 100% { transform: translate(100vw, 50vh); } }
+        @keyframes move-orb2 { 0% { transform: translate(0, 0); } 100% { transform: translate(-80vw, -40vh); } }
+
+        #main-content { flex-grow: 1; }
+        .text-brand { color: var(--brand); }
+
+        .button-link {
+            display: inline-block; text-decoration: none; font-weight: 700; font-size: 1.1rem;
+            padding: 0.8em 2em; border-radius: 9999px; transition: background-color 0.3s ease, transform 0.2s ease;
+            cursor: pointer; border: none;
+        }
+        .button-link.primary { background-color: var(--brand); color: var(--text-invert); }
+        .button-link.primary:hover { background-color: color-mix(in oklch, var(--brand), black 15%); transform: scale(1.05); }
+        .button-link.secondary {
+            background-color: transparent; color: var(--text-1); border: 2px solid var(--brand);
+            padding: 0; display: flex; align-items: center; justify-content: center;
+            width: 60px; height: 60px; transition: background-color 0.3s ease, transform 0.2s ease, box-shadow 0.3s ease;
+        }
+        .button-link.secondary:hover { background-color: var(--brand); color: var(--text-invert); box-shadow: 0 0 15px var(--brand); transform: scale(1.05); }
+
+        .nav {
+            display: grid; place-items: center; position: fixed; width: 100%; z-index: 100;
+            background-color: rgba(0, 0, 0, 0.8); backdrop-filter: blur(8px);
+        }
+        .nav-container {
+            display: grid; grid-auto-flow: column; justify-content: space-between; place-items: center;
+            min-height: var(--nav-block-size); width: min(100%, 1656px); padding: 0 1.75rem;
+        }
+        .logo-wrapper { justify-self: start; width: 4rem; }
+        .logo-img { width: 100%; height: auto; display: block; }
+        .menu-wrapper { display: grid; grid-auto-flow: column; place-items: center; gap: 1.75rem; }
+        .menu { display: grid; grid-auto-flow: column; gap: 1.75rem; list-style: none; padding: 0; margin: 0; }
+        .nav-link { text-decoration: none; color: var(--text-1); font-size: 1rem; padding: 0.5rem 0; transition: color 0.3s, text-shadow 0.2s; display: flex; align-items: center; gap: 0.25rem; }
+        .nav-link:hover { color: var(--brand); }
+        .nav-link.active-link { color: var(--brand); text-shadow: 0 0 10px var(--brand); }
+
+        .icon-btn { display: none; color: var(--text-1); width: 2rem; height: 2rem; background-color: transparent; border: none; cursor: pointer; }
+
+        @keyframes fade-in-up {
+            from { opacity: 0; transform: translateY(15px); }
+            to   { opacity: 1; transform: translateY(0); }
+        }
+
+        @media (max-width: 1056px) {
+            .menu-wrapper {
+                display: flex; flex-direction: column; align-items: center; justify-content: center;
+                position: fixed; top: 0; left: 0; width: 100%; height: 100vh;
+                background-color: var(--surface-invert);
+                transform: translateY(-100%); transition: transform 0.4s cubic-bezier(0.23, 1, 0.32, 1);
+                z-index: 110;
+            }
+            .nav.open .menu-wrapper { transform: translateY(0); }
+            .menu {
+                display: flex; flex-direction: column;
+                align-items: center; gap: 2rem; width: 100%;
+            }
+            .menu li {
+                width: 100%;
+                opacity: 0;
+            }
+            .nav-link {
+                font-size: 1.5rem;
+                justify-content: center;
+                color: var(--text-invert);
+            }
+            .nav-link:hover { color: var(--brand); text-shadow: none; }
+            .dropdown .nav-link .dropdown-arrow { color: var(--text-invert); }
+
+            .nav.open .menu li { animation: fade-in-up 0.5s ease forwards; }
+            .nav.open .menu li:nth-child(1) { animation-delay: 0.25s; }
+            .nav.open .menu li:nth-child(2) { animation-delay: 0.30s; }
+            .nav.open .menu li:nth-child(3) { animation-delay: 0.35s; }
+            .nav.open .menu li:nth-child(4) { animation-delay: 0.40s; }
+            .nav.open .menu li:nth-child(5) { animation-delay: 0.45s; }
+            .nav.open .menu li:nth-child(6) { animation-delay: 0.50s; }
+
+            .menu-wrapper .close-btn { display: block; position: absolute; top: 2rem; right: 1.75rem; color: var(--text-invert); }
+            .open-btn { display: block; z-index: 120; }
+            .nav.open .open-btn { display: none; }
+
+            /* --- FIXES FOR MOBILE DROPDOWN --- */
+
+            li.dropdown .dropdown-menu {
+                display: block; position: static; background-color: transparent;
+                box-shadow: none; width: 100%; padding: 0; margin-top: 1rem;
+                max-height: 0; overflow: hidden;
+                transition: max-height 0.4s ease-in-out;
+            }
+            li.dropdown.is-open .dropdown-menu { max-height: 200px; }
+
+            /* 1. Center-align the text for dropdown links ONLY */
+            .dropdown-menu a {
+                display: block;
+                text-align: center;
+                color: #555;
+                font-size: 1.2rem;
+                padding: 0.5rem 1rem;
+            }
+            .dropdown-menu a:hover { background-color: transparent; color: var(--brand); }
+
+            /* 2. Toggle highlight/glow effect. This is removed when '.is-open' is toggled off on re-click. */
+            li.dropdown.is-open > .nav-link {
+                color: var(--brand);
+                text-shadow: 0 0 10px var(--brand);
+            }
+            li.dropdown.is-open > .nav-link:hover {
+                text-shadow: 0 0 10px var(--brand);
+            }
+
+            /* 3. Animate the arrow rotation. This reverses when '.is-open' is removed. */
+            li.dropdown.is-open .dropdown-arrow {
+                transform: rotate(180deg);
+            }
+        }
+
+        .dropdown { position: relative; }
+        .dropdown-menu { display: none; position: absolute; top: 100%; left: 50%; transform: translateX(-50%); background-color: var(--brand); min-width: 150px; border-radius: 0.5rem; box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); padding: 0.5rem 0; margin-top: 0.5rem; z-index: 10; }
+        .dropdown:hover .dropdown-menu { display: block; }
+        .dropdown-menu a { display: block; padding: 0.75rem 1rem; color: var(--text-invert); text-decoration: none; transition: background-color 0.2s ease; text-align: center; }
+        .dropdown-menu a:hover { background-color: color-mix(in oklch, var(--brand), black 10%); }
+        .dropdown-arrow { transition: transform 0.2s ease-in-out; color: white; }
+        .dropdown:hover .dropdown-arrow { transform: rotate(180deg); }
+
+        .hero { position: relative; height: 100vh; display: grid; place-items: center; text-align: center; padding-top: var(--nav-block-size); }
+        .hero-visual { position: absolute; inset: 0; width: 100%; height: 100%; z-index: -1; overflow: hidden; background: #000; }
+        .hero-visual::after { content: ''; position: absolute; inset: 0; background: rgba(0,0,0,0.6); }
+        .hero-video { width: 100%; height: 100%; object-fit: cover; }
+        .hero-content { position: relative; z-index: 1; padding: 1rem; max-width: 900px; }
+        .headline1 { font-size: var(--headline1-font-size); font-weight: 800; color: white; margin-bottom: 1rem; line-height: 1.2; }
+        .hero-intro { font-size: 1.25rem; color: #e5e7eb; max-width: 700px; margin-bottom: 2.5rem; line-height: 1.6; }
+        .hero-actions-container { display: flex; align-items: center; justify-content: center; gap: 1rem; margin-top: 2.5rem; }
+
+        .section-container { padding: 6rem 1rem; text-align: center; }
+        .section-title { font-size: clamp(2.5rem, 6vw, 3rem); font-weight: 800; margin-bottom: 1rem; color: var(--text-1); }
+        .section-subtitle { font-size: 1.125rem; color: #9ca3af; max-w-3xl; margin-inline: auto; margin-bottom: 4rem; line-height: 1.7; }
+
+        .slider-wrapper { position: relative; max-width: 1200px; margin: 0 auto; overflow: hidden; }
+        .slider-track { display: flex; transition: transform 0.5s ease-in-out; align-items: center; }
+        .slider-slide { min-width: 100%; box-sizing: border-box; padding: 0 1rem; }
+
+        .slider-btn { position: absolute; top: 50%; transform: translateY(-50%); background-color: rgba(255, 255, 255, 0.1); color: white; border: 1px solid rgba(255,255,255,0.2); width: 55px; height: 55px; border-radius: 50%; z-index: 10; cursor: pointer; transition: all 0.3s ease; display: flex; align-items: center; justify-content: center; }
+        .slider-btn:hover { background-color: var(--brand); border-color: var(--brand); transform: translateY(-50%) scale(1.1); }
+        .slider-btn.prev { left: 0px; }
+        .slider-btn.next { right: 0px; }
+        @media (min-width: 1280px) { .slider-btn.prev { left: -80px; } .slider-btn.next { right: -80px; } }
+
+        .services-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 2rem; max-width: 1200px; margin: 0 auto; }
+        .service-card { background: rgba(255, 255, 255, 0.05); padding: 2.5rem 2rem; border-radius: 1rem; display: flex; flex-direction: column; align-items: center; text-align: center; border: 1px solid rgba(255, 255, 255, 0.1); transition: transform 0.3s ease, background 0.3s ease; }
+        .service-card:hover { transform: translateY(-10px); background: rgba(255, 255, 255, 0.1); }
+        .service-card .icon { font-size: 3rem; color: var(--brand); margin-bottom: 1.5rem; }
+        .service-card h3 { font-size: 1.5rem; font-weight: 700; margin-bottom: 0.75rem; }
+        .service-card p { font-size: 1rem; color: #d1d5db; line-height: 1.6; }
+
+        .work-slide-item img { width: 100%; height: auto; display: block; border-radius: 1rem; max-height: 80vh; }
+        .why-choose-us-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 2rem; max-width: 1200px; margin: 0 auto; text-align: left; }
+        .why-choose-us-card { background: rgba(255, 255, 255, 0.05); padding: 2rem; border-radius: 1rem; border: 1px solid rgba(255, 255, 255, 0.1); }
+        .why-choose-us-card .icon { font-size: 2.5rem; color: var(--brand); margin-bottom: 1rem; }
+        .why-choose-us-card h3 { font-size: 1.5rem; font-weight: 700; margin-bottom: 0.5rem; }
+
+        .testimonial-card { min-height: 380px; display: flex; flex-direction: column; justify-content: center; background: rgba(255, 255, 255, 0.05); padding: 2.5rem; border-radius: 1rem; border: 1px solid rgba(255, 255, 255, 0.1); }
+        .testimonial-card blockquote { font-style: italic; font-size: 1.125rem; color: #e5e7eb; margin-bottom: 1rem; position: relative; }
+        .testimonial-card blockquote::before { content: '“'; font-size: 4rem; color: var(--brand); position: absolute; top: -1.5rem; left: -1.5rem; opacity: 0.2; line-height: 1; }
+        .testimonial-card .client-info { display: flex; align-items: center; gap: 1rem; margin-top: 1.5rem; }
+        .testimonial-card .client-logo { width: 120px; height: auto; display: block; filter: grayscale(100%); transition: filter 0.3s ease; }
+        .testimonial-card .client-logo:hover { filter: grayscale(0%); }
+        .testimonial-card .client-details { text-align: left; }
+        .testimonial-card .client-name { font-weight: bold; font-size: 1.125rem; }
+        .testimonial-card .client-title { color: #9ca3af; font-size: 0.875rem; }
+
+        .apple-footer { background-color: black; color: #424245; font-size: 0.9rem; padding: 3rem 1.5rem; border-top: 1px solid #222; }
+        .apple-footer .footer-links { display: flex; justify-content: center; flex-wrap: wrap; gap: 1.5rem; padding-bottom: 1.5rem; border-bottom: 1px solid #424245; margin-bottom: 1.5rem; }
+        .apple-footer .footer-links a, .apple-footer .footer-contact a { color: #d2d2d7; text-decoration: none; transition: color 0.3s, text-shadow 0.3s; font-weight: 500; }
+        .apple-footer .footer-links a:hover, .apple-footer .footer-contact a:hover { color: white; text-shadow: 0 0 8px var(--brand); }
+        .footer-social-icons a { display: inline-flex; align-items: center; justify-content: center; width: 40px; height: 40px; border-radius: 50%; background-color: #2c2c2e; transition: background-color 0.3s, box-shadow 0.3s, transform 0.3s; }
+        .footer-social-icons a:hover { transform: translateY(-3px); box-shadow: 0 0 15px var(--brand); }
+        .apple-footer .social-link-icon { color: #d2d2d7; transition: color 0.2s ease-in-out; }
+        .apple-footer .social-link-icon:hover { color: white; }
+        .apple-footer .copyright-text { color: #86868b; }
+    </style>
+</head>
+<body class="antialiased">
+
+    <!-- HTML and Javascript have no changes -->
+    <div class="blur-orb" id="orb1"></div>
+    <div class="blur-orb" id="orb2"></div>
+
+    <nav id="nav" class="nav">
+        <div class="nav-container">
+            <a href="index.html" class="logo-wrapper"><img class="logo-img" src="assets/onespace.png" alt="ONESPACE Graphics logo"/></a>
+            <div class="menu-wrapper">
+                <button class="icon-btn close-btn" aria-label="Close Menu"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="currentColor"><path d="M12.0007 10.5865L16.9504 5.63672L18.3646 7.05093L13.4149 12.0007L18.3646 16.9504L16.9504 18.3646L12.0007 13.4149L7.05093 18.3646L5.63672 16.9504L10.5865 12.0007L5.63672 7.05093L7.05093 5.63672L12.0007 10.5865Z"></path></svg></button>
+                <menu class="menu">
+                    <li><a href="index.html" class="nav-link active-link" aria-current="page">Home</a></li>
+                    <li><a href="our-work.html" class="nav-link">Our Works</a></li>
+                    <li class="dropdown">
+                        <a href="about.html" class="nav-link">About Us<svg class="dropdown-arrow" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="20" height="20" fill="currentColor"><path d="M12 15.0001L17.2929 9.70718L18.7071 11.1214L12 17.8285L5.29289 11.1214L6.70711 9.70718L12 15.0001Z"></path></svg></a>
+                        <ul class="dropdown-menu"><li><a href="about.html#our-mission">Our Mission</a></li><li><a href="team.html">Team</a></li></ul>
+                    </li>
+                    <li><a href="services.html" class="nav-link">Services</a></li>
+                    <li><a href="why-choose-us.html" class="nav-link">Why Choose Us</a></li>
+                    <li><a href="contact.html" class="nav-link">Contact</a></li>
+                </menu>
+            </div>
+            <button class="icon-btn open-btn" aria-label="Open Menu"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="24" height="24" fill="currentColor"><path d="M3 4H21V6H3V4ZM3 11H21V13H3V11ZM3 18H21V20H3V18Z"></path></svg></button>
+        </div>
+    </nav>
+    <main id="main-content">
+       <section class="hero"><div class="hero-visual"><video class="hero-video" autoplay muted loop playsinline><source src="https://assets.mixkit.co/videos/preview/mixkit-a-male-graphic-designer-working-on-his-computer-50797-large.mp4" type="video/mp4"/></video></div><div class="hero-content"><header class="hero-header"><h1 class="headline1"><span class="text-brand">Innovating</span> Your Digital <span class="text-brand">Future</span></h1><p class="hero-intro">At ONESPACE Graphics, we craft seamless digital experiences that elevate your brand and connect you with your audience.</p><div class="hero-actions-container"><a href="contact.html" class="button-link primary">Get Started Today</a><button id="hero-scroll-btn" aria-label="Scroll to content" class="button-link secondary"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="currentColor"><path d="M13 16.1716L18.364 10.8076L19.7782 12.2218L12 20L4.2218 12.2218L5.63602 10.8076L11 16.1716V4H13V16.1716Z"></path></svg></button></div></header></div></section>
+       <section id="services-section" class="section-container bg-black text-white"><h2 class="section-title"><span class="text-brand">Our</span> Services</h2><p class="section-subtitle">We offer a comprehensive suite of creative and technical services designed to build, grow, and elevate your brand in the digital landscape.</p><div class="services-grid"><div class="service-card"><i class="fas fa-pencil-ruler icon"></i><h3>Graphic Design</h3><p>Logos, branding, social media graphics, and more. We bring your vision to life with stunning visuals.</p></div><div class="service-card"><i class="fas fa-laptop-code icon"></i><h3>Web Development</h3><p>Professional, responsive websites built with modern technologies to give you a strong online presence.</p></div><div class="service-card"><i class="fas fa-bullhorn icon"></i><h3>Digital Marketing</h3><p>Reach your target audience with effective strategies, including SEO, content creation, and social media campaigns.</p></div><div class="service-card"><i class="fas fa-video icon"></i><h3>Video Production</h3><p>High-quality video content for promotions, social media, and presentations that captivates your audience.</p></div><div class="service-card"><i class="fab fa-android icon"></i><h3>Android App Development</h3><p>Crafting robust, user-friendly mobile applications for the Android platform to extend your reach and engage customers.</p></div><div class="service-card"><i class="fas fa-lightbulb icon"></i><h3>Branding & Identity</h3><p>Develop a memorable brand identity that resonates with your audience and sets you apart from the competition.</p></div></div><div class="mt-16"><a href="services.html" class="button-link primary">Explore All Services</a></div></section>
+       <section id="work-slider-section" class="section-container bg-[#0a0a0a] text-white"><h2 class="section-title">Our <span class="text-brand">Work in Action</span></h2><p class="section-subtitle">Explore a selection of our recent projects that demonstrate our commitment to quality, creativity, and results.</p><div class="slider-wrapper" id="work-slider"><div class="slider-track"><div class="slider-slide"><div class="work-slide-item"><img src="https://placehold.co/1200x800/121812/86c33d?text=Corporate+Branding" alt="Work 1"></div></div><div class="slider-slide"><div class="work-slide-item"><img src="https://placehold.co/1200x600/1a1a1a/86c33d?text=E-commerce+Website" alt="Work 2"></div></div><div class="slider-slide"><div class="work-slide-item"><img src="https://placehold.co/1200x900/2f2f2f/86c33d?text=Marketing+Campaign" alt="Work 3"></div></div><div class="slider-slide"><div class="work-slide-item"><img src="https://placehold.co/1200x700/151515/86c33d?text=Mobile+App+UI/UX" alt="Work 4"></div></div></div><button class="slider-btn prev"><i class="fas fa-chevron-left"></i></button><button class="slider-btn next"><i class="fas fa-chevron-right"></i></button></div><div class="mt-16"><a href="our-work.html" class="button-link primary">View Full Portfolio</a></div></section>
+       <section id="why-choose-us-section" class="section-container bg-black text-white"><h2 class="section-title">Why <span class="text-brand">Choose ONESPACE?</span></h2><p class="section-subtitle">We combine innovative design with strategic thinking to deliver impactful results that help your brand thrive.</p><div class="why-choose-us-grid"><div class="why-choose-us-card"><i class="fas fa-brain icon"></i><h3>Strategic Approach</h3><p>We solve problems. Every project is rooted in a deep understanding of your goals and audience to ensure measurable success.</p></div><div class="why-choose-us-card"><i class="fas fa-palette icon"></i><h3>Creative Excellence</h3><p>Our creatives are dedicated to pushing boundaries and delivering visually stunning work that captures attention and tells a compelling story.</p></div><div class="why-choose-us-card"><i class="fas fa-handshake icon"></i><h3>Client-Focused</h3><p>Your vision is our priority. We believe in collaborative partnerships, transparent communication, and a seamless process.</p></div></div></section>
+       <section id="testimonials-section" class="section-container bg-[#0a0a0a] text-white"><h2 class="section-title">What Our <span class="text-brand">Clients Say</span></h2><p class="section-subtitle">Hear from the businesses and individuals who have trusted us to bring their creative visions to life.</p><div class="slider-wrapper" id="testimonial-slider"><div class="slider-track"><div class="slider-slide"><div class="testimonial-card"><blockquote>"A game-changer for our brand. They delivered stunning visuals that truly captured our mission."</blockquote><div class="client-info"><img src="https://logodownload.org/wp-content/uploads/2019/08/google-cloud-logo.png" alt="Google Cloud" class="client-logo"><div class="client-details"><span class="client-name">Google Cloud</span><span class="client-title">Global Enterprise Solutions</span></div></div></div></div><div class="slider-slide"><div class="testimonial-card"><blockquote>"Their attention to detail resulted in a website that exceeded all expectations. Highly recommended!"</blockquote><div class="client-info"><img src="https://logodownload.org/wp-content/uploads/2014/09/microsoft-logo-2-1.png" alt="Microsoft" class="client-logo"><div class="client-details"><span class="client-name">Microsoft</span><span class="client-title">Software & Technology</span></div></div></div></div><div class="slider-slide"><div class="testimonial-card"><blockquote>"The new branding is fresh, modern, and perfectly represents our company's values."</blockquote><div class="client-info"><img src="https://logodownload.org/wp-content/uploads/2021/05/slack-logo-4.png" alt="Slack" class="client-logo"><div class="client-details"><span class="client-name">Slack</span><span class="client-title">Communication Platform</span></div></div></div></div></div><button class="slider-btn prev"><i class="fas fa-chevron-left"></i></button><button class="slider-btn next"><i class="fas fa-chevron-right"></i></button></div></section>
+    </main>
+    <footer class="apple-footer text-center"><div class="container mx-auto max-w-5xl"><div class="mb-6"><a href="index.html" class="inline-block mb-6"><img src="assets/onespace.png" alt="OneSpace Graphics" class="h-10 w-auto"></a><div class="footer-links hidden md:flex"><a href="index.html">Home</a><a href="our-work.html">Our Works</a><a href="about.html">About Us</a><a href="services.html">Services</a><a href="why-choose-us.html">Why Choose Us</a><a href="contact.html">Contact</a></div></div><div class="flex flex-col md:flex-row justify-between items-center"><div class="text-left mb-6 md:mb-0"><p class="copyright-text text-sm">© 2025 ONESPACE Graphics. All rights reserved.</p></div><div class="footer-contact text-right"><div class="flex justify-end gap-3 mb-2 footer-social-icons"><a href="#" aria-label="Instagram"><i class="fab fa-instagram text-xl social-link-icon"></i></a><a href="#" aria-label="LinkedIn"><i class="fab fa-linkedin-in text-xl social-link-icon"></i></a><a href="#" aria-label="Pinterest"><i class="fab fa-pinterest text-xl social-link-icon"></i></a><a href="#" aria-label="Facebook"><i class="fab fa-facebook-f text-xl social-link-icon"></i></a><a href="mailto:info@onespacegraphics.com" aria-label="Gmail"><i class="fas fa-envelope text-xl social-link-icon"></i></a></div><a href="tel:+918072423318" class="block">+91 8072423318</a><a href="tel:+916369435979" class="block">+91 6369435979</a></div></div></div></footer>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const nav = document.getElementById('nav');
+            const openBtn = document.querySelector('.open-btn');
+            const closeBtn = document.querySelector('.close-btn');
+
+            if (openBtn && closeBtn && nav) {
+                openBtn.addEventListener('click', () => { nav.classList.add('open'); });
+                closeBtn.addEventListener('click', () => { nav.classList.remove('open'); });
+            }
+
+            const dropdownToggles = document.querySelectorAll('.menu-wrapper .dropdown > a.nav-link');
+            dropdownToggles.forEach(toggle => {
+                toggle.addEventListener('click', (event) => {
+                    if (window.innerWidth <= 1056) {
+                        event.preventDefault();
+                        toggle.parentElement.classList.toggle('is-open');
+                    }
+                });
+            });
+
+            const heroScrollBtn = document.getElementById('hero-scroll-btn');
+            if (heroScrollBtn) {
+                heroScrollBtn.addEventListener('click', () => {
+                    document.querySelector('#services-section').scrollIntoView({ behavior: 'smooth' });
+                });
+            }
+
+            function initializeSlider(sliderId, intervalTime = 5000) {
+                const slider = document.getElementById(sliderId); if (!slider) return;
+                const track = slider.querySelector('.slider-track'); const slides = Array.from(track.children);
+                const nextButton = slider.querySelector('.next'); const prevButton = slider.querySelector('.prev');
+                if (slides.length <= 1) {
+                    if (nextButton) nextButton.style.display = 'none';
+                    if (prevButton) prevButton.style.display = 'none';
+                    return;
+                }
+                let currentIndex = 0; let slideInterval;
+                const updateSlidePosition = () => { track.style.transform = 'translateX(' + (-currentIndex * 100) + '%)'; };
+                const moveToNextSlide = () => { currentIndex = (currentIndex + 1) % slides.length; updateSlidePosition(); };
+                const startSlideShow = () => { stopSlideShow(); slideInterval = setInterval(moveToNextSlide, intervalTime); };
+                const stopSlideShow = () => { clearInterval(slideInterval); };
+                if (nextButton) { nextButton.addEventListener('click', () => { moveToNextSlide(); stopSlideShow(); startSlideShow(); }); }
+                if (prevButton) { prevButton.addEventListener('click', () => { currentIndex = (currentIndex - 1 + slides.length) % slides.length; updateSlidePosition(); stopSlideShow(); startSlideShow(); }); }
+                startSlideShow();
+            }
+
+            function syncSliderHeights(sliderId) {
+                const slider = document.getElementById(sliderId); if (!slider) return;
+                const slides = slider.querySelectorAll('.slider-slide'); if (slides.length === 0) return;
+                slides.forEach(slide => slide.style.minHeight = 'auto');
+                let maxHeight = 0;
+                slides.forEach(slide => { if (slide.offsetHeight > maxHeight) { maxHeight = slide.offsetHeight; } });
+                slides.forEach(slide => slide.style.minHeight = `${maxHeight}px`);
+            }
+
+            function debounce(func, delay = 250) {
+                let timeoutId;
+                return (...args) => {
+                    clearTimeout(timeoutId);
+                    timeoutId = setTimeout(() => { func.apply(this, args); }, delay);
+                };
+            }
+
+            initializeSlider('work-slider', 6000);
+            initializeSlider('testimonial-slider', 7000);
+            syncSliderHeights('work-slider');
+            window.addEventListener('resize', debounce(() => {
+                syncSliderHeights('work-slider');
+            }));
+        });
+    </script>
+</body>
+</html>
