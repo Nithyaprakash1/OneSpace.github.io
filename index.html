@@ -1,0 +1,229 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Coming Soon - ONESPACE Graphics</title>
+    <link rel="icon" type="image/x-icon" href="assets/onespacegraphics.ico">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css" integrity="sha512-SnH5WK+bZxgPHs44uWIX+LLJAJ9/2PkPKZ5QiAj6Ta86w+fsb2TkcmfRyVX3pBnMFcV7oQPJkl9QevSCWr3W6A==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <style>
+        :root {
+            --brand: #86c33d;
+            --surface-1: black;
+            --surface-invert: white;
+            --text-1: white;
+            --text-invert: black;
+            --headline1-font-size: clamp(2.5rem, 5vw, 4.5rem);
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            -webkit-font-smoothing: antialiased;
+            background-color: var(--surface-1);
+            color: var(--text-1);
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            overflow-x: hidden;
+            position: relative;
+        }
+
+        /* Animated background orbs from homepage */
+        .blur-orb {
+            position: fixed;
+            width: 500px;
+            height: 500px;
+            border-radius: 50%;
+            background: radial-gradient(circle, rgba(134, 195, 61, 0.3), transparent 70%);
+            filter: blur(120px);
+            z-index: -2;
+            pointer-events: none;
+            will-change: transform;
+        }
+        #orb1 { top: -150px; left: -150px; animation: move-orb1 25s infinite alternate; }
+        #orb2 { bottom: -200px; right: -200px; animation: move-orb2 30s infinite alternate; }
+        @keyframes move-orb1 { 0% { transform: translate(0, 0); } 100% { transform: translate(100vw, 50vh); } }
+        @keyframes move-orb2 { 0% { transform: translate(0, 0); } 100% { transform: translate(-80vw, -40vh); } }
+
+        #main-content {
+            flex-grow: 1;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            padding: 2rem;
+        }
+
+        .text-brand { color: var(--brand); }
+
+        /* Button style from theme */
+        .button-link {
+            display: inline-flex; /* Changed to inline-flex for icon alignment */
+            align-items: center;
+            justify-content: center;
+            gap: 0.5rem; /* Space between icon and text */
+            text-decoration: none;
+            font-weight: 700;
+            font-size: 1.1rem;
+            padding: 0.8em 2em;
+            border-radius: 9999px;
+            transition: background-color 0.3s ease, transform 0.2s ease;
+            cursor: pointer;
+            border: none;
+        }
+        .button-link.primary {
+            background-color: var(--brand);
+            color: var(--text-invert);
+        }
+        .button-link.primary:hover {
+            background-color: color-mix(in oklch, var(--brand), black 15%);
+            transform: scale(1.05);
+        }
+
+        /* Countdown Timer Styles */
+        .countdown-container {
+            display: flex;
+            justify-content: center;
+            gap: 1rem;
+            margin: 2.5rem 0;
+        }
+        .timer-box {
+            background-color: rgba(255, 255, 255, 0.05);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 0.75rem;
+            padding: 1rem;
+            min-width: 80px;
+            backdrop-filter: blur(5px);
+        }
+        .timer-box span:first-child {
+            font-size: 2.5rem;
+            font-weight: 700;
+            display: block;
+            line-height: 1;
+            color: var(--brand);
+        }
+        .timer-box span:last-child {
+            font-size: 0.875rem;
+            text-transform: uppercase;
+            letter-spacing: 0.1em;
+            color: #9ca3af;
+        }
+
+        /* Footer styles from theme */
+        .apple-footer { background-color: black; color: #424245; font-size: 0.9rem; padding: 3rem 1.5rem; border-top: 1px solid #222; }
+        .apple-footer .footer-links { display: flex; justify-content: center; flex-wrap: wrap; gap: 1.5rem; padding-bottom: 1.5rem; border-bottom: 1px solid #424245; margin-bottom: 1.5rem; }
+        .apple-footer .footer-links a, .apple-footer .footer-contact a { color: #d2d2d7; text-decoration: none; transition: color 0.3s, text-shadow 0.3s; font-weight: 500; }
+        .apple-footer .footer-links a:hover, .apple-footer .footer-contact a:hover { color: white; text-shadow: 0 0 8px var(--brand); }
+        .footer-social-icons a { display: inline-flex; align-items: center; justify-content: center; width: 40px; height: 40px; border-radius: 50%; background-color: #2c2c2e; transition: background-color 0.3s, box-shadow 0.3s, transform 0.3s; }
+        .footer-social-icons a:hover { transform: translateY(-3px); box-shadow: 0 0 15px var(--brand); }
+        .apple-footer .social-link-icon { color: #d2d2d7; transition: color 0.2s ease-in-out; }
+        .apple-footer .social-link-icon:hover { color: white; }
+        .apple-footer .copyright-text { color: #86868b; }
+    </style>
+</head>
+<body class="antialiased">
+
+    <!-- Background Orbs -->
+    <div class="blur-orb" id="orb1"></div>
+    <div class="blur-orb" id="orb2"></div>
+
+    <main id="main-content">
+        <a href="index.html" class="mb-8">
+            <img src="assets/onespace.png" alt="ONESPACE Graphics" class="h-16 w-auto">
+        </a>
+
+        <h1 class="font-extrabold text-4xl sm:text-5xl md:text-6xl tracking-tight">
+            Something <span class="text-brand">Awesome</span> is Building
+        </h1>
+
+        <p class="mt-6 text-lg text-gray-300 max-w-2xl">
+            We're putting the final touches on this page. It's going to be worth the wait! The countdown is on for our big reveal.
+        </p>
+
+        <!-- Countdown Timer -->
+        <div id="countdown" class="countdown-container">
+            <div class="timer-box"><span id="days">00</span><span>Days</span></div>
+            <div class="timer-box"><span id="hours">00</span><span>Hours</span></div>
+            <div class="timer-box"><span id="minutes">00</span><span>Mins</span></div>
+            <div class="timer-box"><span id="seconds">00</span><span>Secs</span></div>
+        </div>
+
+        <!-- NEW: Instagram Call to Action -->
+        <div class="mt-8">
+            <p class="text-lg text-gray-400">For the latest updates and sneak peeks, follow us on Instagram!</p>
+            <a href="https://www.instagram.com/tastentrail_covai/?hl=en" target="_blank" rel="noopener noreferrer" class="button-link primary mt-4">
+                <i class="fab fa-instagram"></i>
+                Follow @tastentrail_covai
+            </a>
+        </div>
+
+    </main>
+
+    <!-- Consistent Footer -->
+    <footer class="apple-footer text-center">
+        <div class="container mx-auto max-w-5xl">
+            <div class="flex flex-col md:flex-row justify-between items-center">
+                <div class="text-left mb-6 md:mb-0">
+                    <p class="copyright-text text-sm">© 2025 ONESPACE Graphics. All rights reserved.</p>
+                </div>
+                <div class="footer-contact text-right">
+                    <div class="flex justify-end gap-3 mb-2 footer-social-icons">
+                        <a href="https://www.instagram.com/onespace_graphics" aria-label="Instagram"><i class="fab fa-instagram text-xl social-link-icon"></i></a>
+                        <a href="https://linkedin.com/company/onespacegraphics" aria-label="LinkedIn"><i class="fab fa-linkedin-in text-xl social-link-icon"></i></a>
+                        <a href="https://pinterest.com/onespacegraphics" aria-label="Pinterest"><i class="fab fa-pinterest text-xl social-link-icon"></i></a>
+                        <a href="https://facebook.com/onespacegraphics" aria-label="Facebook"><i class="fab fa-facebook-f text-xl social-link-icon"></i></a>
+                        <a href="mailto:onespacegraphicdesigns@gmail.com" aria-label="Gmail"><i class="fas fa-envelope text-xl social-link-icon"></i></a>
+                    </div>
+                    <a href="tel:+918072423318" class="block">+91 8072423318</a>
+                    <a href="tel:+916369435979" class="block">+91 6369435979</a>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // --- Logic to find the next upcoming Sunday ---
+        const now = new Date();
+        // getDay() is 0 for Sunday, 1 for Monday, etc. If today is Sunday(0), we want to count to next week's Sunday, so we add 7 days.
+        const daysUntilSunday = now.getDay() === 0 ? 7 : 7 - now.getDay();
+        const nextSunday = new Date(now);
+        nextSunday.setDate(now.getDate() + daysUntilSunday);
+        // Set the time to the end of that Sunday
+        nextSunday.setHours(23, 59, 59, 999);
+
+        // Set the date we're counting down to
+        const countDownDate = nextSunday.getTime();
+
+        // Update the count down every 1 second
+        const x = setInterval(function() {
+            const currentTime = new Date().getTime();
+            const distance = countDownDate - currentTime;
+
+            // Time calculations for days, hours, minutes and seconds
+            const days = Math.floor(distance / (1000 * 60 * 60 * 24));
+            const hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+            const minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
+            const seconds = Math.floor((distance % (1000 * 60)) / 1000);
+
+            // Function to add a leading zero if number is less than 10
+            const padZero = (num) => num.toString().padStart(2, '0');
+
+            // Display the result in the elements
+            document.getElementById("days").innerHTML = padZero(days);
+            document.getElementById("hours").innerHTML = padZero(hours);
+            document.getElementById("minutes").innerHTML = padZero(minutes);
+            document.getElementById("seconds").innerHTML = padZero(seconds);
+
+            // If the count down is finished, show the launched message
+            if (distance < 0) {
+                clearInterval(x);
+                document.getElementById("countdown").innerHTML = "<h2 class='text-2xl font-bold text-brand'>We've Launched!</h2>";
+            }
+        }, 1000);
+    </script>
+
+</body>
+</html>
