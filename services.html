@@ -7,7 +7,7 @@
     <link rel="icon" type="image/x-icon" href="assets/onespacegraphics.ico">
     <script src="https://cdn.tailwindcss.com"></script>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css" xintegrity="sha512-SnH5WK+bZxgPHs44uWIX+LLJAJ9/2PkPKZ5QiAj6Ta86w+fsb2TkcmfRyVX3pBnMFcV7oQPJkl9QevSCWr3W6A==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css" integrity="sha512-SnH5WK+bZxgPHs44uWIX+LLJAJ9/2PkPKZ5QiAj6Ta86w+fsb2TkcmfRyVX3pBnMFcV7oQPJkl9QevSCWr3W6A==" crossorigin="anonymous" referrerpolicy="no-referrer" />
     <style>
         :root {
             --brand: #86c33d;
@@ -129,12 +129,14 @@
         .nav-link[aria-current="page"] { color: var(--brand); text-shadow: 0 0 10px var(--brand); }
         .icon-btn { display: none; color: var(--text-1); width: 2rem; height: 2rem; background-color: transparent; border: none; cursor: pointer; }
 
-        /* === START OF FIX === */
         @media (max-width: 1056px) {
             .menu-wrapper { display: none; }
-            /* Show hamburger button on mobile by default */
-            .icon-btn[aria-label="Open Menu"] { display: block; }
-
+            .nav:not(.open) .icon-btn[aria-label="Open Menu"] {
+                display: block;
+            }
+            .nav:not(.open) .close-btn {
+                display: none;
+            }
             .nav.open .menu-wrapper {
                 display: flex;
                 flex-direction: column;
@@ -150,12 +152,12 @@
                 transform: translateX(0);
                 transition: transform 0.3s ease-in-out;
             }
-            .nav:not(.open) .menu-wrapper { transform: translateX(100%); }
-            .nav.open .menu { display: flex; flex-direction: column; gap: 1.5rem; }
-
-            /* When menu is open, hide hamburger button... */
-            .nav.open .icon-btn[aria-label="Open Menu"] { display: none; }
-            /* ...and show the close button */
+            .nav:not(.open) .menu-wrapper {
+                transform: translateX(100%);
+            }
+            .nav.open .icon-btn[aria-label="Open Menu"] {
+                display: none;
+            }
             .nav.open .close-btn {
                 display: block;
                 position: absolute;
@@ -163,11 +165,9 @@
                 right: 2rem;
                 color: white;
             }
+            .nav.open .menu { display: flex; flex-direction: column; gap: 1.5rem; }
         }
-        /* Hide close button by default; the .nav.open rule above will show it when needed */
         .close-btn { display: none; }
-        /* === END OF FIX === */
-
         .dropdown { position: relative; }
         .dropdown-menu { display: none; position: absolute; top: 100%; left: 50%; transform: translateX(-50%); background-color: var(--brand); min-width: 150px; border-radius: 0.5rem; box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); padding: 0.5rem 0; margin-top: 0.5rem; z-index: 10; }
         .dropdown:hover .dropdown-menu { display: block; }
@@ -182,7 +182,6 @@
         .headline1 { font-size: var(--headline1-font-size); font-weight: 800; color: white; margin-bottom: 1rem; line-height: 1.2; }
         .hero-intro { font-size: 1.25rem; color: #e5e7eb; max-width: 700px; margin-bottom: 2.5rem; line-height: 1.6; }
 
-        /* Button container with scroll button - Consistent with Our Works page */
         .hero-actions-container {
             display: flex;
             align-items: center;
@@ -190,46 +189,8 @@
             gap: 1rem;
             margin-top: 2.5rem;
         }
-        .scroll-btn {
-            border: none;
-            background-color: transparent;
-            cursor: pointer;
-            z-index: 10;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            padding: 0;
-            width: 70px;
-            height: 70px;
-            border-radius: 50%;
-            transition: transform 0.3s ease;
-        }
-        .scroll-btn:hover { transform: scale(1.1); }
-        .scroll-btn svg { color: var(--text-invert); z-index: 2; animation: bounce 2s infinite; }
-        .gradient-circle {
-            position: absolute;
-            width: 100%;
-            height: 100%;
-            border-radius: 50%;
-            background: linear-gradient(45deg, #86c33d, #429f04, #86c33d, #429f04);
-            background-size: 400% 400%;
-            animation: bounce 2s infinite, gradient-move 8s ease infinite;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-        }
-        @keyframes bounce {
-            0%, 20%, 50%, 80%, 100% { transform: translateY(0); }
-            40% { transform: translateY(-10px); }
-            60% { transform: translateY(-5px); }
-        }
-        @keyframes gradient-move {
-            0% { background-position: 0% 50%; }
-            50% { background-position: 100% 50%; }
-            100% { background-position: 0% 50%; }
-        }
 
-        /* Hero specific for About page - MODIFIED */
+        /* Hero specific for Services page */
         .hero-services {
             background-image: linear-gradient(-45deg, #0a0a0a, #121812, #0a0a0a, #86c33d);
             background-size: 200% 200%;
@@ -370,25 +331,23 @@
             max-width: 1000px;
             margin: 0 auto;
             position: relative;
-            overflow: hidden; /* This is crucial for the single-card display */
+            overflow: hidden;
         }
         .testimonial-slider-inner {
             display: flex;
             transition: transform 0.5s ease-in-out;
-            /* We'll use JS to set the width and transform */
         }
         .testimonial-card {
-            flex: 0 0 100%; /* Ensure each card takes up the full width */
+            flex: 0 0 100%;
             background: linear-gradient(135deg, rgba(134, 195, 61, 0.1), rgba(0, 0, 0, 0.6), rgba(134, 195, 61, 0.1));
             padding: 2.5rem;
             border-radius: 1rem;
             border: 1px solid rgba(255, 255, 255, 0.1);
             text-align: left;
             position: relative;
-            box-sizing: border-box; /* To include padding and border in the width calculation */
-            margin-right: 2rem; /* Add gap between slides */
+            box-sizing: border-box;
+            margin-right: 2rem;
         }
-
         .testimonial-card .quote-icon {
             position: absolute;
             top: 1rem;
@@ -397,7 +356,6 @@
             color: rgba(134, 195, 61, 0.2);
             z-index: 0;
         }
-
         .testimonial-card blockquote {
             font-size: 1rem;
             color: #9ca3af;
@@ -406,13 +364,11 @@
             position: relative;
             z-index: 1;
         }
-
         .testimonial-card .author-info {
             display: flex;
             align-items: center;
             gap: 1rem;
         }
-
         .testimonial-card .author-avatar {
             width: 50px;
             height: 50px;
@@ -420,18 +376,15 @@
             object-fit: cover;
             border: 2px solid var(--brand);
         }
-
         .testimonial-card .author-name {
             font-weight: 700;
             color: var(--brand);
             font-size: 1.1rem;
         }
-
         .testimonial-card .author-title {
             font-size: 0.9rem;
             color: #6b7280;
         }
-
         .slider-nav {
             display: flex;
             justify-content: center;
@@ -439,7 +392,6 @@
             margin-top: 2rem;
             align-items: center;
         }
-
         .slider-btn {
             background-color: transparent;
             border: 2px solid var(--brand);
@@ -451,18 +403,15 @@
             cursor: pointer;
             transition: all 0.3s ease;
         }
-
         .slider-btn:hover {
             background-color: var(--brand);
             color: var(--text-invert);
             box-shadow: 0 0 10px var(--brand);
         }
-
         .slider-dots {
             display: flex;
             gap: 0.5rem;
         }
-
         .dot {
             width: 10px;
             height: 10px;
@@ -471,7 +420,6 @@
             cursor: pointer;
             transition: all 0.3s ease;
         }
-
         .dot.active {
             background-color: var(--brand);
             transform: scale(1.2);
@@ -510,18 +458,17 @@
                 <menu class="menu">
                     <li><a href="index.html" class="nav-link">Home</a></li>
                     <li><a href="our-work.html" class="nav-link">Our Works</a></li>
-                    <!-- About Us Dropdown -->
                     <li class="dropdown">
-                        <a href="about.html" class="nav-link" aria-haspopup="true">
+                        <a href="about.html" class="nav-link">
                             About Us
-                            <svg class="dropdown-arrow" xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="currentColor">
+                            <svg class="dropdown-arrow" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="20" height="20" fill="currentColor">
                                 <path d="M12 15.0001L17.2929 9.70718L18.7071 11.1214L12 17.8285L5.29289 11.1214L6.70711 9.70718L12 15.0001Z"></path>
                             </svg>
                         </a>
-                        <div class="dropdown-menu">
-                            <a href="about.html">Our Mission</a>
-                            <a href="our-team.html">Our Team</a>
-                        </div>
+                        <ul class="dropdown-menu">
+                            <li><a href="about.html#our-mission">Our Mission</a></li>
+                            <li><a href="about.html#team">Team</a></li>
+                        </ul>
                     </li>
                     <li><a href="services.html" class="nav-link" aria-current="page">Services</a></li>
                     <li><a href="why-choose-us.html" class="nav-link">Why Choose Us</a></li>
@@ -645,12 +592,33 @@
                     <h3>Content Creation</h3>
                     <ul>
                         <li>Copywriting & storytelling</li>
-                        <li>Product photography</li>
                         <li>Promotional videos</li>
                         <li>Motion graphics & animation</li>
                     </ul>
                 </div>
-                <!-- Service Card 9: Public Relations -->
+<!-- NEW Service Card 9: Aerial Videography -->
+<div class="service-card">
+    <i class="fas fa-plane-up icon"></i> <!-- THIS IS THE FIXED LINE -->
+    <h3>Aerial Videography & Drone Services</h3>
+    <ul>
+        <li>Aerial Product Showcases</li>
+        <li>Drone Lifestyle Shoots</li>
+        <li>Corporate & Brand Aerials</li>
+        <li>Social Media Drone Content</li>
+    </ul>
+</div>
+                <!-- NEW Service Card 10: Professional Photography -->
+                <div class="service-card">
+                    <i class="fas fa-camera icon"></i>
+                    <h3>Professional Photography</h3>
+                    <ul>
+                        <li>Product Photography</li>
+                        <li>Lifestyle Shoots</li>
+                        <li>Brand & Corporate Photography</li>
+                        <li>Social Media Content Photography</li>
+                    </ul>
+                </div>
+                <!-- Service Card 11: Public Relations -->
                 <div class="service-card">
                     <i class="fas fa-bullhorn icon"></i>
                     <h3>Public Relations</h3>
@@ -747,32 +715,31 @@
         </section>
 
         <!-- Client Logos Section with marquee animation -->
-<section id="clients-section" class="client-logos-section">
+        <section id="clients-section" class="client-logos-section">
+            <h2 class="section-title text-2xl font-semibold mb-8 text-center">Our <span class="text-brand">Clients</span></h2>
+            <div class="logo-slider-container relative overflow-hidden">
+                <div class="logo-slider">
+                    <!-- Original set of logos -->
+                    <div class="logo-item"><img src="https://www.google.com/images/branding/googlelogo/1x/googlelogo_color_272x92dp.png" alt="Google Logo"></div>
+                    <div class="logo-item"><img src="https://1000logos.net/wp-content/uploads/2021/04/IBM-logo.png" alt="IBM Logo"></div>
+                    <div class="logo-item"><img src="https://upload.wikimedia.org/wikipedia/commons/0/08/Netflix_2015_logo.svg" alt="Netflix Logo"></div>
+                    <div class="logo-item"><img src="https://placehold.co/150x60/1a1a1a/cccccc?text=Client+D" alt="Client D Logo"></div>
+                    <div class="logo-item"><img src="https://placehold.co/150x60/1a1a1a/cccccc?text=Client+E" alt="Client E Logo"></div>
+                    <div class="logo-item"><img src="https://placehold.co/150x60/1a1a1a/cccccc?text=Client+F" alt="Client F Logo"></div>
+                    <div class="logo-item"><img src="https://placehold.co/150x60/1a1a1a/cccccc?text=Client+G" alt="Client G Logo"></div>
 
-    <h2 class="section-title text-2xl font-semibold mb-8 text-center">Our <span class="text-brand">Clients</span></h2>
+                    <!-- Duplicate logos for seamless loop -->
+                    <div class="logo-item"><img src="https://www.google.com/images/branding/googlelogo/1x/googlelogo_color_272x92dp.png" alt="Google Logo"></div>
+                    <div class="logo-item"><img src="https://1000logos.net/wp-content/uploads/2021/04/IBM-logo.png" alt="IBM Logo"></div>
+                    <div class="logo-item"><img src="https://upload.wikimedia.org/wikipedia/commons/0/08/Netflix_2015_logo.svg" alt="Netflix Logo"></div>
+                    <div class="logo-item"><img src="https://placehold.co/150x60/1a1a1a/cccccc?text=Client+D" alt="Client D Logo"></div>
+                    <div class="logo-item"><img src="https://placehold.co/150x60/1a1a1a/cccccc?text=Client+E" alt="Client E Logo"></div>
+                    <div class="logo-item"><img src="https://placehold.co/150x60/1a1a1a/cccccc?text=Client+F" alt="Client F Logo"></div>
+                    <div class="logo-item"><img src="https://placehold.co/150x60/1a1a1a/cccccc?text=Client+G" alt="Client G Logo"></div>
+                </div>
+            </div>
+        </section>
 
-    <div class="logo-slider-container relative overflow-hidden">
-        <div class="logo-slider">
-            <!-- Original set of logos -->
-            <div class="logo-item"><img src="https://www.google.com/images/branding/googlelogo/1x/googlelogo_color_272x92dp.png" alt="Google Logo"></div>
-            <div class="logo-item"><img src="https://1000logos.net/wp-content/uploads/2021/04/IBM-logo.png" alt="IBM Logo"></div>
-            <div class="logo-item"><img src="https://upload.wikimedia.org/wikipedia/commons/0/08/Netflix_2015_logo.svg" alt="Netflix Logo"></div>
-            <div class="logo-item"><img src="https://placehold.co/150x60/1a1a1a/cccccc?text=Client+D" alt="Client D Logo"></div>
-            <div class="logo-item"><img src="https://placehold.co/150x60/1a1a1a/cccccc?text=Client+E" alt="Client E Logo"></div>
-            <div class="logo-item"><img src="https://placehold.co/150x60/1a1a1a/cccccc?text=Client+F" alt="Client F Logo"></div>
-            <div class="logo-item"><img src="https://placehold.co/150x60/1a1a1a/cccccc?text=Client+G" alt="Client G Logo"></div>
-
-            <!-- Duplicate logos for seamless loop -->
-            <div class="logo-item"><img src="https://www.google.com/images/branding/googlelogo/1x/googlelogo_color_272x92dp.png" alt="Google Logo"></div>
-            <div class="logo-item"><img src="https://1000logos.net/wp-content/uploads/2021/04/IBM-logo.png" alt="IBM Logo"></div>
-            <div class="logo-item"><img src="https://upload.wikimedia.org/wikipedia/commons/0/08/Netflix_2015_logo.svg" alt="Netflix Logo"></div>
-            <div class="logo-item"><img src="https://placehold.co/150x60/1a1a1a/cccccc?text=Client+D" alt="Client D Logo"></div>
-            <div class="logo-item"><img src="https://placehold.co/150x60/1a1a1a/cccccc?text=Client+E" alt="Client E Logo"></div>
-            <div class="logo-item"><img src="https://placehold.co/150x60/1a1a1a/cccccc?text=Client+F" alt="Client F Logo"></div>
-            <div class="logo-item"><img src="https://placehold.co/150x60/1a1a1a/cccccc?text=Client+G" alt="Client G Logo"></div>
-        </div>
-    </div>
-</section>
         <!-- Call to Action Section -->
         <section class="section-container bg-[#0a0a0a] text-white">
             <div class="max-w-4xl mx-auto">
@@ -837,94 +804,85 @@
 
             // --- Testimonial Slider Logic ---
             const sliderContainer = document.getElementById('testimonial-slider');
-            const sliderInner = sliderContainer.querySelector('.testimonial-slider-inner');
-            const prevBtn = sliderContainer.parentNode.querySelector('.prev-btn');
-            const nextBtn = sliderContainer.parentNode.querySelector('.next-btn');
-            const dotsContainer = sliderContainer.parentNode.querySelector('.slider-dots');
-            const cards = Array.from(sliderInner.querySelectorAll('.testimonial-card'));
-            const totalCards = cards.length;
-            let currentSlide = 0;
-            let autoSlideInterval;
+            if (sliderContainer) {
+                const sliderInner = sliderContainer.querySelector('.testimonial-slider-inner');
+                const prevBtn = sliderContainer.parentNode.querySelector('.prev-btn');
+                const nextBtn = sliderContainer.parentNode.querySelector('.next-btn');
+                const dotsContainer = sliderContainer.parentNode.querySelector('.slider-dots');
+                const cards = Array.from(sliderInner.querySelectorAll('.testimonial-card'));
+                const totalCards = cards.length;
+                let currentSlide = 0;
+                let autoSlideInterval;
 
-            // This function updates the position of the slider and the active dot
-            const updateSlider = () => {
-                const sliderWidth = sliderContainer.offsetWidth;
-                // Calculate the slide's position. The `margin-right` on the card is 2rem (32px).
-                // We multiply by `currentSlide` to move the inner container
-                sliderInner.style.transform = `translateX(-${currentSlide * (sliderWidth + 32)}px)`;
-
-                // Update the active dot to show which testimonial is currently visible
-                dotsContainer.querySelectorAll('.dot').forEach((dot, index) => {
-                    dot.classList.toggle('active', index === currentSlide);
-                });
-            };
-
-            // Moves to the next testimonial, and loops back to the start when it reaches the end
-            const nextSlide = () => {
-                currentSlide = (currentSlide + 1) % totalCards;
-                updateSlider();
-            };
-
-            // Moves to the previous testimonial, and loops back to the end when at the start
-            const prevSlide = () => {
-                currentSlide = (currentSlide - 1 + totalCards) % totalCards;
-                updateSlider();
-            };
-
-            // Starts the automatic slider loop
-            const startAutoSlide = () => {
-                autoSlideInterval = setInterval(nextSlide, 5000); // Advances every 5 seconds
-            };
-
-            // Stops the automatic slider
-            const stopAutoSlide = () => {
-                clearInterval(autoSlideInterval);
-            };
-
-            // Event listeners for manual controls
-            if (prevBtn) {
-                prevBtn.addEventListener('click', () => {
-                    stopAutoSlide();
-                    prevSlide();
-                    startAutoSlide(); // Resume auto-sliding after manual interaction
-                });
-            }
-
-            if (nextBtn) {
-                nextBtn.addEventListener('click', () => {
-                    stopAutoSlide();
-                    nextSlide();
-                    startAutoSlide(); // Resume auto-sliding after manual interaction
-                });
-            }
-
-            // Event listener for dot navigation
-            if (dotsContainer) {
-                dotsContainer.addEventListener('click', (e) => {
-                    if (e.target.classList.contains('dot')) {
-                        stopAutoSlide();
-                        const index = parseInt(e.target.dataset.index);
-                        currentSlide = index;
-                        updateSlider();
-                        startAutoSlide(); // Resume auto-sliding after manual interaction
+                const updateSlider = () => {
+                    const sliderWidth = sliderContainer.offsetWidth;
+                    sliderInner.style.transform = `translateX(-${currentSlide * (sliderWidth + 32)}px)`;
+                    if(dotsContainer) {
+                        dotsContainer.querySelectorAll('.dot').forEach((dot, index) => {
+                            dot.classList.toggle('active', index === currentSlide);
+                        });
                     }
-                });
-            }
+                };
 
-            // Pause auto-sliding when the mouse is over the slider, and resume when it leaves
-            sliderContainer.addEventListener('mouseenter', stopAutoSlide);
-            sliderContainer.addEventListener('mouseleave', startAutoSlide);
+                const nextSlide = () => {
+                    currentSlide = (currentSlide + 1) % totalCards;
+                    updateSlider();
+                };
 
-            // Initial setup
-            updateSlider();
-            startAutoSlide();
+                const prevSlide = () => {
+                    currentSlide = (currentSlide - 1 + totalCards) % totalCards;
+                    updateSlider();
+                };
 
-            // Handle resizing for responsive layout
-            window.addEventListener('resize', () => {
-                stopAutoSlide();
+                const startAutoSlide = () => {
+                    stopAutoSlide();
+                    autoSlideInterval = setInterval(nextSlide, 5000);
+                };
+
+                const stopAutoSlide = () => {
+                    clearInterval(autoSlideInterval);
+                };
+
+                if (prevBtn) {
+                    prevBtn.addEventListener('click', () => {
+                        stopAutoSlide();
+                        prevSlide();
+                        startAutoSlide();
+                    });
+                }
+
+                if (nextBtn) {
+                    nextBtn.addEventListener('click', () => {
+                        stopAutoSlide();
+                        nextSlide();
+                        startAutoSlide();
+                    });
+                }
+
+                if (dotsContainer) {
+                    dotsContainer.addEventListener('click', (e) => {
+                        if (e.target.classList.contains('dot')) {
+                            stopAutoSlide();
+                            const index = parseInt(e.target.dataset.index);
+                            currentSlide = index;
+                            updateSlider();
+                            startAutoSlide();
+                        }
+                    });
+                }
+
+                sliderContainer.addEventListener('mouseenter', stopAutoSlide);
+                sliderContainer.addEventListener('mouseleave', startAutoSlide);
+
                 updateSlider();
                 startAutoSlide();
-            });
+
+                window.addEventListener('resize', () => {
+                    stopAutoSlide();
+                    updateSlider();
+                    startAutoSlide();
+                });
+            }
         });
     </script>
 </body>
