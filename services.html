@@ -34,33 +34,22 @@
             position: relative;
         }
 
-        /* Blurry green gradient background effect - Consistent with Our Works page */
-        body::before {
-            content: '';
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: linear-gradient(45deg, rgba(134, 195, 61, 0.4), rgba(0, 0, 0, 0.6));
-            background-size: 300% 300%;
-            animation: gradient-shift 15s ease infinite;
-            z-index: -1;
-            filter: blur(150px);
-            opacity: 1;
-            pointer-events: none;
+        /* Blurry green gradient background effect */
+        .blur-orb {
+            position: fixed; width: 500px; height: 500px; border-radius: 50%;
+            background: radial-gradient(circle, rgba(134, 195, 61, 0.3), transparent 70%);
+            filter: blur(120px); z-index: -2; pointer-events: none; will-change: transform;
         }
+        #orb1 { top: -150px; left: -150px; animation: move-orb1 25s infinite alternate; }
+        #orb2 { bottom: -200px; right: -200px; animation: move-orb2 30s infinite alternate; }
+        @keyframes move-orb1 { 0% { transform: translate(0, 0); } 100% { transform: translate(100vw, 50vh); } }
+        @keyframes move-orb2 { 0% { transform: translate(0, 0); } 100% { transform: translate(-80vw, -40vh); } }
 
-        @keyframes gradient-shift {
-            0% { background-position: 0% 50%; }
-            50% { background-position: 100% 50%; }
-            100% { background-position: 0% 50%; }
-        }
 
         #main-content { flex-grow: 1; }
         .text-brand { color: var(--brand); }
 
-        /* --- Button Styles (Consistent with Our Works page) --- */
+        /* --- Button Styles --- */
         .button-link {
             display: inline-block;
             text-decoration: none;
@@ -84,7 +73,7 @@
             background-color: transparent;
             color: var(--text-1);
             border: 2px solid var(--brand);
-            padding: 0.8em 1em;
+            padding: 0;
             display: flex;
             align-items: center;
             justify-content: center;
@@ -100,7 +89,7 @@
             transform: scale(1.05);
         }
 
-        /* --- Navigation (Consistent with Our Works page) --- */
+        /* --- Navigation --- */
         .nav {
             display: grid;
             place-items: center;
@@ -131,12 +120,8 @@
 
         @media (max-width: 1056px) {
             .menu-wrapper { display: none; }
-            .nav:not(.open) .icon-btn[aria-label="Open Menu"] {
-                display: block;
-            }
-            .nav:not(.open) .close-btn {
-                display: none;
-            }
+            .nav:not(.open) .icon-btn[aria-label="Open Menu"] { display: block; }
+            .nav:not(.open) .close-btn { display: none; }
             .nav.open .menu-wrapper {
                 display: flex;
                 flex-direction: column;
@@ -152,12 +137,8 @@
                 transform: translateX(0);
                 transition: transform 0.3s ease-in-out;
             }
-            .nav:not(.open) .menu-wrapper {
-                transform: translateX(100%);
-            }
-            .nav.open .icon-btn[aria-label="Open Menu"] {
-                display: none;
-            }
+            .nav:not(.open) .menu-wrapper { transform: translateX(100%); }
+            .nav.open .icon-btn[aria-label="Open Menu"] { display: none; }
             .nav.open .close-btn {
                 display: block;
                 position: absolute;
@@ -169,49 +150,57 @@
         }
         .close-btn { display: none; }
         .dropdown { position: relative; }
-        .dropdown-menu { display: none; position: absolute; top: 100%; left: 50%; transform: translateX(-50%); background-color: var(--brand); min-width: 150px; border-radius: 0.5rem; box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); padding: 0.5rem 0; margin-top: 0.5rem; z-index: 10; }
-        .dropdown:hover .dropdown-menu { display: block; }
-        .dropdown-menu a { display: block; padding: 0.75rem 1rem; color: var(--text-invert); text-decoration: none; transition: background-color 0.2s ease; text-align: center; }
+        .dropdown-menu {
+            display: none;
+            opacity: 0;
+            transform: translateY(10px);
+            transition: opacity 0.3s ease-in-out, transform 0.3s ease-in-out, visibility 0.3s ease-in-out;
+            visibility: hidden;
+            position: absolute;
+            top: 100%;
+            left: 0;
+            background-color: var(--brand);
+            min-width: 150px;
+            border-radius: 0.5rem;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            padding: 0.5rem 0;
+            margin-top: 0.5rem;
+            z-index: 10;
+        }
+        .dropdown:hover .dropdown-menu {
+            display: block;
+            opacity: 1;
+            visibility: visible;
+            transform: translateY(0);
+        }
+        .dropdown-menu a {
+            display: block;
+            padding: 0.75rem 1rem;
+            color: var(--text-invert);
+            text-decoration: none;
+            transition: background-color 0.2s ease;
+            text-align: left;
+        }
         .dropdown-menu a:hover { background-color: color-mix(in oklch, var(--brand), black 10%); }
         .dropdown-arrow { transition: transform 0.2s ease-in-out; color: white; }
         .dropdown:hover .dropdown-arrow { transform: rotate(180deg); }
 
         /* --- Hero Section --- */
-        .hero { position: relative; height: 100vh; display: grid; place-items: center; text-align: center; padding-top: var(--nav-block-size); }
+        .hero { position: relative; display: grid; place-items: center; text-align: center; padding-top: var(--nav-block-size); }
         .hero-content { position: relative; z-index: 1; padding: var(--space-md); max-width: 900px; }
         .headline1 { font-size: var(--headline1-font-size); font-weight: 800; color: white; margin-bottom: 1rem; line-height: 1.2; }
         .hero-intro { font-size: 1.25rem; color: #e5e7eb; max-width: 700px; margin-bottom: 2.5rem; line-height: 1.6; }
-
-        .hero-actions-container {
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            gap: 1rem;
-            margin-top: 2.5rem;
-        }
-
-        /* Hero specific for Services page */
+        .hero-actions-container { display: flex; align-items: center; justify-content: center; gap: 1rem; margin-top: 2.5rem; }
         .hero-services {
-            background-image: linear-gradient(-45deg, #0a0a0a, #121812, #0a0a0a, #86c33d);
-            background-size: 200% 200%;
-            background-position: center;
+            background-image: linear-gradient(135deg, rgba(0,0,0,1) 0%, rgba(134,195,61,0.2) 100%);
             height: 60vh;
-            animation: gradient-animation 15s ease infinite;
-        }
-        @keyframes gradient-animation {
-            0% { background-position: 0% 50%; }
-            50% { background-position: 100% 50%; }
-            100% { background-position: 0% 50%; }
+            min-height: 400px;
         }
 
-        /* --- General Section & Slider Styles --- */
+        /* --- General Section & Card Styles --- */
         .section-container { padding: 6rem 1rem; text-align: center; }
-        .section-title { font-size: 3rem; font-weight: 800; margin-bottom: 1rem; color: var(--text-1); }
-        .section-subtitle { font-size: 1.125rem; color: #9ca3af; max-width: 56rem; margin-inline: auto; margin-bottom: 4rem; line-height: 1.7; }
-        @media (max-width: 768px) {
-            .section-title { font-size: 2.5rem; }
-            .section-subtitle { font-size: 1rem; }
-        }
+        .section-title { font-size: clamp(2.5rem, 6vw, 3rem); font-weight: 800; margin-bottom: 1rem; color: var(--text-1); }
+        .section-subtitle { font-size: 1.125rem; color: #9ca3af; max-w: 56rem; margin-inline: auto; margin-bottom: 4rem; line-height: 1.7; }
 
         /* --- Services Card Grid --- */
         .services-grid {
@@ -223,53 +212,33 @@
             text-align: left;
         }
         .service-card {
-            background: linear-gradient(135deg, rgba(134, 195, 61, 0.1), rgba(0, 0, 0, 0.6), rgba(134, 195, 61, 0.1));
-            background-size: 300% 300%;
-            padding: 2rem;
+            background: rgba(255, 255, 255, 0.05);
+            padding: 2.5rem 2rem;
             border-radius: 1rem;
+            display: flex;
+            flex-direction: column;
             border: 1px solid rgba(255, 255, 255, 0.1);
-            transition: all 0.5s ease;
-            animation: card-gradient-animation 10s ease infinite;
+            transition: transform 0.3s ease, background 0.3s ease, box-shadow 0.3s ease;
+            position: relative;
+            overflow: hidden;
         }
         .service-card:hover {
-            transform: translateY(-5px) scale(1.05);
-            box-shadow: 0 10px 20px rgba(134, 195, 61, 0.2);
-            animation-play-state: paused;
+            transform: translateY(-10px);
+            background: rgba(255, 255, 255, 0.1);
+            box-shadow: 0 10px 20px rgba(0,0,0,0.2);
         }
-        @keyframes card-gradient-animation {
-            0% { background-position: 0% 50%; }
-            50% { background-position: 100% 50%; }
-            100% { background-position: 0% 50%; }
-        }
-        .service-card .icon {
-            font-size: 3rem;
-            color: var(--brand);
-            margin-bottom: 1rem;
-        }
-        .service-card h3 {
-            font-size: 1.5rem;
-            font-weight: 700;
-            margin-bottom: 1rem;
-        }
-        .service-card ul {
-            list-style: none;
-            padding: 0;
-            margin: 0;
-            color: #9ca3af;
-        }
-        .service-card li {
-            position: relative;
-            padding-left: 1.5rem;
-            margin-bottom: 0.5rem;
-        }
+        .service-card .icon { font-size: 3rem; color: var(--brand); margin-bottom: 1.5rem; }
+        .service-card h3 { font-size: 1.5rem; font-weight: 700; margin-bottom: 1rem; }
+        .service-card ul { list-style: none; padding: 0; margin: 0; color: #d1d5db; flex-grow: 1; }
+        .service-card li { position: relative; padding-left: 1.5rem; margin-bottom: 0.75rem; }
         .service-card li::before {
             content: "✓";
             position: absolute;
             left: 0;
-            top: 0;
+            top: 2px;
             color: var(--brand);
-            font-size: 1.25rem;
-            line-height: 1;
+            font-size: 1rem;
+            font-weight: bold;
         }
 
         /* --- Client Logos Slider Section --- */
@@ -277,7 +246,7 @@
             padding: 4rem 0;
             overflow: hidden;
             position: relative;
-            background: rgba(255, 255, 255, 0.05);
+            background: rgba(10, 10, 10, 0.5);
         }
         .client-logos-section::before,
         .client-logos-section::after {
@@ -286,169 +255,77 @@
             top: 0;
             width: 15%;
             height: 100%;
-            z-index: 10;
+            z-index: 2;
         }
-        .client-logos-section::before {
-            left: 0;
-            background: linear-gradient(to right, black, rgba(0,0,0,0));
-        }
-        .client-logos-section::after {
-            right: 0;
-            background: linear-gradient(to left, black, rgba(0,0,0,0));
-        }
-        .logo-slider {
+        .client-logos-section::before { left: 0; background: linear-gradient(to right, black, rgba(0,0,0,0)); }
+        .client-logos-section::after { right: 0; background: linear-gradient(to left, black, rgba(0,0,0,0)); }
+        .logo-slider-container {
             display: flex;
-            width: fit-content;
-            animation: marquee 20s linear infinite;
+            animation: marquee 30s linear infinite; /* Slower animation for larger logos */
         }
-        .logo-slider:hover {
-            animation-play-state: paused;
-        }
+        .logo-slider-container:hover { animation-play-state: paused; }
         .logo-item {
             display: flex;
             align-items: center;
             justify-content: center;
-            padding: 0 2rem;
+            padding: 0 4rem; /* More space between logos */
             flex-shrink: 0;
-            height: 80px;
+            height: 100px;
         }
         .logo-item img {
-            max-height: 160px;
-            max-width: 210px;
-            filter: grayscale(100%) opacity(70%);
-            transition: all 0.3s ease;
+            max-height: 180px; /* Increased logo size */
+            width: auto;
+            transition: transform 0.3s ease;
         }
-        .logo-item img:hover {
-            filter: grayscale(0%) opacity(100%);
-        }
+        .logo-item:hover img { transform: scale(1.1); }
         @keyframes marquee {
             0% { transform: translateX(0); }
             100% { transform: translateX(-50%); }
         }
 
         /* --- Testimonials Section (Slider) --- */
-        .testimonial-slider-container {
-            max-width: 1000px;
-            margin: 0 auto;
-            position: relative;
-            overflow: hidden;
-        }
-        .testimonial-slider-inner {
-            display: flex;
-            transition: transform 0.5s ease-in-out;
-        }
+        .testimonial-slider-container { max-width: 1000px; margin: 0 auto; position: relative; overflow: hidden; }
+        .testimonial-slider-inner { display: flex; transition: transform 0.5s ease-in-out; }
         .testimonial-card {
             flex: 0 0 100%;
-            background: linear-gradient(135deg, rgba(134, 195, 61, 0.1), rgba(0, 0, 0, 0.6), rgba(134, 195, 61, 0.1));
+            background: rgba(255, 255, 255, 0.05);
             padding: 2.5rem;
             border-radius: 1rem;
             border: 1px solid rgba(255, 255, 255, 0.1);
             text-align: left;
             position: relative;
             box-sizing: border-box;
-            margin-right: 2rem;
         }
-        .testimonial-card .quote-icon {
-            position: absolute;
-            top: 1rem;
-            left: 1.5rem;
-            font-size: 3rem;
-            color: rgba(134, 195, 61, 0.2);
-            z-index: 0;
-        }
-        .testimonial-card blockquote {
-            font-size: 1rem;
-            color: #9ca3af;
-            line-height: 1.6;
-            margin-bottom: 1.5rem;
-            position: relative;
-            z-index: 1;
-        }
-        .testimonial-card .author-info {
-            display: flex;
-            align-items: center;
-            gap: 1rem;
-        }
-        .testimonial-card .author-avatar {
-            width: 50px;
-            height: 50px;
-            border-radius: 50%;
-            object-fit: cover;
-            border: 2px solid var(--brand);
-        }
-        .testimonial-card .author-name {
-            font-weight: 700;
-            color: var(--brand);
-            font-size: 1.1rem;
-        }
-        .testimonial-card .author-title {
-            font-size: 0.9rem;
-            color: #6b7280;
-        }
-        .slider-nav {
-            display: flex;
-            justify-content: center;
-            gap: 1rem;
-            margin-top: 2rem;
-            align-items: center;
-        }
-        .slider-btn {
-            background-color: transparent;
-            border: 2px solid var(--brand);
-            color: var(--brand);
-            padding: 0.5rem;
-            width: 40px;
-            height: 40px;
-            border-radius: 50%;
-            cursor: pointer;
-            transition: all 0.3s ease;
-        }
-        .slider-btn:hover {
-            background-color: var(--brand);
-            color: var(--text-invert);
-            box-shadow: 0 0 10px var(--brand);
-        }
-        .slider-dots {
-            display: flex;
-            gap: 0.5rem;
-        }
-        .dot {
-            width: 10px;
-            height: 10px;
-            border-radius: 50%;
-            background-color: #374151;
-            cursor: pointer;
-            transition: all 0.3s ease;
-        }
-        .dot.active {
-            background-color: var(--brand);
-            transform: scale(1.2);
-        }
+        .testimonial-card blockquote { font-style: italic; font-size: 1.125rem; color: #e5e7eb; margin-bottom: 1rem; position: relative; }
+        .testimonial-card blockquote::before { content: '“'; font-size: 4rem; color: var(--brand); position: absolute; top: -1.5rem; left: -1.5rem; opacity: 0.2; line-height: 1; }
+        .testimonial-card .author-info { display: flex; align-items: center; gap: 1rem; margin-top: 1.5rem; }
+        .testimonial-card .author-avatar { width: 50px; height: 50px; border-radius: 50%; object-fit: cover; border: 2px solid var(--brand); }
+        .testimonial-card .author-name { font-weight: 700; color: white; font-size: 1.1rem; }
+        .testimonial-card .author-title { font-size: 0.9rem; color: #9ca3af; }
+        .slider-nav { display: flex; justify-content: center; gap: 1rem; margin-top: 2rem; align-items: center; }
+        .slider-btn { background-color: transparent; border: 2px solid var(--brand); color: var(--brand); padding: 0.5rem; width: 40px; height: 40px; border-radius: 50%; cursor: pointer; transition: all 0.3s ease; }
+        .slider-btn:hover { background-color: var(--brand); color: var(--text-invert); box-shadow: 0 0 10px var(--brand); }
+        .slider-dots { display: flex; gap: 0.5rem; }
+        .dot { width: 10px; height: 10px; border-radius: 50%; background-color: #374151; cursor: pointer; transition: all 0.3s ease; }
+        .dot.active { background-color: var(--brand); transform: scale(1.2); }
 
-        /* --- Footer (Consistent with Our Works page) --- */
-        .apple-footer { background-color: black; color: #424245; font-size: 0.9rem; padding: 3rem 1.5rem; }
+        /* --- Footer --- */
+        .apple-footer { background-color: black; color: #424245; font-size: 0.9rem; padding: 3rem 1.5rem; border-top: 1px solid #222;}
         .apple-footer .footer-links { display: flex; justify-content: center; flex-wrap: wrap; gap: 1.5rem; padding-bottom: 1.5rem; border-bottom: 1px solid #424245; margin-bottom: 1.5rem; }
-        .apple-footer .footer-links a, .apple-footer .footer-contact a {
-            color: #d2d2d7;
-            transition: color 0.2s, text-shadow 0.2s;
-            font-weight: 500;
-        }
-        .apple-footer .footer-links a:hover, .apple-footer .footer-contact a:hover {
-            color: white;
-            text-shadow: 0 0 10px var(--brand);
-        }
-        .apple-footer .footer-links a:active { text-shadow: 0 0 10px var(--brand); }
-        .footer-social-icons a { display: inline-flex; align-items: center; justify-content: center; width: 36px; height: 36px; border-radius: 50%; background-color: #2c2c2e; transition: background-color 0.2s, box-shadow 0.2s; }
+        .apple-footer .footer-links a, .apple-footer .footer-contact a { color: #d2d2d7; text-decoration: none; transition: color 0.3s, text-shadow 0.3s; font-weight: 500; }
+        .apple-footer .footer-links a:hover, .apple-footer .footer-contact a:hover { color: white; text-shadow: 0 0 8px var(--brand); }
+        .footer-social-icons a { display: inline-flex; align-items: center; justify-content: center; width: 40px; height: 40px; border-radius: 50%; background-color: #2c2c2e; transition: background-color 0.3s, box-shadow 0.3s, transform 0.3s; }
+        .footer-social-icons a:hover { transform: translateY(-3px); box-shadow: 0 0 15px var(--brand); }
         .apple-footer .social-link-icon { color: #d2d2d7; transition: color 0.2s ease-in-out; }
         .apple-footer .social-link-icon:hover { color: white; }
-        .footer-social-icons a:hover { background-color: #3a3a3c; }
-        .apple-footer .social-link-icon:active { box-shadow: 0 0 12px 1px var(--brand); }
         .apple-footer .copyright-text { color: #86868b; }
     </style>
 </head>
 <body class="antialiased">
 
-    <!-- Navbar Section -->
+    <div class="blur-orb" id="orb1"></div>
+    <div class="blur-orb" id="orb2"></div>
+
     <nav id="nav" class="nav">
         <div class="nav-container">
             <a href="index.html" class="logo-wrapper">
@@ -457,17 +334,25 @@
             <div class="menu-wrapper">
                 <menu class="menu">
                     <li><a href="index.html" class="nav-link">Home</a></li>
-                    <li><a href="our-work.html" class="nav-link">Our Works</a></li>
+                    <li class="dropdown">
+                        <a href="our-work.html" class="nav-link">
+                            Portfolio
+                            <svg class="dropdown-arrow" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="20" height="20" fill="currentColor"><path d="M12 15.0001L17.2929 9.70718L18.7071 11.1214L12 17.8285L5.29289 11.1214L6.70711 9.70718L12 15.0001Z"></path></svg>
+                        </a>
+                        <ul class="dropdown-menu">
+                            <li><a href="our-work.html#app-projects">Apps</a></li>
+                            <li><a href="our-work.html#website-projects">Websites</a></li>
+                            <li><a href="our-work.html#design-projects">Designs</a></li>
+                        </ul>
+                    </li>
                     <li class="dropdown">
                         <a href="about.html" class="nav-link">
                             About Us
-                            <svg class="dropdown-arrow" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="20" height="20" fill="currentColor">
-                                <path d="M12 15.0001L17.2929 9.70718L18.7071 11.1214L12 17.8285L5.29289 11.1214L6.70711 9.70718L12 15.0001Z"></path>
-                            </svg>
+                            <svg class="dropdown-arrow" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="20" height="20" fill="currentColor"><path d="M12 15.0001L17.2929 9.70718L18.7071 11.1214L12 17.8285L5.29289 11.1214L6.70711 9.70718L12 15.0001Z"></path></svg>
                         </a>
                         <ul class="dropdown-menu">
-                            <li><a href="about.html#our-mission">Our Mission</a></li>
-                            <li><a href="about.html#team">Team</a></li>
+                            <li><a href="about.html#mission-section">Our Mission</a></li>
+                            <li><a href="about.html#team-section">Team</a></li>
                         </ul>
                     </li>
                     <li><a href="services.html" class="nav-link" aria-current="page">Services</a></li>
@@ -485,7 +370,6 @@
     </nav>
 
     <main class="main" id="main-content">
-        <!-- Services Hero Section -->
         <section class="hero hero-services">
             <div class="hero-content">
                 <h1 class="headline1">Our <span class="text-brand">Services</span></h1>
@@ -502,14 +386,12 @@
             </div>
         </section>
 
-        <!-- Our Services Section with detailed cards -->
         <section id="services-list" class="section-container bg-black text-white">
             <h2 class="section-title">Our <span class="text-brand">Core</span> Services</h2>
             <p class="section-subtitle">
                 From concept to launch, we provide end-to-end solutions that are tailored to your unique needs and goals.
             </p>
             <div class="services-grid">
-                <!-- Service Card 1: Brand Strategy & Identity -->
                 <div class="service-card">
                     <i class="fas fa-bullseye icon"></i>
                     <h3>Brand Strategy & Identity</h3>
@@ -520,7 +402,6 @@
                         <li>Logo design & brand guidelines</li>
                     </ul>
                 </div>
-                <!-- Service Card 2: Graphic Design -->
                 <div class="service-card">
                     <i class="fas fa-paint-brush icon"></i>
                     <h3>Graphic Design</h3>
@@ -531,7 +412,6 @@
                         <li>Business cards & stationery</li>
                     </ul>
                 </div>
-                <!-- Service Card 3: Web Design & Development -->
                 <div class="service-card">
                     <i class="fas fa-code icon"></i>
                     <h3>Web Design & Development</h3>
@@ -542,7 +422,6 @@
                         <li>Website maintenance & optimization</li>
                     </ul>
                 </div>
-                <!-- Service Card 4: App Development -->
                 <div class="service-card">
                     <i class="fas fa-mobile-alt icon"></i>
                     <h3>App Development</h3>
@@ -553,7 +432,6 @@
                         <li>App maintenance & updates</li>
                     </ul>
                 </div>
-                <!-- Service Card 5: Digital Marketing -->
                 <div class="service-card">
                     <i class="fas fa-chart-line icon"></i>
                     <h3>Digital Marketing</h3>
@@ -564,7 +442,6 @@
                         <li>Email marketing campaigns</li>
                     </ul>
                 </div>
-                <!-- Service Card 6: Media Planning & Advertising -->
                 <div class="service-card">
                     <i class="fas fa-ad icon"></i>
                     <h3>Media Planning & Advertising</h3>
@@ -575,7 +452,6 @@
                         <li>Performance tracking & analytics</li>
                     </ul>
                 </div>
-                <!-- Service Card 7: Event Branding & Activation -->
                 <div class="service-card">
                     <i class="fas fa-splotch icon"></i>
                     <h3>Event Branding & Activation</h3>
@@ -586,7 +462,6 @@
                         <li>Corporate event support</li>
                     </ul>
                 </div>
-                <!-- Service Card 8: Content Creation -->
                 <div class="service-card">
                     <i class="fas fa-feather-alt icon"></i>
                     <h3>Content Creation</h3>
@@ -596,7 +471,6 @@
                         <li>Motion graphics & animation</li>
                     </ul>
                 </div>
-                <!-- Service Card 9: Aerial Videography -->
                 <div class="service-card">
                     <i class="fas fa-plane-up icon"></i>
                     <h3>Aerial Videography & Drone Services</h3>
@@ -607,7 +481,6 @@
                         <li>Social Media Drone Content</li>
                     </ul>
                 </div>
-                <!-- Service Card 10: Professional Photography -->
                 <div class="service-card">
                     <i class="fas fa-camera icon"></i>
                     <h3>Professional Photography</h3>
@@ -618,7 +491,6 @@
                         <li>Social Media Content Photography</li>
                     </ul>
                 </div>
-                <!-- Service Card 11: Public Relations -->
                 <div class="service-card">
                     <i class="fas fa-bullhorn icon"></i>
                     <h3>Public Relations</h3>
@@ -629,7 +501,6 @@
                         <li>Influencer collaborations</li>
                     </ul>
                 </div>
-                <!-- NEW Service Card 12: Influencer Marketing -->
                 <div class="service-card">
                     <i class="fas fa-handshake-simple icon"></i>
                     <h3>Influencer Marketing</h3>
@@ -644,20 +515,13 @@
             </div>
         </section>
 
-        <!-- Testimonials Section -->
-        <section id="testimonials-section" class="section-container bg-black text-white">
+        <section id="testimonials-section" class="section-container bg-[#0a0a0a] text-white">
             <h2 class="section-title">What Our <span class="text-brand">Clients</span> Say</h2>
-            <p class="section-subtitle">
-                Hear from the businesses we've helped grow and succeed.
-            </p>
+            <p class="section-subtitle">Hear from the businesses we've helped grow and succeed.</p>
             <div class="testimonial-slider-container" id="testimonial-slider">
                 <div class="testimonial-slider-inner">
-                    <!-- Testimonial Card 1 -->
                     <div class="testimonial-card">
-                        <i class="fas fa-quote-left quote-icon"></i>
-                        <blockquote>
-                            "ONESPACE Graphics completely transformed our brand identity. The new logo and marketing materials are modern, professional, and perfectly capture our company's mission. Their team was a pleasure to work with, and their attention to detail was exceptional."
-                        </blockquote>
+                        <blockquote>"ONESPACE Graphics completely transformed our brand identity. The new logo and marketing materials are modern, professional, and perfectly capture our company's mission. Their team was a pleasure to work with, and their attention to detail was exceptional."</blockquote>
                         <div class="author-info">
                             <img class="author-avatar" src="https://placehold.co/50x50/374151/e5e7eb?text=J" alt="John Doe">
                             <div>
@@ -666,12 +530,8 @@
                             </div>
                         </div>
                     </div>
-                    <!-- Testimonial Card 2 -->
                     <div class="testimonial-card">
-                        <i class="fas fa-quote-left quote-icon"></i>
-                        <blockquote>
-                            "We hired ONESPACE to design our new e-commerce website, and the results exceeded our expectations. The user experience is seamless, and the design is stunning. We've seen a significant increase in conversions since the launch."
-                        </blockquote>
+                        <blockquote>"We hired ONESPACE to design our new e-commerce website, and the results exceeded our expectations. The user experience is seamless, and the design is stunning. We've seen a significant increase in conversions since the launch."</blockquote>
                         <div class="author-info">
                             <img class="author-avatar" src="https://placehold.co/50x50/111827/e5e7eb?text=A" alt="Alice Williams">
                             <div>
@@ -680,12 +540,8 @@
                             </div>
                         </div>
                     </div>
-                    <!-- Testimonial Card 3 -->
                     <div class="testimonial-card">
-                        <i class="fas fa-quote-left quote-icon"></i>
-                        <blockquote>
-                            "The team at ONESPACE is top-notch. Their content creation for our social media campaigns was fresh and engaging, and they handled all aspects of our media planning with professionalism and expertise. Highly recommend their services!"
-                        </blockquote>
+                        <blockquote>"The team at ONESPACE is top-notch. Their content creation for our social media campaigns was fresh and engaging, and they handled all aspects of our media planning with professionalism and expertise. Highly recommend their services!"</blockquote>
                         <div class="author-info">
                             <img class="author-avatar" src="https://placehold.co/50x50/4b5563/e5e7eb?text=S" alt="Sarah Chen">
                             <div>
@@ -694,12 +550,8 @@
                             </div>
                         </div>
                     </div>
-                    <!-- Testimonial Card 4 -->
                     <div class="testimonial-card">
-                        <i class="fas fa-quote-left quote-icon"></i>
-                        <blockquote>
-                            "Working with ONESPACE was a fantastic experience. They delivered high-quality design work on time and within budget. The new brand guidelines have been a game-changer for our internal and external communications."
-                        </blockquote>
+                        <blockquote>"Working with ONESPACE was a fantastic experience. They delivered high-quality design work on time and within budget. The new brand guidelines have been a game-changer for our internal and external communications."</blockquote>
                         <div class="author-info">
                             <img class="author-avatar" src="https://placehold.co/50x50/1f2937/e5e7eb?text=M" alt="Michael Brown">
                             <div>
@@ -711,43 +563,27 @@
                 </div>
             </div>
             <div class="slider-nav">
-                <button class="slider-btn prev-btn" aria-label="Previous Testimonial">
-                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" width="24" height="24"><path d="M10.8284 12.0007L15.7782 16.9504L14.364 18.3646L8 12.0007L14.364 5.63672L15.7782 7.05093L10.8284 12.0007Z"></path></svg>
-                </button>
-                <div class="slider-dots">
-                    <span class="dot active" data-index="0"></span>
-                    <span class="dot" data-index="1"></span>
-                    <span class="dot" data-index="2"></span>
-                    <span class="dot" data-index="3"></span>
-                </div>
-                <button class="slider-btn next-btn" aria-label="Next Testimonial">
-                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" width="24" height="24"><path d="M13.1714 12.0007L8.22168 7.05093L9.63589 5.63672L16.9999 12.0007L9.63589 18.3646L8.22168 16.9504L13.1714 12.0007Z"></path></svg>
-                </button>
+                <button class="slider-btn prev-btn" aria-label="Previous Testimonial"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" width="24" height="24"><path d="M10.8284 12.0007L15.7782 16.9504L14.364 18.3646L8 12.0007L14.364 5.63672L15.7782 7.05093L10.8284 12.0007Z"></path></svg></button>
+                <div class="slider-dots"></div>
+                <button class="slider-btn next-btn" aria-label="Next Testimonial"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" width="24" height="24"><path d="M13.1714 12.0007L8.22168 7.05093L9.63589 5.63672L16.9999 12.0007L9.63589 18.3646L8.22168 16.9504L13.1714 12.0007Z"></path></svg></button>
             </div>
         </section>
 
-        <!-- Client Logos Section with marquee animation -->
         <section id="clients-section" class="client-logos-section">
             <h2 class="section-title text-2xl font-semibold mb-8 text-center">Our <span class="text-brand">Clients</span></h2>
-            <div class="logo-slider-container relative overflow-hidden">
-                <div class="logo-slider">
-                    <!-- Original set of logos -->
-                    <div class="logo-item"><img src="assets/SRCAS.svg" alt="SRCAS Logo"></div>
-                    <div class="logo-item"><img src="assets/KPRCAS.svg" alt="KPRCAS Logo"></div>
-                    <div class="logo-item"><img src="assets/FelicitaTiles.svg" alt="Felicita Tiles Logo"></div>
-                    <div class="logo-item"><img src="assets/SGMediaWorks.svg" alt="SG Media Works Logo"></div>
-
-                    <!-- Duplicate logos for seamless loop -->
-                    <div class="logo-item"><img src="assets/SRCAS.svg" alt="SRCAS Logo"></div>
-                    <div class="logo-item"><img src="assets/KPRCAS.svg" alt="KPRCAS Logo"></div>
-                    <div class="logo-item"><img src="assets/FelicitaTiles.svg" alt="Felicita Tiles Logo"></div>
-                    <div class="logo-item"><img src="assets/SGMediaWorks.svg" alt="SG Media Works Logo"></div>
-                </div>
+            <div class="logo-slider-container">
+                <div class="logo-item"><img src="assets/SRCAS.svg" alt="SRCAS Logo"></div>
+                <div class="logo-item"><img src="assets/KPRCAS.svg" alt="KPRCAS Logo"></div>
+                <div class="logo-item"><img src="assets/FelicitaTiles.svg" alt="Felicita Tiles Logo"></div>
+                <div class="logo-item"><img src="assets/SGMediaWorks.svg" alt="SG Media Works Logo"></div>
+                <div class="logo-item"><img src="assets/SRCAS.svg" alt="SRCAS Logo"></div>
+                <div class="logo-item"><img src="assets/KPRCAS.svg" alt="KPRCAS Logo"></div>
+                <div class="logo-item"><img src="assets/FelicitaTiles.svg" alt="Felicita Tiles Logo"></div>
+                <div class="logo-item"><img src="assets/SGMediaWorks.svg" alt="SG Media Works Logo"></div>
             </div>
         </section>
 
-        <!-- Call to Action Section -->
-        <section class="section-container bg-[#0a0a0a] text-white">
+        <section class="section-container bg-black text-white">
             <div class="max-w-4xl mx-auto">
                 <h2 class="section-title text-4xl mb-4">Ready to <span class="text-brand">Transform</span> Your Business?</h2>
                 <p class="section-subtitle mb-8">
@@ -756,10 +592,8 @@
                 <a href="contact.html" class="button-link primary">Get in Touch</a>
             </div>
         </section>
-
     </main>
 
-    <!-- Footer Section (Consistent with Our Works page) -->
     <footer class="apple-footer text-center">
         <div class="container mx-auto max-w-5xl">
             <div class="mb-6">
@@ -767,7 +601,7 @@
                     <img src="assets/onespace.png" alt="OneSpace Graphics" class="h-10 w-auto">
                 </a>
                 <div class="footer-links hidden md:flex">
-                    <a href="index.html">Home</a><a href="our-work.html">Our Works</a><a href="about.html">About Us</a><a href="services.html">Services</a><a href="why-choose-us.html">Why Choose Us</a><a href="contact.html">Contact</a>
+                    <a href="index.html">Home</a><a href="our-work.html">Portfolio</a><a href="about.html">About Us</a><a href="services.html">Services</a><a href="why-choose-us.html">Why Choose Us</a><a href="contact.html">Contact</a>
                 </div>
             </div>
             <div class="flex flex-col md:flex-row justify-between items-center">
@@ -776,7 +610,7 @@
                 </div>
                 <div class="footer-contact text-right">
                     <div class="flex justify-end gap-3 mb-2 footer-social-icons">
-                        <a href="https://www.instagram.com/onespace_graphics/?hl=en" aria-label="Instagram"><i class="fab fa-instagram text-xl social-link-icon"></i></a>
+                        <a href="#" aria-label="Instagram"><i class="fab fa-instagram text-xl social-link-icon"></i></a>
                         <a href="#" aria-label="LinkedIn"><i class="fab fa-linkedin-in text-xl social-link-icon"></i></a>
                         <a href="#" aria-label="Pinterest"><i class="fab fa-pinterest text-xl social-link-icon"></i></a>
                         <a href="#" aria-label="Facebook"><i class="fab fa-facebook-f text-xl social-link-icon"></i></a>
@@ -791,16 +625,15 @@
 
     <script>
         document.addEventListener('DOMContentLoaded', () => {
-            // --- Mobile Nav Menu Logic ---
+            // --- Mobile Nav ---
             const nav = document.getElementById('nav');
             const openBtn = nav.querySelector('.icon-btn[aria-label="Open Menu"]');
             const closeBtn = nav.querySelector('.icon-btn[aria-label="Close Menu"]');
+            if (openBtn) { openBtn.addEventListener('click', () => nav.classList.add('open')); }
+            if (closeBtn) { closeBtn.addEventListener('click', () => nav.classList.remove('open')); }
 
-            if (openBtn) { openBtn.addEventListener('click', () => { nav.classList.add('open'); }); }
-            if (closeBtn) { closeBtn.addEventListener('click', () => { nav.classList.remove('open'); }); }
-
-            // --- Scroll button to services section logic ---
-            const scrollBtn = document.querySelector('.button-link.secondary');
+            // --- Hero Scroll Button ---
+            const scrollBtn = document.querySelector('.hero-actions-container .button-link.secondary');
             if (scrollBtn) {
                 scrollBtn.addEventListener('click', (e) => {
                     e.preventDefault();
@@ -808,82 +641,72 @@
                 });
             }
 
-            // --- Testimonial Slider Logic ---
+            // --- Testimonial Slider ---
             const sliderContainer = document.getElementById('testimonial-slider');
             if (sliderContainer) {
                 const sliderInner = sliderContainer.querySelector('.testimonial-slider-inner');
-                const prevBtn = sliderContainer.parentNode.querySelector('.prev-btn');
-                const nextBtn = sliderContainer.parentNode.querySelector('.next-btn');
-                const dotsContainer = sliderContainer.parentNode.querySelector('.slider-dots');
-                const cards = Array.from(sliderInner.querySelectorAll('.testimonial-card'));
+                const prevBtn = document.querySelector('.slider-nav .prev-btn');
+                const nextBtn = document.querySelector('.slider-nav .next-btn');
+                const dotsContainer = document.querySelector('.slider-nav .slider-dots');
+                const cards = Array.from(sliderInner.children);
                 const totalCards = cards.length;
+                if(totalCards <= 1) {
+                    prevBtn.style.display = 'none';
+                    nextBtn.style.display = 'none';
+                    return;
+                }
+
                 let currentSlide = 0;
                 let autoSlideInterval;
 
+                // Create dots
+                for (let i = 0; i < totalCards; i++) {
+                    const dot = document.createElement('span');
+                    dot.classList.add('dot');
+                    dot.dataset.index = i;
+                    dotsContainer.appendChild(dot);
+                }
+                const dots = dotsContainer.querySelectorAll('.dot');
+
                 const updateSlider = () => {
-                    const sliderWidth = sliderContainer.offsetWidth;
-                    sliderInner.style.transform = `translateX(-${currentSlide * (sliderWidth + 32)}px)`;
-                    if(dotsContainer) {
-                        dotsContainer.querySelectorAll('.dot').forEach((dot, index) => {
-                            dot.classList.toggle('active', index === currentSlide);
-                        });
-                    }
+                    sliderInner.style.transform = `translateX(-${currentSlide * 100}%)`;
+                    dots.forEach(dot => dot.classList.remove('active'));
+                    dots[currentSlide].classList.add('active');
                 };
 
-                const nextSlide = () => {
-                    currentSlide = (currentSlide + 1) % totalCards;
+                const moveToSlide = (index) => {
+                    currentSlide = index;
                     updateSlider();
                 };
 
-                const prevSlide = () => {
-                    currentSlide = (currentSlide - 1 + totalCards) % totalCards;
-                    updateSlider();
-                };
+                const nextSlide = () => moveToSlide((currentSlide + 1) % totalCards);
+                const prevSlide = () => moveToSlide((currentSlide - 1 + totalCards) % totalCards);
 
                 const startAutoSlide = () => {
                     stopAutoSlide();
                     autoSlideInterval = setInterval(nextSlide, 5000);
                 };
+                const stopAutoSlide = () => clearInterval(autoSlideInterval);
 
-                const stopAutoSlide = () => {
-                    clearInterval(autoSlideInterval);
-                };
-
-                if (prevBtn) {
-                    prevBtn.addEventListener('click', () => {
+                if(prevBtn) prevBtn.addEventListener('click', () => { stopAutoSlide(); prevSlide(); startAutoSlide(); });
+                if(nextBtn) nextBtn.addEventListener('click', () => { stopAutoSlide(); nextSlide(); startAutoSlide(); });
+                dots.forEach(dot => {
+                    dot.addEventListener('click', () => {
                         stopAutoSlide();
-                        prevSlide();
+                        moveToSlide(parseInt(dot.dataset.index));
                         startAutoSlide();
                     });
-                }
-
-                if (nextBtn) {
-                    nextBtn.addEventListener('click', () => {
-                        stopAutoSlide();
-                        nextSlide();
-                        startAutoSlide();
-                    });
-                }
-
-                if (dotsContainer) {
-                    dotsContainer.addEventListener('click', (e) => {
-                        if (e.target.classList.contains('dot')) {
-                            stopAutoSlide();
-                            const index = parseInt(e.target.dataset.index);
-                            currentSlide = index;
-                            updateSlider();
-                            startAutoSlide();
-                        }
-                    });
-                }
+                });
 
                 sliderContainer.addEventListener('mouseenter', stopAutoSlide);
                 sliderContainer.addEventListener('mouseleave', startAutoSlide);
 
-                updateSlider();
+                // Initial setup
+                moveToSlide(0);
                 startAutoSlide();
 
-                window.addEventListener('resize', () => {
+                // Adjust on resize
+                 window.addEventListener('resize', () => {
                     stopAutoSlide();
                     updateSlider();
                     startAutoSlide();
