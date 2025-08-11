@@ -7,7 +7,7 @@
     <link rel="icon" type="image/x-icon" href="assets/onespacegraphics.ico">
     <script src="https://cdn.tailwindcss.com"></script>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css" xintegrity="sha512-SnH5WK+bZxgPHs44uWIX+LLJAJ9/2PkPKZ5QiAj6Ta86w+fsb2TkcmfRyVX3pBnMFcV7oQPJkl9QevSCWr3W6A==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css" integrity="sha512-SnH5WK+bZxgPHs44uWIX+LLJAJ9/2PkPKZ5QiAj6Ta86w+fsb2TkcmfRyVX3pBnMFcV7oQPJkl9QevSCWr3W6A==" crossorigin="anonymous" referrerpolicy="no-referrer" />
     <style>
         :root {
             --brand: #86c33d;
@@ -34,7 +34,7 @@
             position: relative;
         }
 
-        /* Blurry green gradient background effect - Consistent with Our Works page */
+        /* Blurry green gradient background effect */
         body::before {
             content: '';
             position: fixed;
@@ -60,7 +60,7 @@
         #main-content { flex-grow: 1; }
         .text-brand { color: var(--brand); }
 
-        /* --- Button Styles (Consistent with Our Works page) --- */
+        /* --- Button Styles --- */
         .button-link {
             display: inline-block;
             text-decoration: none;
@@ -100,7 +100,7 @@
             transform: scale(1.05);
         }
 
-        /* --- Navigation (Consistent with Our Works page) --- */
+        /* --- Navigation --- */
         .nav {
             display: grid;
             place-items: center;
@@ -128,11 +128,11 @@
         .nav-link:active { text-shadow: 0 0 10px var(--brand); }
         .nav-link[aria-current="page"] { color: var(--brand); text-shadow: 0 0 10px var(--brand); }
         .icon-btn { display: none; color: var(--text-1); width: 2rem; height: 2rem; background-color: transparent; border: none; cursor: pointer; }
+
+        /* Mobile-specific styles within a media query */
         @media (max-width: 1056px) {
-            .menu-wrapper { display: none; }
-            .icon-btn { display: block; }
-            .nav.open .menu-wrapper {
-                display: flex;
+            .menu-wrapper {
+                display: none;
                 flex-direction: column;
                 position: fixed;
                 top: 0;
@@ -143,19 +143,70 @@
                 backdrop-filter: blur(12px);
                 justify-content: flex-start;
                 padding-top: 5rem;
-                transform: translateX(0);
+                transform: translateX(100%);
                 transition: transform 0.3s ease-in-out;
             }
-            .nav:not(.open) .menu-wrapper { transform: translateX(100%); }
-            .nav.open .menu { display: flex; flex-direction: column; gap: 1.5rem; }
-            .nav.open .icon-btn[aria-label="Open Menu"] { display: none; }
-            .nav-container .close-btn { display: block; position: absolute; top: 2rem; right: 2rem; color: white; }
+            .nav.open .menu-wrapper {
+                display: flex;
+                transform: translateX(0);
+            }
+            .nav.open .menu {
+                display: flex;
+                flex-direction: column;
+                gap: 1.5rem;
+            }
+            .icon-btn[aria-label="Open Menu"] {
+                display: block;
+            }
+            .nav.open .icon-btn[aria-label="Open Menu"] {
+                display: none;
+            }
+            .close-btn {
+                display: none;
+                position: absolute;
+                top: 2rem;
+                right: 2rem;
+                color: white;
+            }
+            .nav.open .close-btn {
+                display: block;
+            }
         }
-        .close-btn { display: none; }
+
+        /* Desktop-specific styles outside the media query */
+        @media (min-width: 1057px) {
+            .menu-wrapper { display: grid; }
+            .icon-btn { display: none; }
+        }
+
         .dropdown { position: relative; }
-        .dropdown-menu { display: none; position: absolute; top: 100%; left: 50%; transform: translateX(-50%); background-color: var(--brand); min-width: 150px; border-radius: 0.5rem; box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); padding: 0.5rem 0; margin-top: 0.5rem; z-index: 10; }
-        .dropdown:hover .dropdown-menu { display: block; }
-        .dropdown-menu a { display: block; padding: 0.75rem 1rem; color: var(--text-invert); text-decoration: none; transition: background-color 0.2s ease; text-align: center; }
+        .dropdown-menu {
+            /* Left alignment for dropdowns */
+            left: 0;
+
+            /* New properties for smooth animation */
+            opacity: 0;
+            visibility: hidden;
+            transform: translateY(10px);
+            transition: opacity 0.3s ease-in-out, transform 0.3s ease-in-out, visibility 0.3s ease-in-out;
+
+            position: absolute;
+            top: 100%;
+            background-color: var(--brand);
+            min-width: 150px;
+            border-radius: 0.5rem;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            padding: 0.5rem 0;
+            margin-top: 0.5rem;
+            z-index: 10;
+            text-align: left;
+        }
+        .dropdown:hover .dropdown-menu {
+            opacity: 1;
+            visibility: visible;
+            transform: translateY(0);
+        }
+        .dropdown-menu a { display: block; padding: 0.75rem 1rem; color: var(--text-invert); text-decoration: none; transition: background-color 0.2s ease; }
         .dropdown-menu a:hover { background-color: color-mix(in oklch, var(--brand), black 10%); }
         .dropdown-arrow { transition: transform 0.2s ease-in-out; color: white; }
         .dropdown:hover .dropdown-arrow { transform: rotate(180deg); }
@@ -165,8 +216,6 @@
         .hero-content { position: relative; z-index: 1; padding: var(--space-md); max-width: 900px; }
         .headline1 { font-size: var(--headline1-font-size); font-weight: 800; color: white; margin-bottom: 1rem; line-height: 1.2; }
         .hero-intro { font-size: 1.25rem; color: #e5e7eb; max-width: 700px; margin-bottom: 2.5rem; line-height: 1.6; }
-
-        /* Button container with scroll button - Consistent with Our Works page */
         .hero-actions-container {
             display: flex;
             align-items: center;
@@ -183,37 +232,19 @@
             align-items: center;
             justify-content: center;
             padding: 0;
-            width: 70px;
-            height: 70px;
+            width: 60px;
+            height: 60px;
             border-radius: 50%;
-            transition: transform 0.3s ease;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            border: 2px solid var(--brand);
+            color: var(--text-1);
         }
-        .scroll-btn:hover { transform: scale(1.1); }
-        .scroll-btn svg { color: var(--text-invert); z-index: 2; animation: bounce 2s infinite; }
-        .gradient-circle {
-            position: absolute;
-            width: 100%;
-            height: 100%;
-            border-radius: 50%;
-            background: linear-gradient(45deg, #86c33d, #429f04, #86c33d, #429f04);
-            background-size: 400% 400%;
-            animation: bounce 2s infinite, gradient-move 8s ease infinite;
-            display: flex;
-            align-items: center;
-            justify-content: center;
+        .scroll-btn:hover {
+            background-color: var(--brand);
+            color: var(--text-invert);
+            box-shadow: 0 0 15px var(--brand);
+            transform: scale(1.05);
         }
-        @keyframes bounce {
-            0%, 20%, 50%, 80%, 100% { transform: translateY(0); }
-            40% { transform: translateY(-10px); }
-            60% { transform: translateY(-5px); }
-        }
-        @keyframes gradient-move {
-            0% { background-position: 0% 50%; }
-            50% { background-position: 100% 50%; }
-            100% { background-position: 0% 50%; }
-        }
-
-        /* Hero specific for About page - MODIFIED */
         .hero-about {
             background-image: linear-gradient(-45deg, #0a0a0a, #121812, #0a0a0a, #86c33d);
             background-size: 200% 200%;
@@ -227,12 +258,61 @@
             100% { background-position: 0% 50%; }
         }
 
-        /* --- General Section & Slider Styles --- */
+        /* --- General Section & Counter Styles --- */
         .section-container { padding: 6rem 1rem; text-align: center; }
         .section-title { font-size: 3rem; font-weight: 800; margin-bottom: 1rem; color: var(--text-1); }
         .section-subtitle { font-size: 1.125rem; color: #9ca3af; max-width: 56rem; margin-inline: auto; margin-bottom: 4rem; line-height: 1.7; }
+        .counter-container { display: flex; justify-content: center; gap: 4rem; flex-wrap: wrap; }
+        .counter-card {
+            position: relative;
+            background: rgba(255, 255, 255, 0.08);
+            border-radius: 1rem;
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            padding: 2rem;
+            text-align: center;
+            flex: 1 1 200px;
+            max-width: 300px;
+            transition: transform 0.3s ease-in-out, box-shadow 0.3s ease-in-out;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        }
+        .counter-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: linear-gradient(135deg, rgba(134, 195, 61, 0.3), rgba(0, 0, 0, 0.1));
+            background-size: 200% 200%;
+            animation: card-gradient-animation 10s ease infinite;
+            border-radius: 1rem;
+            opacity: 0;
+            transition: opacity 0.3s ease;
+        }
+        .counter-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 10px 30px rgba(134, 195, 61, 0.3);
+        }
+        .counter-card:hover::before { opacity: 1; }
+        .counter-number {
+            font-size: 4rem;
+            font-weight: 800;
+            color: var(--brand);
+            line-height: 1;
+            position: relative;
+            z-index: 1;
+        }
+        .counter-text {
+            font-size: 1.25rem;
+            font-weight: 600;
+            color: white;
+            margin-top: 0.5rem;
+            position: relative;
+            z-index: 1;
+        }
 
-        /* --- Why Choose Us (Mission) --- */
+        /* --- Our Mission --- */
         .why-choose-us-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 2rem; max-width: 1200px; margin: 0 auto; text-align: left; }
         .why-choose-us-card { background: rgba(255, 255, 255, 0.05); padding: 2rem; border-radius: 1rem; border: 1px solid rgba(255, 255, 255, 0.1); }
         .why-choose-us-card .icon { font-size: 2.5rem; color: var(--brand); margin-bottom: 1rem; }
@@ -246,7 +326,6 @@
             max-width: 1200px;
             margin: 0 auto;
         }
-        /* MODIFIED: Added gradient animation to the team cards */
         .team-member-card {
             background: linear-gradient(135deg, rgba(134, 195, 61, 0.1), rgba(0, 0, 0, 0.6), rgba(134, 195, 61, 0.1));
             background-size: 300% 300%;
@@ -286,7 +365,7 @@
             font-size: 0.9rem;
         }
 
-        /* --- Footer (Consistent with Our Works page) --- */
+        /* --- Footer --- */
         .apple-footer { background-color: black; color: #424245; font-size: 0.9rem; padding: 3rem 1.5rem; }
         .apple-footer .footer-links { display: flex; justify-content: center; flex-wrap: wrap; gap: 1.5rem; padding-bottom: 1.5rem; border-bottom: 1px solid #424245; margin-bottom: 1.5rem; }
         .apple-footer .footer-links a, .apple-footer .footer-contact a {
@@ -309,7 +388,6 @@
 </head>
 <body class="antialiased">
 
-    <!-- Navbar Section (Updated with dropdown menu) -->
     <nav id="nav" class="nav">
         <div class="nav-container">
             <a href="index.html" class="logo-wrapper">
@@ -318,7 +396,19 @@
             <div class="menu-wrapper">
                 <menu class="menu">
                     <li><a href="index.html" class="nav-link">Home</a></li>
-                    <li><a href="our-work.html" class="nav-link">Our Works</a></li>
+                    <li class="dropdown">
+                        <a href="#" class="nav-link">
+                            Portfolio
+                            <svg class="dropdown-arrow" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="20" height="20" fill="currentColor">
+                                <path d="M12 15.0001L17.2929 9.70718L18.7071 11.1214L12 17.8285L5.29289 11.1214L6.70711 9.70718L12 15.0001Z"></path>
+                            </svg>
+                        </a>
+                        <ul class="dropdown-menu">
+                            <li><a href="#">Apps</a></li>
+                            <li><a href="#">Websites</a></li>
+                            <li><a href="#">Designs</a></li>
+                        </ul>
+                    </li>
                     <li class="dropdown">
                         <a href="#" class="nav-link" aria-current="page">
                             About Us
@@ -346,17 +436,15 @@
     </nav>
 
     <main class="main" id="main-content">
-        <!-- About Us Hero Section (Updated with scroll button) -->
         <section class="hero hero-about">
             <div class="hero-content">
-                <h1 class="headline1">Our <span class="text-brand">Story</span></h1>
+                <h1 class="headline1">Our <span class="text-brand">Mission</span></h1>
                 <p class="hero-intro">
-                    ONESPACE Graphics was founded on the principle of transforming ideas into impactful digital experiences. We believe that great design is not just about aesthetics—it's about effective communication and strategic problem-solving.
+                    We are dedicated to empowering businesses with compelling visual identities, robust digital platforms, and innovative marketing strategies. Our goal is to be a partner in your success, building lasting connections with your audience.
                 </p>
                 <div class="hero-actions-container">
-                    <a href="our-work.html" class="button-link primary">View Our Portfolio</a>
-                    <!-- Scroll button to mission section -->
-                    <a href="#mission-section" aria-label="Scroll to mission" class="button-link secondary">
+                    <a href="#" class="button-link primary">View Our Portfolio</a>
+                    <a href="#achievements-section" aria-label="Scroll down" class="button-link secondary">
                         <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="currentColor">
                             <path d="M13 16.1716L18.364 10.8076L19.7782 12.2218L12 20L4.2218 12.2218L5.63602 10.8076L11 16.1716V4H13V16.1716Z"></path>
                         </svg>
@@ -365,7 +453,27 @@
             </div>
         </section>
 
-        <!-- Our Mission Section -->
+        <section id="achievements-section" class="section-container bg-black text-white">
+            <h2 class="section-title">Our <span class="text-brand">Achievements</span></h2>
+            <p class="section-subtitle">
+                A look at the numbers that define our journey and the trust our clients place in us.
+            </p>
+            <div class="counter-container">
+                <div class="counter-card">
+                    <div class="counter-number" data-target="150">0</div>
+                    <div class="counter-text">Projects Done</div>
+                </div>
+                <div class="counter-card">
+                    <div class="counter-number" data-target="120">0</div>
+                    <div class="counter-text">Satisfied Partners</div>
+                </div>
+                <div class="counter-card">
+                    <div class="counter-number" data-target="10">0</div>
+                    <div class="counter-text">Years in Business</div>
+                </div>
+            </div>
+        </section>
+
         <section id="mission-section" class="section-container bg-black text-white">
             <h2 class="section-title"><span class="text-brand">Our</span> Mission</h2>
             <p class="section-subtitle">
@@ -390,7 +498,6 @@
             </div>
         </section>
 
-        <!-- Meet the Team Section -->
         <section id="team-section" class="section-container bg-[#0a0a0a] text-white">
             <h2 class="section-title">Meet Our <span class="text-brand">Team</span></h2>
             <p class="section-subtitle">
@@ -417,11 +524,9 @@
                     <h3>Dr. Lion Radha Bellan</h3>
                     <p>Business Advisor</p>
                 </div>
-
             </div>
         </section>
 
-        <!-- Call to Action Section -->
         <section class="section-container bg-black text-white">
             <div class="max-w-4xl mx-auto">
                 <h2 class="section-title text-4xl mb-4">Ready to Start Your <span class="text-brand">Project?</span></h2>
@@ -433,7 +538,6 @@
         </section>
     </main>
 
-    <!-- Footer Section (Consistent with Our Works page) -->
     <footer class="apple-footer text-center">
         <div class="container mx-auto max-w-5xl">
             <div class="mb-6">
@@ -468,26 +572,55 @@
             const nav = document.getElementById('nav');
             const openBtn = nav.querySelector('.icon-btn[aria-label="Open Menu"]');
             const closeBtn = nav.querySelector('.icon-btn[aria-label="Close Menu"]');
+            const scrollBtn = document.querySelector('.button-link.secondary');
 
             if (openBtn) { openBtn.addEventListener('click', () => { nav.classList.add('open'); }); }
             if (closeBtn) { closeBtn.addEventListener('click', () => { nav.classList.remove('open'); }); }
 
-            // Scroll button to mission section logic
-            const scrollBtn = document.querySelector('.button-link.secondary');
             if (scrollBtn) {
                 scrollBtn.addEventListener('click', (e) => {
                     e.preventDefault();
-                    document.querySelector('#mission-section').scrollIntoView({ behavior: 'smooth' });
+                    document.querySelector('#achievements-section').scrollIntoView({ behavior: 'smooth' });
                 });
+            }
+
+            // Number Counter Animation
+            const counters = document.querySelectorAll('.counter-number');
+            const speed = 200;
+
+            const animateCounter = (counter) => {
+                const target = +counter.getAttribute('data-target');
+                const increment = target / speed;
+                let current = 0;
+
+                const updateCounter = () => {
+                    if (current < target) {
+                        current += increment;
+                        counter.innerHTML = `${Math.ceil(current)}+`;
+                        requestAnimationFrame(updateCounter);
+                    } else {
+                        counter.innerHTML = `${target}+`;
+                    }
+                };
+                updateCounter();
+            };
+
+            const observer = new IntersectionObserver((entries, observer) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        counters.forEach(animateCounter);
+                        observer.unobserve(entry.target);
+                    }
+                });
+            }, {
+                threshold: 0.5
+            });
+
+            const achievementsSection = document.getElementById('achievements-section');
+            if (achievementsSection) {
+                observer.observe(achievementsSection);
             }
         });
     </script>
 </body>
 </html>
-
-
-
-
-
-
-
