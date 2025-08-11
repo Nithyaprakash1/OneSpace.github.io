@@ -182,9 +182,19 @@
         }
         .close-btn { display: none; } /* Hidden by default, overridden by media query when needed */
         .dropdown { position: relative; }
-        .dropdown-menu { display: none; position: absolute; top: 100%; left: 50%; transform: translateX(-50%); background-color: var(--brand); min-width: 150px; border-radius: 0.5rem; box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); padding: 0.5rem 0; margin-top: 0.5rem; z-index: 10; }
-        .dropdown:hover .dropdown-menu { display: block; }
-        .dropdown-menu a { display: block; padding: 0.75rem 1rem; color: var(--text-invert); text-decoration: none; transition: background-color 0.2s ease; text-align: center; }
+        .dropdown-menu {
+            display: none; opacity: 0; transform: translateY(10px);
+            transition: opacity 0.3s ease-in-out, transform 0.3s ease-in-out, visibility 0.3s ease-in-out;
+            visibility: hidden; position: absolute; top: 100%; left: 0;
+            background-color: var(--brand); min-width: 150px; border-radius: 0.5rem;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); padding: 0.5rem 0;
+            margin-top: 0.5rem; z-index: 10;
+        }
+        .dropdown:hover .dropdown-menu { display: block; opacity: 1; visibility: visible; transform: translateY(0); }
+        .dropdown-menu a {
+            display: block; padding: 0.75rem 1rem; color: var(--text-invert); text-decoration: none;
+            transition: background-color 0.2s ease; text-align: left;
+        }
         .dropdown-menu a:hover { background-color: color-mix(in oklch, var(--brand), black 10%); }
         .dropdown-arrow { transition: transform 0.2s ease-in-out; color: white; }
         .dropdown:hover .dropdown-arrow { transform: rotate(180deg); }
@@ -336,8 +346,8 @@
             right: 0;
             background: linear-gradient(to left, black, rgba(0,0,0,0));
         }
-        .logo-slider-container { /* Added for centering the client logo section */
-            max-width: 1200px; /* Adjust as needed */
+        .logo-slider-container {
+            max-width: 1200px;
             margin-left: auto;
             margin-right: auto;
             position: relative;
@@ -346,7 +356,7 @@
         .logo-slider {
             display: flex;
             width: fit-content;
-            animation: marquee 20s linear infinite;
+            animation: marquee 22s linear infinite;
         }
         .logo-slider:hover {
             animation-play-state: paused;
@@ -362,11 +372,10 @@
         .logo-item img {
             max-height: 160px;
             max-width: 210px;
-            filter: grayscale(100%) opacity(70%);
             transition: all 0.3s ease;
         }
         .logo-item img:hover {
-            filter: grayscale(0%) opacity(100%);
+            transform: scale(1.1);
         }
         @keyframes marquee {
             0% { transform: translateX(0); }
@@ -395,7 +404,6 @@
 </head>
 <body class="antialiased">
 
-    <!-- Navbar Section -->
     <nav id="nav" class="nav">
         <div class="nav-container">
             <a href="index.html" class="logo-wrapper">
@@ -404,18 +412,25 @@
             <div class="menu-wrapper">
                 <menu class="menu">
                     <li><a href="index.html" class="nav-link">Home</a></li>
-                    <li><a href="our-work.html" class="nav-link">Our Works</a></li>
-                    <!-- About Us Dropdown -->
+                    <li class="dropdown">
+                        <a href="our-work.html" class="nav-link">
+                            Portfolio
+                            <svg class="dropdown-arrow" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="20" height="20" fill="currentColor"><path d="M12 15.0001L17.2929 9.70718L18.7071 11.1214L12 17.8285L5.29289 11.1214L6.70711 9.70718L12 15.0001Z"></path></svg>
+                        </a>
+                        <ul class="dropdown-menu">
+                            <li><a href="our-work.html#app-projects">Apps</a></li>
+                            <li><a href="our-work.html#website-projects">Websites</a></li>
+                            <li><a href="our-work.html#design-projects">Designs</a></li>
+                        </ul>
+                    </li>
                     <li class="dropdown">
                         <a href="about.html" class="nav-link">
                             About Us
-                            <svg class="dropdown-arrow" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="20" height="20" fill="currentColor">
-                                <path d="M12 15.0001L17.2929 9.70718L18.7071 11.1214L12 17.8285L5.29289 11.1214L6.70711 9.70718L12 15.0001Z"></path>
-                            </svg>
+                            <svg class="dropdown-arrow" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="20" height="20" fill="currentColor"><path d="M12 15.0001L17.2929 9.70718L18.7071 11.1214L12 17.8285L5.29289 11.1214L6.70711 9.70718L12 15.0001Z"></path></svg>
                         </a>
                         <ul class="dropdown-menu">
-                            <li><a href="about.html#our-mission">Our Mission</a></li>
-                            <li><a href="about.html#team">Team</a></li>
+                            <li><a href="about.html#mission-section">Our Mission</a></li>
+                            <li><a href="about.html#team-section">Team</a></li>
                         </ul>
                     </li>
                     <li><a href="services.html" class="nav-link">Services</a></li>
@@ -424,7 +439,7 @@
                 </menu>
             </div>
             <button class="icon-btn close-btn" aria-label="Close Menu">
-                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="currentColor"><path d="M12.0007 10.5865L16.9504 5.63672L18.3646 7.05093L13.4149 12.0007L18.3646 16.9504L16.9504 18.3646L12.0007 13.4149L7.05093 18.3646L5.63672 16.9504L10.5865 12.0007L5.63672 7.05093L7.05093 5.63672L12.0007 10.5865Z"></path></svg>
+                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="currentColor"><path d="M12.0007 10.5865L16.9504 5.63672L18.3646 7.05093L13.4149 12.0007L18.3646 16.9504L16.9504 18.3646L12.0007 13.4149L7.05093 18.3646L5.63672 16.9504L10.5865 12.0007L5.63672 7.05093L12.0007 10.5865Z"></path></svg>
             </button>
             <button class="icon-btn" aria-label="Open Menu">
                 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="24" height="24" fill="currentColor"><path d="M3 4H21V6H3V4ZM3 11H21V13H3V11ZM3 18H21V20H3V18Z"></path></svg>
@@ -433,7 +448,6 @@
     </nav>
 
     <main class="main" id="main-content">
-        <!-- Why Choose Us Hero Section -->
         <section class="hero hero-why-us">
             <div class="hero-content">
                 <h1 class="headline1">Why Choose <span class="text-brand">Us</span></h1>
@@ -450,14 +464,12 @@
             </div>
         </section>
 
-        <!-- Main Reasons Section -->
         <section id="why-us-section" class="section-container bg-black text-white">
             <h2 class="section-title">Our <span class="text-brand">Core</span> Advantages</h2>
             <p class="section-subtitle">
                 We combine creative passion with strategic execution to deliver results that truly matter.
             </p>
             <div class="why-us-grid">
-                <!-- Reason Card 1: Expertise -->
                 <div class="reason-card">
                     <i class="fas fa-certificate icon"></i>
                     <h3>Unmatched Expertise</h3>
@@ -465,7 +477,6 @@
                         Our team consists of seasoned professionals with deep industry knowledge and a proven track record of success. We stay ahead of trends to provide you with cutting-edge solutions.
                     </p>
                 </div>
-                <!-- Reason Card 2: Quality -->
                 <div class="reason-card">
                     <i class="fas fa-gem icon"></i>
                     <h3>Commitment to Quality</h3>
@@ -473,7 +484,6 @@
                         We are obsessed with quality. Every project, from a simple logo to a full-scale campaign, is crafted with meticulous attention to detail and a passion for excellence.
                     </p>
                 </div>
-                <!-- Reason Card 3: Support -->
                 <div class="reason-card">
                     <i class="fas fa-headset icon"></i>
                     <h3>Exceptional Support</h3>
@@ -481,7 +491,6 @@
                         We believe in building lasting partnerships. Our dedicated support team is always available to answer your questions and provide the assistance you need, every step of the way.
                     </p>
                 </div>
-                <!-- Reason Card 4: Innovation -->
                 <div class="reason-card">
                     <i class="fas fa-lightbulb icon"></i>
                     <h3>Innovative Solutions</h3>
@@ -489,7 +498,6 @@
                         We don't just follow trends—we set them. Our forward-thinking approach ensures your brand is equipped with innovative and future-proof solutions that stand out from the competition.
                     </p>
                 </div>
-                <!-- Reason Card 5: Value -->
                 <div class="reason-card">
                     <i class="fas fa-chart-pie icon"></i>
                     <h3>Superior Value & ROI</h3>
@@ -497,7 +505,6 @@
                         We provide superior value that translates into a high return on investment. Our solutions are designed to be a strategic asset that helps your business grow and thrive.
                     </p>
                 </div>
-                <!-- Reason Card 6: Collaboration -->
                 <div class="reason-card">
                     <i class="fas fa-handshake icon"></i>
                     <h3>Collaborative Approach</h3>
@@ -508,20 +515,17 @@
             </div>
         </section>
 
-        <!-- Client Logos Section with marquee animation -->
-<section id="clients-section" class="client-logos-section">
+        <section id="clients-section" class="client-logos-section">
 
     <h2 class="section-title text-2xl font-semibold mb-8 text-center">Our <span class="text-brand">Clients</span></h2>
 
     <div class="logo-slider-container relative overflow-hidden">
         <div class="logo-slider">
-                    <!-- Original set of logos -->
                     <div class="logo-item"><img src="assets/SRCAS.svg" alt="SRCAS Logo"></div>
                     <div class="logo-item"><img src="assets/KPRCAS.svg" alt="KPRCAS Logo"></div>
                     <div class="logo-item"><img src="assets/FelicitaTiles.svg" alt="Felicita Tiles Logo"></div>
                     <div class="logo-item"><img src="assets/SGMediaWorks.svg" alt="SG Media Works Logo"></div>
 
-                    <!-- Duplicate logos for seamless loop -->
                     <div class="logo-item"><img src="assets/SRCAS.svg" alt="SRCAS Logo"></div>
                     <div class="logo-item"><img src="assets/KPRCAS.svg" alt="KPRCAS Logo"></div>
                     <div class="logo-item"><img src="assets/FelicitaTiles.svg" alt="Felicita Tiles Logo"></div>
@@ -529,7 +533,6 @@
                 </div>
     </div>
 </section>
-        <!-- Call to Action Section -->
         <section class="section-container bg-[#0a0a0a] text-white">
             <div class="max-w-4xl mx-auto">
                 <h2 class="section-title text-4xl mb-4">Ready to <span class="text-brand">Transform</span> Your Business?</h2>
@@ -542,7 +545,6 @@
 
     </main>
 
-    <!-- Footer Section -->
     <footer class="apple-footer text-center">
         <div class="container mx-auto max-w-5xl">
             <div class="mb-6">
@@ -550,7 +552,7 @@
                     <img class="h-10 w-auto" src="assets/onespace.png" alt="OneSpace Graphics">
                 </a>
                 <div class="footer-links hidden md:flex">
-                    <a href="index.html">Home</a><a href="our-work.html">Our Works</a><a href="about.html">About Us</a><a href="services.html">Services</a><a href="why-choose-us.html">Why Choose Us</a><a href="contact.html">Contact</a>
+                    <a href="index.html">Home</a><a href="our-work.html">Portfolio</a><a href="about.html">About Us</a><a href="services.html">Services</a><a href="why-choose-us.html">Why Choose Us</a><a href="contact.html">Contact</a>
                 </div>
             </div>
             <div class="flex flex-col md:flex-row justify-between items-center">
@@ -574,26 +576,22 @@
 
     <script>
         document.addEventListener('DOMContentLoaded', () => {
-            // --- Mobile Nav Menu Logic ---
             const nav = document.getElementById('nav');
             const openBtn = nav.querySelector('.icon-btn[aria-label="Open Menu"]');
             const closeBtn = nav.querySelector('.icon-btn[aria-label="Close Menu"]');
 
-            // Event listener to open the navigation menu
             if (openBtn) {
                 openBtn.addEventListener('click', () => {
                     nav.classList.add('open');
                 });
             }
 
-            // Event listener to close the navigation menu
             if (closeBtn) {
                 closeBtn.addEventListener('click', () => {
                     nav.classList.remove('open');
                 });
             }
 
-            // --- Scroll button to reasons section logic ---
             const scrollBtn = document.querySelector('.button-link.secondary');
             if (scrollBtn) {
                 scrollBtn.addEventListener('click', (e) => {
@@ -605,4 +603,3 @@
     </script>
 </body>
 </html>
-
