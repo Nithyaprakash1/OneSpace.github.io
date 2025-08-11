@@ -34,7 +34,7 @@
             position: relative;
         }
 
-        /* NEW: Blurry green gradient background effect - Consistent with homepage */
+        /* Matte gradient motion animation following the cursor */
         body::before {
             content: '';
             position: fixed;
@@ -42,25 +42,17 @@
             left: 0;
             width: 100%;
             height: 100%;
-            background: linear-gradient(45deg, rgba(134, 195, 61, 0.4), rgba(0, 0, 0, 0.6));
-            background-size: 300% 300%;
-            animation: gradient-shift 15s ease infinite;
+            background: radial-gradient(circle at var(--cursor-x, 50%) var(--cursor-y, 50%), rgba(134, 195, 61, 0.4), rgba(0, 0, 0, 0.8) 50%);
             z-index: -1;
-            filter: blur(150px);
+            filter: blur(100px);
             opacity: 1;
             pointer-events: none;
-        }
-
-        @keyframes gradient-shift {
-            0% { background-position: 0% 50%; }
-            50% { background-position: 100% 50%; }
-            100% { background-position: 0% 50%; }
+            transition: background 0.1s ease-out;
         }
 
         #main-content { flex-grow: 1; }
         .text-brand { color: var(--brand); }
 
-        /* --- Button Styles (Consistent with homepage) --- */
         .button-link {
             display: inline-block;
             text-decoration: none;
@@ -100,7 +92,6 @@
             transform: scale(1.05);
         }
 
-        /* --- Navigation (Consistent with homepage) --- */
         .nav {
             display: grid;
             place-items: center;
@@ -129,21 +120,14 @@
         .nav-link[aria-current="page"] { color: var(--brand); text-shadow: 0 0 10px var(--brand); }
         .icon-btn { display: none; color: var(--text-1); width: 2rem; height: 2rem; background-color: transparent; border: none; cursor: pointer; }
 
-        /* Mobile-specific styles for navigation icons and menu */
         @media (max-width: 1056px) {
-            .menu-wrapper { display: none; } /* Hide desktop menu wrapper by default on mobile */
-
-            /* Show the open menu button (hamburger) only when nav is NOT open */
+            .menu-wrapper { display: none; }
             .nav:not(.open) .icon-btn[aria-label="Open Menu"] {
                 display: block;
             }
-
-            /* Hide the close menu button (X) when nav is NOT open */
             .nav:not(.open) .close-btn {
                 display: none;
             }
-
-            /* When nav IS open, show the menu wrapper */
             .nav.open .menu-wrapper {
                 display: flex;
                 flex-direction: column;
@@ -159,17 +143,12 @@
                 transform: translateX(0);
                 transition: transform 0.3s ease-in-out;
             }
-            /* Hide the menu wrapper when nav is NOT open by sliding it out */
             .nav:not(.open) .menu-wrapper {
                 transform: translateX(100%);
             }
-
-            /* When nav IS open, hide the open menu button (hamburger) */
             .nav.open .icon-btn[aria-label="Open Menu"] {
                 display: none;
             }
-
-            /* When nav IS open, show the close menu button (X) */
             .nav.open .close-btn {
                 display: block;
                 position: absolute;
@@ -177,19 +156,36 @@
                 right: 2rem;
                 color: white;
             }
-
             .nav.open .menu { display: flex; flex-direction: column; gap: 1.5rem; }
         }
-        .close-btn { display: none; } /* Hidden by default, overridden by media query when needed */
+        .close-btn { display: none; }
         .dropdown { position: relative; }
-        .dropdown-menu { display: none; position: absolute; top: 100%; left: 50%; transform: translateX(-50%); background-color: var(--brand); min-width: 150px; border-radius: 0.5rem; box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); padding: 0.5rem 0; margin-top: 0.5rem; z-index: 10; }
+        .dropdown-menu {
+            display: none;
+            position: absolute;
+            top: 100%;
+            left: 0; /* Left-aligned */
+            background-color: var(--brand);
+            min-width: 150px;
+            border-radius: 0.5rem;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            padding: 0.5rem 0;
+            margin-top: 0.5rem;
+            z-index: 10;
+        }
         .dropdown:hover .dropdown-menu { display: block; }
-        .dropdown-menu a { display: block; padding: 0.75rem 1rem; color: var(--text-invert); text-decoration: none; transition: background-color 0.2s ease; text-align: center; }
+        .dropdown-menu a {
+            display: block;
+            padding: 0.75rem 1rem;
+            color: var(--text-invert);
+            text-decoration: none;
+            transition: background-color 0.2s ease;
+            text-align: left; /* Left-aligned text */
+        }
         .dropdown-menu a:hover { background-color: color-mix(in oklch, var(--brand), black 10%); }
         .dropdown-arrow { transition: transform 0.2s ease-in-out; color: white; }
         .dropdown:hover .dropdown-arrow { transform: rotate(180deg); }
 
-        /* --- Hero Section (Consistent with homepage) --- */
         .hero { position: relative; height: 100vh; display: grid; place-items: center; text-align: center; padding-top: var(--nav-block-size); }
         .hero-visual { position: absolute; inset: 0; width: 100%; height: 100%; z-index: -1; overflow: hidden; background: #000; }
         .hero-visual::after { content: ''; position: absolute; inset: 0; background: rgba(0,0,0,0.6); }
@@ -198,7 +194,6 @@
         .hero-content { position: relative; z-index: 1; padding: var(--space-md); max-width: 900px; }
         .headline1 { font-size: var(--headline1-font-size); font-weight: 800; color: white; margin-bottom: 1rem; line-height: 1.2; }
 
-        /* NEW: Button container with scroll button - Consistent with homepage */
         .hero-actions-container {
             display: flex;
             align-items: center;
@@ -245,122 +240,102 @@
             100% { background-position: 0% 50%; }
         }
 
-        /* --- General Section Styles --- */
         .section-container { padding: 6rem 1rem; text-align: center; }
         .section-title { font-size: 3rem; font-weight: 800; margin-bottom: 1rem; color: var(--text-1); }
         .section-subtitle { font-size: 1.125rem; color: #9ca3af; max-width: 56rem; margin-inline: auto; margin-bottom: 4rem; line-height: 1.7; }
 
-        /* --- Video Grid Section --- */
-        .video-grid {
+        .portfolio-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
             gap: 2rem;
             max-width: 1200px;
             margin: 0 auto;
         }
-        .video-card {
+        .portfolio-card {
+            background-color: #1a1a1a;
             border-radius: 1rem;
             overflow: hidden;
-            position: relative;
             box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            position: relative;
+            text-align: center;
+            padding: 1.5rem;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: space-between;
+            height: 100%;
+
+            /* Static matte gradient inside card */
+            background-image: radial-gradient(circle at center, rgba(134, 195, 61, 0.1), transparent 50%);
+            background-size: 200% 200%;
+            animation: gradient-card-pulse 8s ease-in-out infinite;
+        }
+        .portfolio-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.7);
+        }
+
+        @keyframes gradient-card-pulse {
+            0% { background-size: 200% 200%; }
+            50% { background-size: 220% 220%; }
+            100% { background-size: 200% 200%; }
+        }
+
+        .portfolio-card .card-content {
+            flex-grow: 1;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            width: 100%;
+        }
+        .portfolio-card h3 {
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: var(--text-1);
+            margin-top: 1rem;
+            text-align: center;
+        }
+        .portfolio-card p {
+            font-size: 1rem;
+            color: #9ca3af;
+            text-align: center;
+            margin-bottom: 1rem;
+        }
+        .portfolio-card .project-link {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            color: var(--brand);
+            font-size: 1rem;
+            font-weight: 600;
+            text-decoration: none;
+            transition: transform 0.3s ease;
+            margin-top: auto; /* Push the link to the bottom */
+        }
+        .portfolio-card .project-link:hover {
+            transform: translateX(5px);
+        }
+        .portfolio-card .project-link svg {
             transition: transform 0.3s ease;
         }
-        .video-card:hover { transform: scale(1.05); }
-        .video-card video {
+        .portfolio-card .project-link:hover svg {
+            transform: rotate(45deg);
+        }
+
+        .portfolio-card .project-image {
             width: 100%;
-            height: 100%;
+            height: auto;
+            border-radius: 0.5rem;
             object-fit: cover;
+            box-shadow: 0 5px 20px rgba(0, 0, 0, 0.3);
+            transition: transform 0.3s ease;
         }
-        .video-overlay {
-            position: absolute;
-            inset: 0;
-            background: rgba(0, 0, 0, 0.4);
-            display: flex;
-            align-items: flex-end;
-            justify-content: flex-start;
-            padding: 1rem;
-            color: white;
-            font-weight: bold;
-            opacity: 1;
-            transition: opacity 0.3s ease;
+        .portfolio-card:hover .project-image {
+            transform: scale(1.03);
         }
-        .video-card:hover .video-overlay { opacity: 0; }
 
-        /* --- Image Gallery Section --- */
-        .gallery-grid {
-            display: flex;
-            flex-wrap: wrap;
-            justify-content: center;
-            gap: 2rem;
-            max-width: 1200px;
-            margin: 0 auto;
-        }
-        .gallery-item {
-            width: 180px;
-            height: 180px;
-            border-radius: 50%;
-            overflow: hidden;
-            cursor: pointer;
-            position: relative;
-            transition: all 0.5s ease-in-out;
-            box-shadow: 0 0 0 4px rgba(255, 255, 255, 0.1), 0 0 15px rgba(0, 0, 0, 0.5);
-        }
-        .gallery-item img {
-            width: 100%;
-            height: 100%;
-            object-fit: cover;
-            transition: transform 0.5s ease;
-        }
-        .gallery-item:hover {
-            transform: scale(1.1);
-            box-shadow: 0 0 0 4px var(--brand), 0 0 25px var(--brand);
-        }
-        .gallery-item:hover img { transform: scale(1.2); }
-
-        /* --- Modal/Galaxy Overlay (Consistent with original) --- */
-        .galaxy-overlay {
-            position: fixed;
-            inset: 0;
-            background-color: rgba(0, 0, 0, 0.95);
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            z-index: 200;
-            opacity: 0;
-            visibility: hidden;
-            transition: opacity 0.5s ease, visibility 0.5s ease;
-        }
-        .galaxy-overlay.show {
-            opacity: 1;
-            visibility: visible;
-        }
-        .galaxy-overlay img {
-            max-width: 90%;
-            max-height: 90%;
-            object-fit: contain;
-            border-radius: 1rem;
-            box-shadow: 0 0 50px var(--brand), 0 0 100px var(--brand);
-            transform: scale(0.5);
-            transition: transform 0.5s cubic-bezier(0.68, -0.55, 0.27, 1.55);
-        }
-        .galaxy-overlay.show img {
-            transform: scale(1);
-        }
-        .galaxy-overlay .close-btn {
-            position: absolute;
-            top: 2rem;
-            right: 2rem;
-            background: none;
-            border: none;
-            font-size: 2rem;
-            color: white;
-            cursor: pointer;
-            z-index: 201;
-            transition: color 0.3s;
-        }
-        .galaxy-overlay .close-btn:hover { color: var(--brand); }
-
-        /* --- Footer (Consistent with homepage) --- */
+        /* Footer remains the same */
         .apple-footer { background-color: black; color: #424245; font-size: 0.9rem; padding: 3rem 1.5rem; }
         .apple-footer .footer-links { display: flex; justify-content: center; flex-wrap: wrap; gap: 1.5rem; padding-bottom: 1.5rem; border-bottom: 1px solid #424245; margin-bottom: 1.5rem; }
         .apple-footer .footer-links a, .apple-footer .footer-contact a {
@@ -383,7 +358,6 @@
 </head>
 <body class="antialiased">
 
-    <!-- Navbar Section (Consistent with homepage) -->
     <nav id="nav" class="nav">
         <div class="nav-container">
             <a href="index.html" class="logo-wrapper">
@@ -392,7 +366,19 @@
             <div class="menu-wrapper">
                 <menu class="menu">
                     <li><a href="index.html" class="nav-link">Home</a></li>
-                    <li><a href="our-work.html" class="nav-link" aria-current="page">Our Works</a></li>
+                    <li class="dropdown">
+                        <a href="our-work.html" class="nav-link" aria-current="page">
+                            Portfolio
+                            <svg class="dropdown-arrow" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="20" height="20" fill="currentColor">
+                                <path d="M12 15.0001L17.2929 9.70718L18.7071 11.1214L12 17.8285L5.29289 11.1214L6.70711 9.70718L12 15.0001Z"></path>
+                            </svg>
+                        </a>
+                        <ul class="dropdown-menu">
+                            <li><a href="our-work.html#portfolio-apps">Apps</a></li>
+                            <li><a href="our-work.html#portfolio-websites">Websites</a></li>
+                            <li><a href="our-work.html#portfolio-designs">Designs</a></li>
+                        </ul>
+                    </li>
                     <li class="dropdown">
                         <a href="about.html" class="nav-link">
                             About Us
@@ -411,7 +397,7 @@
                 </menu>
             </div>
             <button class="icon-btn close-btn" aria-label="Close Menu">
-                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="currentColor"><path d="M12.0007 10.5865L16.9504 5.63672L18.3646 7.05093L13.4149 12.0007L18.3646 16.9504L16.9504 18.3646L12.0007 13.4149L7.05093 18.3646L5.63672 16.9504L10.5865 12.0007L5.63672 7.05093L7.05093 5.63672L12.0007 10.5865Z"></path></svg>
+                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="currentColor"><path d="M12.0007 10.5865L16.9504 5.63672L18.3646 7.05093L13.4149 12.0007L18.3646 16.9504L16.9504 18.3646L12.0007 13.4149L7.05093 18.3646L5.63672 16.9504L10.5865 12.0007L5.63672 7.05093L12.0007 10.5865Z"></path></svg>
             </button>
             <button class="icon-btn" aria-label="Open Menu">
                 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="24" height="24" fill="currentColor"><path d="M3 4H21V6H3V4ZM3 11H21V13H3V11ZM3 18H21V20H3V18Z"></path></svg>
@@ -420,7 +406,6 @@
     </nav>
 
     <main class="main" id="main-content">
-        <!-- Hero Section - Video Background (Updated to match homepage style) -->
         <section class="hero">
             <div class="hero-visual">
                 <video class="hero-video" id="video1" muted playsinline>
@@ -437,11 +422,11 @@
                 <header class="hero-header">
                     <h1 class="headline1"><span class="text-brand">Our</span> Creative Works</h1>
                     <p class="hero-intro">
-                        A curated showcase of our latest projects in video, graphic design, and web development.
+                        A curated showcase of our latest projects in graphic design, app & web development.
                     </p>
                     <div class="hero-actions-container">
                         <a href="contact.html" class="button-link primary">Let's Connect</a>
-                        <a href="#video-grid-section" aria-label="Scroll to content" class="button-link secondary">
+                        <a href="#portfolio-websites" aria-label="Scroll to content" class="button-link secondary">
                             <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="currentColor">
                                 <path d="M13 16.1716L18.364 10.8076L19.7782 12.2218L12 20L4.2218 12.2218L5.63602 10.8076L11 16.1716V4H13V16.1716Z"></path>
                             </svg>
@@ -451,70 +436,170 @@
             </div>
         </section>
 
-        <!-- Promotional Video Grid Section -->
-        <section id="video-grid-section" class="section-container bg-black text-white">
-            <h2 class="section-title"><span class="text-brand">Our</span> Video Promotions</h2>
+        <section id="portfolio-websites" class="section-container bg-[#0a0a0a] text-white">
+            <h2 class="section-title">Websites & <span class="text-brand">E-commerce</span></h2>
             <p class="section-subtitle">
-                Discover our work in motion, from eye-catching Instagram Reels to professional product videos and app demos.
+                From sleek corporate sites to dynamic e-commerce platforms, we build stunning digital experiences that convert.
             </p>
-            <div class="video-grid">
-                <div class="video-card">
-                    <video autoplay loop muted playsinline>
-                        <source src="assets/promo.mp4" type="video/mp4">
-                    </video>
-                    <div class="video-overlay">Instagram Reel</div>
+            <div class="portfolio-grid">
+                <div class="portfolio-card">
+                    <img src="https://placehold.co/1000x800/86c33d/000?text=Website+Project+1" alt="Website Project 1" class="project-image">
+                    <div class="card-content">
+                        <div>
+                            <h3>Project Name 1</h3>
+                            <p>Web Development</p>
+                        </div>
+                        <a href="#" target="_blank" class="project-link" aria-label="Visit project website">
+                            Visit Site
+                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="currentColor">
+                                <path d="M10 6V8H5V19H16V14H18V20C18 20.5523 17.5523 21 17 21H4C3.44772 21 3 20.5523 3 20V7C3 6.44772 3.44772 6 4 6H10ZM21 3V11H19L19.0001 6.413L11.0711 14.343L9.65685 12.9288L17.5857 5H13V3H21Z"></path>
+                            </svg>
+                        </a>
+                    </div>
                 </div>
-                <div class="video-card">
-                    <video autoplay loop muted playsinline>
-                        <source src="assets/insta.mp4" type="video/mp4">
-                    </video>
-                    <div class="video-overlay">Product Promo</div>
+                <div class="portfolio-card">
+                    <img src="https://placehold.co/1000x800/86c33d/000?text=E-commerce+Site" alt="E-commerce Website" class="project-image">
+                    <div class="card-content">
+                        <div>
+                            <h3>Project Name 2</h3>
+                            <p>E-commerce Site</p>
+                        </div>
+                        <a href="#" target="_blank" class="project-link" aria-label="Visit project website">
+                            Visit Site
+                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="currentColor">
+                                <path d="M10 6V8H5V19H16V14H18V20C18 20.5523 17.5523 21 17 21H4C3.44772 21 3 20.5523 3 20V7C3 6.44772 3.44772 6 4 6H10ZM21 3V11H19L19.0001 6.413L11.0711 14.343L9.65685 12.9288L17.5857 5H13V3H21Z"></path>
+                            </svg>
+                        </a>
+                    </div>
                 </div>
-                <div class="video-card">
-                    <video autoplay loop muted playsinline>
-                        <source src="assets/app.mp4" type="video/mp4">
-                    </video>
-                    <div class="video-overlay">App Showcase</div>
+                <div class="portfolio-card">
+                    <img src="https://placehold.co/1000x800/86c33d/000?text=Corporate+Website" alt="Corporate Website" class="project-image">
+                    <div class="card-content">
+                        <div>
+                            <h3>Project Name 3</h3>
+                            <p>Web Design & Development</p>
+                        </div>
+                        <a href="#" target="_blank" class="project-link" aria-label="Visit project website">
+                            Visit Site
+                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="currentColor">
+                                <path d="M10 6V8H5V19H16V14H18V20C18 20.5523 17.5523 21 17 21H4C3.44772 21 3 20.5523 3 20V7C3 6.44772 3.44772 6 4 6H10ZM21 3V11H19L19.0001 6.413L11.0711 14.343L9.65685 12.9288L17.5857 5H13V3H21Z"></path>
+                            </svg>
+                        </a>
+                    </div>
                 </div>
             </div>
         </section>
 
-        <!-- Pinterest-style Galaxy Image Gallery -->
-        <section id="image-gallery-section" class="section-container bg-[#0a0a0a] text-white">
-            <h2 class="section-title"><span class="text-brand">Our</span> Design Portfolio</h2>
+        <section id="portfolio-apps" class="section-container bg-[#0a0a0a] text-white">
+            <h2 class="section-title">Mobile <span class="text-brand">Apps</span></h2>
             <p class="section-subtitle">
-                Explore a collection of our graphic design work, presented in a unique, interactive way.
+                We craft intuitive and beautiful mobile applications that provide seamless user experiences.
             </p>
-            <div class="gallery-grid">
-                <div class="gallery-item" data-src="https://placehold.co/1000x800/86c33d/000?text=Brand+Identity">
-                    <img src="https://placehold.co/180x180/86c33d/000?text=Brand" alt="Brand Identity">
+            <div class="portfolio-grid">
+                <div class="portfolio-card">
+                    <img src="https://placehold.co/1000x800/86c33d/000?text=App+UI+UX+1" alt="App UI/UX Project 1" class="project-image">
+                    <div class="card-content">
+                        <div>
+                            <h3>App Name 1</h3>
+                            <p>Mobile App Design</p>
+                        </div>
+                        <a href="#" target="_blank" class="project-link" aria-label="View project details">
+                            View Details
+                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="currentColor">
+                                <path d="M10 6V8H5V19H16V14H18V20C18 20.5523 17.5523 21 17 21H4C3.44772 21 3 20.5523 3 20V7C3 6.44772 3.44772 6 4 6H10ZM21 3V11H19L19.0001 6.413L11.0711 14.343L9.65685 12.9288L17.5857 5H13V3H21Z"></path>
+                            </svg>
+                        </a>
+                    </div>
                 </div>
-                <div class="gallery-item" data-src="https://placehold.co/1000x800/86c33d/000?text=Web+Design">
-                    <img src="https://placehold.co/180x180/86c33d/000?text=Web" alt="Web Design">
+                <div class="portfolio-card">
+                    <img src="https://placehold.co/1000x800/86c33d/000?text=App+UI+UX+2" alt="App UI/UX Project 2" class="project-image">
+                    <div class="card-content">
+                        <div>
+                            <h3>App Name 2</h3>
+                            <p>App UI/UX</p>
+                        </div>
+                        <a href="#" target="_blank" class="project-link" aria-label="View project details">
+                            View Details
+                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="currentColor">
+                                <path d="M10 6V8H5V19H16V14H18V20C18 20.5523 17.5523 21 17 21H4C3.44772 21 3 20.5523 3 20V7C3 6.44772 3.44772 6 4 6H10ZM21 3V11H19L19.0001 6.413L11.0711 14.343L9.65685 12.9288L17.5857 5H13V3H21Z"></path>
+                            </svg>
+                        </a>
+                    </div>
                 </div>
-                <div class="gallery-item" data-src="https://placehold.co/1000x800/86c33d/000?text=App+UI+UX">
-                    <img src="https://placehold.co/180x180/86c33d/000?text=App" alt="App UI/UX">
-                </div>
-                <div class="gallery-item" data-src="https://placehold.co/1000x800/86c33d/000?text=Social+Media">
-                    <img src="https://placehold.co/180x180/86c33d/000?text=Social" alt="Social Media">
-                </div>
-                <div class="gallery-item" data-src="https://placehold.co/1000x800/86c33d/000?text=Logo+Design">
-                    <img src="https://placehold.co/180x180/86c33d/000?text=Logo" alt="Logo Design">
-                </div>
-                <div class="gallery-item" data-src="https://placehold.co/1000x800/86c33d/000?text=Packaging">
-                    <img src="https://placehold.co/180x180/86c33d/000?text=Packaging" alt="Packaging Design">
+                <div class="portfolio-card">
+                    <img src="https://placehold.co/1000x800/86c33d/000?text=App+UI+UX+3" alt="App UI/UX Project 3" class="project-image">
+                    <div class="card-content">
+                        <div>
+                            <h3>App Name 3</h3>
+                            <p>Mobile App Development</p>
+                        </div>
+                        <a href="#" target="_blank" class="project-link" aria-label="View project details">
+                            View Details
+                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="currentColor">
+                                <path d="M10 6V8H5V19H16V14H18V20C18 20.5523 17.5523 21 17 21H4C3.44772 21 3 20.5523 3 20V7C3 6.44772 3.44772 6 4 6H10ZM21 3V11H19L19.0001 6.413L11.0711 14.343L9.65685 12.9288L17.5857 5H13V3H21Z"></path>
+                            </svg>
+                        </a>
+                    </div>
                 </div>
             </div>
         </section>
 
-        <!-- The Galaxy Image Overlay -->
-        <div id="galaxy-overlay" class="galaxy-overlay">
-            <button class="close-btn">&times;</button>
-            <img src="" alt="Full-screen view of portfolio item" id="overlay-image">
-        </div>
+        <section id="portfolio-designs" class="section-container bg-[#0a0a0a] text-white">
+            <h2 class="section-title">Graphic <span class="text-brand">Designs</span></h2>
+            <p class="section-subtitle">
+                From brand identity to marketing collateral, our designs are crafted to make a lasting impression.
+            </p>
+            <div class="portfolio-grid">
+                <div class="portfolio-card">
+                    <img src="https://placehold.co/1000x800/86c33d/000?text=Brand+Identity+Design" alt="Brand Identity Design" class="project-image">
+                    <div class="card-content">
+                        <div>
+                            <h3>Brand Identity</h3>
+                            <p>Logo & Branding</p>
+                        </div>
+                        <a href="#" target="_blank" class="project-link" aria-label="View project details">
+                            View Details
+                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="currentColor">
+                                <path d="M10 6V8H5V19H16V14H18V20C18 20.5523 17.5523 21 17 21H4C3.44772 21 3 20.5523 3 20V7C3 6.44772 3.44772 6 4 6H10ZM21 3V11H19L19.0001 6.413L11.0711 14.343L9.65685 12.9288L17.5857 5H13V3H21Z"></path>
+                            </svg>
+                        </a>
+                    </div>
+                </div>
+                <div class="portfolio-card">
+                    <img src="https://placehold.co/1000x800/86c33d/000?text=Social+Media+Post" alt="Social Media Design" class="project-image">
+                    <div class="card-content">
+                        <div>
+                            <h3>Social Media Kit</h3>
+                            <p>Social Media Graphics</p>
+                        </div>
+                        <a href="#" target="_blank" class="project-link" aria-label="View project details">
+                            View Details
+                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="currentColor">
+                                <path d="M10 6V8H5V19H16V14H18V20C18 20.5523 17.5523 21 17 21H4C3.44772 21 3 20.5523 3 20V7C3 6.44772 3.44772 6 4 6H10ZM21 3V11H19L19.0001 6.413L11.0711 14.343L9.65685 12.9288L17.5857 5H13V3H21Z"></path>
+                            </svg>
+                        </a>
+                    </div>
+                </div>
+                <div class="portfolio-card">
+                    <img src="https://placehold.co/1000x800/86c33d/000?text=Product+Packaging" alt="Product Packaging Design" class="project-image">
+                    <div class="card-content">
+                        <div>
+                            <h3>Product Packaging</h3>
+                            <p>Packaging & Label Design</p>
+                        </div>
+                        <a href="#" target="_blank" class="project-link" aria-label="View project details">
+                            View Details
+                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="currentColor">
+                                <path d="M10 6V8H5V19H16V14H18V20C18 20.5523 17.5523 21 17 21H4C3.44772 21 3 20.5523 3 20V7C3 6.44772 3.44772 6 4 6H10ZM21 3V11H19L19.0001 6.413L11.0711 14.343L9.65685 12.9288L17.5857 5H13V3H21Z"></path>
+                            </svg>
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </section>
+
     </main>
 
-    <!-- Footer Section (Consistent with homepage) -->
     <footer class="apple-footer text-center">
         <div class="container mx-auto max-w-5xl">
             <div class="mb-6">
@@ -546,18 +631,17 @@
 
     <script>
         document.addEventListener('DOMContentLoaded', () => {
+            // Mobile Nav functionality
             const nav = document.getElementById('nav');
             const openBtn = nav.querySelector('.icon-btn[aria-label="Open Menu"]');
             const closeBtn = nav.querySelector('.icon-btn[aria-label="Close Menu"]');
-
             openBtn.addEventListener('click', () => { nav.classList.add('open'); });
             closeBtn.addEventListener('click', () => { nav.classList.remove('open'); });
 
-            // Hero Video Carousel Logic
+            // Hero video loop
             const videos = document.querySelectorAll('.hero-video');
             let currentVideoIndex = 0;
-            const videoDuration = 10000; // 10 seconds per video
-
+            const videoDuration = 10000;
             function playNextVideo() {
                 if (videos.length === 0) return;
                 videos.forEach(video => {
@@ -568,12 +652,10 @@
                 nextVideo.classList.add('active');
                 nextVideo.play().catch(error => { console.warn("Video playback was interrupted:", error); });
             }
-
             function advanceVideo() {
                 currentVideoIndex = (currentVideoIndex + 1) % videos.length;
                 playNextVideo();
             }
-
             if (videos.length > 0) {
                 videos[0].addEventListener('canplaythrough', () => {
                     playNextVideo();
@@ -581,40 +663,24 @@
                 }, { once: true });
             }
 
-            // Scroll button to video grid
+            // Scroll button functionality
             const scrollBtn = document.querySelector('.button-link.secondary');
             if (scrollBtn) {
                 scrollBtn.addEventListener('click', (e) => {
                     e.preventDefault();
-                    document.querySelector('#video-grid-section').scrollIntoView({ behavior: 'smooth' });
+                    document.querySelector('#portfolio-websites').scrollIntoView({ behavior: 'smooth' });
                 });
             }
 
-            // Galaxy Image Gallery Logic
-            const galleryItems = document.querySelectorAll('.gallery-item');
-            const galaxyOverlay = document.getElementById('galaxy-overlay');
-            const overlayImage = document.getElementById('overlay-image');
-            const overlayCloseBtn = document.querySelector('.galaxy-overlay .close-btn');
-
-            galleryItems.forEach(item => {
-                item.addEventListener('click', () => {
-                    const imageUrl = item.dataset.src;
-                    overlayImage.src = imageUrl;
-                    galaxyOverlay.classList.add('show');
-                });
-            });
-
-            overlayCloseBtn.addEventListener('click', () => {
-                galaxyOverlay.classList.remove('show');
-            });
-
-            galaxyOverlay.addEventListener('click', (e) => {
-                if (e.target === galaxyOverlay) {
-                    galaxyOverlay.classList.remove('show');
-                }
+            // Matte gradient motion animation following the cursor
+            const body = document.body;
+            document.addEventListener('mousemove', (e) => {
+                const x = (e.clientX / window.innerWidth) * 100;
+                const y = (e.clientY / window.innerHeight) * 100;
+                body.style.setProperty('--cursor-x', `${x}%`);
+                body.style.setProperty('--cursor-y', `${y}%`);
             });
         });
     </script>
 </body>
-
-</html
+</html>
