@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Portfolio - OneSpace Graphics</title>
+    <title>Portfolio - ONESPACE Graphics</title>
     <link rel="icon" type="image/x-icon" href="assets/onespacegraphics.ico">
     <script src="https://cdn.tailwindcss.com"></script>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
@@ -19,9 +19,7 @@
             --nav-block-size: 100px;
             --space-md: 1rem;
             --space-lg: 1.75rem;
-            --border-thin: 1px;
         }
-
         body {
             font-family: 'Inter', sans-serif;
             -webkit-font-smoothing: antialiased;
@@ -33,15 +31,13 @@
             overflow-x: hidden;
             position: relative;
         }
-
-        /* Matte gradient motion animation following the cursor */
+        body.lightbox-open {
+            overflow: hidden; /* Prevent scrolling when lightbox is open */
+        }
         body::before {
             content: '';
             position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
+            top: 0; left: 0; width: 100%; height: 100%;
             background: radial-gradient(circle at var(--cursor-x, 50%) var(--cursor-y, 50%), rgba(134, 195, 61, 0.4), rgba(0, 0, 0, 0.8) 50%);
             z-index: -1;
             filter: blur(100px);
@@ -49,143 +45,34 @@
             pointer-events: none;
             transition: background 0.1s ease-out;
         }
-
         #main-content { flex-grow: 1; }
         .text-brand { color: var(--brand); }
+        .hidden { display: none; }
 
-        .button-link {
-            display: inline-block;
-            text-decoration: none;
-            font-weight: 700;
-            font-size: 1.1rem;
-            padding: 0.8em 2em;
-            border-radius: 9999px;
-            transition: background-color 0.3s ease, transform 0.2s ease;
-            cursor: pointer;
-            border: none;
-        }
-        .button-link.primary {
-            background-color: var(--brand);
-            color: var(--text-invert);
-        }
-        .button-link.primary:hover {
-            background-color: color-mix(in oklch, var(--brand), black 15%);
-            transform: scale(1.05);
-        }
-        .button-link.secondary {
-            background-color: transparent;
-            color: var(--text-1);
-            border: 2px solid var(--brand);
-            padding: 0.8em 1em;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            width: 60px;
-            height: 60px;
-            border-radius: 50%;
-            transition: background-color 0.3s ease, transform 0.2s ease, box-shadow 0.3s ease;
-        }
-        .button-link.secondary:hover {
-            background-color: var(--brand);
-            color: var(--text-invert);
-            box-shadow: 0 0 15px var(--brand);
-            transform: scale(1.05);
-        }
+        .button-link { display: inline-block; text-decoration: none; font-weight: 700; font-size: 1.1rem; padding: 0.8em 2em; border-radius: 9999px; transition: all 0.3s ease; cursor: pointer; border: none; }
+        .button-link.primary { background-color: var(--brand); color: var(--text-invert); }
+        .button-link.primary:hover { background-color: color-mix(in oklch, var(--brand), black 15%); transform: scale(1.05); }
+        .button-link.secondary { background-color: transparent; color: var(--text-1); border: 2px solid var(--brand); padding: 0.8em 1em; display: flex; align-items: center; justify-content: center; width: 60px; height: 60px; border-radius: 50%; transition: all 0.3s ease; }
+        .button-link.secondary:hover { background-color: var(--brand); color: var(--text-invert); box-shadow: 0 0 15px var(--brand); transform: scale(1.05); }
+        .button-link.secondary-alt { background-color: transparent; color: var(--text-1); border: 2px solid white; }
+        .button-link.secondary-alt:hover { background-color: white; color: var(--text-invert); transform: scale(1.05); }
 
-        .nav {
-            display: grid;
-            place-items: center;
-            position: fixed;
-            width: 100%;
-            z-index: 100;
-            background-color: rgba(0, 0, 0, 0.8);
-            backdrop-filter: blur(8px);
-        }
-        .nav-container {
-            display: grid;
-            grid-auto-flow: column;
-            justify-content: space-between;
-            place-items: center;
-            min-height: var(--nav-block-size);
-            width: min(100%, 1656px);
-            padding: 0 var(--space-lg);
-        }
+        .nav { display: grid; place-items: center; position: fixed; width: 100%; z-index: 100; background-color: rgba(0, 0, 0, 0.8); backdrop-filter: blur(8px); }
+        .nav-container { display: grid; grid-auto-flow: column; justify-content: space-between; place-items: center; min-height: var(--nav-block-size); width: min(100%, 1656px); padding: 0 var(--space-lg); }
         .logo-wrapper { justify-self: start; width: 4rem; }
-        .logo-img { width: 100%; height: auto; display: block; }
         .menu-wrapper { display: grid; grid-auto-flow: column; place-items: center; gap: var(--space-lg); }
         .menu { display: grid; grid-auto-flow: column; gap: var(--space-lg); list-style: none; padding: 0; margin: 0; }
         .nav-link { text-decoration: none; color: var(--text-1); font-size: 1rem; padding: 0.5rem 0; transition: color 0.3s, text-shadow 0.2s; display: flex; align-items: center; gap: 0.25rem; }
         .nav-link:hover { color: var(--brand); }
-        .nav-link:active { text-shadow: 0 0 10px var(--brand); }
         .nav-link[aria-current="page"] { color: var(--brand); text-shadow: 0 0 10px var(--brand); }
         .icon-btn { display: none; color: var(--text-1); width: 2rem; height: 2rem; background-color: transparent; border: none; cursor: pointer; }
-
-        @media (max-width: 1056px) {
-            .menu-wrapper { display: none; }
-            .nav:not(.open) .icon-btn[aria-label="Open Menu"] {
-                display: block;
-            }
-            .nav:not(.open) .close-btn {
-                display: none;
-            }
-            .nav.open .menu-wrapper {
-                display: flex;
-                flex-direction: column;
-                position: fixed;
-                top: 0;
-                right: 0;
-                height: 100vh;
-                width: 300px;
-                background-color: rgba(0, 0, 0, 0.95);
-                backdrop-filter: blur(12px);
-                justify-content: flex-start;
-                padding-top: 5rem;
-                transform: translateX(0);
-                transition: transform 0.3s ease-in-out;
-            }
-            .nav:not(.open) .menu-wrapper {
-                transform: translateX(100%);
-            }
-            .nav.open .icon-btn[aria-label="Open Menu"] {
-                display: none;
-            }
-            .nav.open .close-btn {
-                display: block;
-                position: absolute;
-                top: 2rem;
-                right: 2rem;
-                color: white;
-            }
-            .nav.open .menu { display: flex; flex-direction: column; gap: 1.5rem; }
-        }
-        .close-btn { display: none; }
+        @media (max-width: 1056px) { .menu-wrapper { display: none; } .nav:not(.open) .icon-btn[aria-label="Open Menu"] { display: block; } .nav:not(.open) .close-btn { display: none; } .nav.open .menu-wrapper { display: flex; flex-direction: column; position: fixed; top: 0; right: 0; height: 100vh; width: 300px; background-color: rgba(0, 0, 0, 0.95); backdrop-filter: blur(12px); justify-content: flex-start; padding-top: 5rem; transform: translateX(0); transition: transform 0.3s ease-in-out; } .nav:not(.open) .menu-wrapper { transform: translateX(100%); } .nav.open .icon-btn[aria-label="Open Menu"] { display: none; } .nav.open .close-btn { display: block; position: absolute; top: 2rem; right: 2rem; color: white; } .nav.open .menu { display: flex; flex-direction: column; gap: 1.5rem; } }
         .dropdown { position: relative; }
-        .dropdown-menu {
-            display: none;
-            position: absolute;
-            top: 100%;
-            left: 0; /* Left-aligned */
-            background-color: var(--brand);
-            min-width: 150px;
-            border-radius: 0.5rem;
-            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-            padding: 0.5rem 0;
-            margin-top: 0.5rem;
-            z-index: 10;
-        }
+        .dropdown-menu { display: none; position: absolute; top: 100%; left: 0; background-color: var(--brand); min-width: 150px; border-radius: 0.5rem; box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); padding: 0.5rem 0; margin-top: 0.5rem; z-index: 10; }
         .dropdown:hover .dropdown-menu { display: block; }
-        .dropdown-menu a {
-            display: block;
-            padding: 0.75rem 1rem;
-            color: var(--text-invert);
-            text-decoration: none;
-            transition: background-color 0.2s ease;
-            text-align: left; /* Left-aligned text */
-        }
-        .dropdown-menu a:hover { background-color: color-mix(in oklch, var(--brand), black 10%); }
+        .dropdown-menu a { display: block; padding: 0.75rem 1rem; color: var(--text-invert); text-decoration: none; }
         .dropdown-arrow { transition: transform 0.2s ease-in-out; color: white; }
         .dropdown:hover .dropdown-arrow { transform: rotate(180deg); }
-
         .hero { position: relative; height: 100vh; display: grid; place-items: center; text-align: center; padding-top: var(--nav-block-size); }
         .hero-visual { position: absolute; inset: 0; width: 100%; height: 100%; z-index: -1; overflow: hidden; background: #000; }
         .hero-visual::after { content: ''; position: absolute; inset: 0; background: rgba(0,0,0,0.6); }
@@ -193,496 +80,239 @@
         .hero-video.active { opacity: 1; }
         .hero-content { position: relative; z-index: 1; padding: var(--space-md); max-width: 900px; }
         .headline1 { font-size: var(--headline1-font-size); font-weight: 800; color: white; margin-bottom: 1rem; line-height: 1.2; }
-
-        .hero-actions-container {
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            gap: 1rem;
-            margin-top: 2.5rem;
-        }
-        .scroll-btn {
-            border: none;
-            background-color: transparent;
-            cursor: pointer;
-            z-index: 10;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            padding: 0;
-            width: 70px;
-            height: 70px;
-            border-radius: 50%;
-            transition: transform 0.3s ease;
-        }
-        .scroll-btn:hover { transform: scale(1.1); }
-        .scroll-btn svg { color: var(--text-invert); z-index: 2; animation: bounce 2s infinite; }
-        .gradient-circle {
-            position: absolute;
-            width: 100%;
-            height: 100%;
-            border-radius: 50%;
-            background: linear-gradient(45deg, #86c33d, #429f04, #86c33d, #429f04);
-            background-size: 400% 400%;
-            animation: bounce 2s infinite, gradient-move 8s ease infinite;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-        }
-        @keyframes bounce {
-            0%, 20%, 50%, 80%, 100% { transform: translateY(0); }
-            40% { transform: translateY(-10px); }
-            60% { transform: translateY(-5px); }
-        }
-        @keyframes gradient-move {
-            0% { background-position: 0% 50%; }
-            50% { background-position: 100% 50%; }
-            100% { background-position: 0% 50%; }
-        }
-
+        .hero-actions-container { display: flex; align-items: center; justify-content: center; gap: 1rem; margin-top: 2.5rem; }
         .section-container { padding: 6rem 1rem; text-align: center; }
         .section-title { font-size: 3rem; font-weight: 800; margin-bottom: 1rem; color: var(--text-1); }
         .section-subtitle { font-size: 1.125rem; color: #9ca3af; max-width: 56rem; margin-inline: auto; margin-bottom: 4rem; line-height: 1.7; }
-
-        .portfolio-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-            gap: 2rem;
-            max-width: 1200px;
-            margin: 0 auto;
-        }
-        .portfolio-card {
-            background-color: #1a1a1a;
-            border-radius: 1rem;
-            overflow: hidden;
-            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
-            transition: transform 0.3s ease, box-shadow 0.3s ease;
-            position: relative;
-            text-align: center;
-            padding: 1.5rem;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            justify-content: space-between;
-            height: 100%;
-
-            /* Static matte gradient inside card */
-            background-image: radial-gradient(circle at center, rgba(134, 195, 61, 0.1), transparent 50%);
-            background-size: 200% 200%;
-            animation: gradient-card-pulse 8s ease-in-out infinite;
-        }
-        .portfolio-card:hover {
-            transform: translateY(-10px);
-            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.7);
-        }
-
-        @keyframes gradient-card-pulse {
-            0% { background-size: 200% 200%; }
-            50% { background-size: 220% 220%; }
-            100% { background-size: 200% 200%; }
-        }
-
-        .portfolio-card .card-content {
-            flex-grow: 1;
-            display: flex;
-            flex-direction: column;
-            justify-content: space-between;
-            width: 100%;
-        }
-        .portfolio-card h3 {
-            font-size: 1.5rem;
-            font-weight: 700;
-            color: var(--text-1);
-            margin-top: 1rem;
-            text-align: center;
-        }
-        .portfolio-card p {
-            font-size: 1rem;
-            color: #9ca3af;
-            text-align: center;
-            margin-bottom: 1rem;
-        }
-        .portfolio-card .project-link {
-            display: inline-flex;
-            align-items: center;
-            gap: 0.5rem;
-            color: var(--brand);
-            font-size: 1rem;
-            font-weight: 600;
-            text-decoration: none;
-            transition: transform 0.3s ease;
-            margin-top: auto; /* Push the link to the bottom */
-        }
-        .portfolio-card .project-link:hover {
-            transform: translateX(5px);
-        }
-        .portfolio-card .project-link svg {
-            transition: transform 0.3s ease;
-        }
-        .portfolio-card .project-link:hover svg {
-            transform: rotate(45deg);
-        }
-
-        .portfolio-card .project-image {
-            width: 100%;
-            height: auto;
-            border-radius: 0.5rem;
-            object-fit: cover;
-            box-shadow: 0 5px 20px rgba(0, 0, 0, 0.3);
-            transition: transform 0.3s ease;
-        }
-        .portfolio-card:hover .project-image {
-            transform: scale(1.03);
-        }
-
-        /* Footer remains the same */
+        .portfolio-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 2rem; max-width: 1200px; margin: 0 auto; }
+        .portfolio-card { background-color: #1a1a1a; border-radius: 1rem; overflow: hidden; box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5); transition: transform 0.3s ease, box-shadow 0.3s ease; position: relative; text-align: center; padding: 1.5rem; display: flex; flex-direction: column; align-items: center; justify-content: space-between; height: 100%; background-image: radial-gradient(circle at center, rgba(134, 195, 61, 0.1), transparent 50%); background-size: 200% 200%; animation: gradient-card-pulse 8s ease-in-out infinite; }
+        .portfolio-card:hover { transform: translateY(-10px); box-shadow: 0 20px 40px rgba(0, 0, 0, 0.7); }
+        .portfolio-card .card-content { flex-grow: 1; display: flex; flex-direction: column; justify-content: space-between; width: 100%; }
+        .portfolio-card h3 { font-size: 1.5rem; font-weight: 700; color: var(--text-1); margin-top: 1rem; }
+        .portfolio-card p { font-size: 1rem; color: #9ca3af; margin-bottom: 1rem; }
+        .portfolio-card .project-link { display: inline-flex; align-items: center; justify-content: center; gap: 0.5rem; color: var(--brand); font-size: 1rem; font-weight: 600; text-decoration: none; transition: transform 0.3s ease; margin-top: auto; }
+        .portfolio-card .project-link:hover { transform: translateX(5px); }
+        .portfolio-card .project-image { width: 100%; height: auto; border-radius: 0.5rem; object-fit: cover; box-shadow: 0 5px 20px rgba(0, 0, 0, 0.3); transition: transform 0.3s ease; }
+        .portfolio-card:hover .project-image { transform: scale(1.03); }
         .apple-footer { background-color: black; color: #424245; font-size: 0.9rem; padding: 3rem 1.5rem; }
         .apple-footer .footer-links { display: flex; justify-content: center; flex-wrap: wrap; gap: 1.5rem; padding-bottom: 1.5rem; border-bottom: 1px solid #424245; margin-bottom: 1.5rem; }
-        .apple-footer .footer-links a, .apple-footer .footer-contact a {
-            color: #d2d2d7;
-            transition: color 0.2s, text-shadow 0.2s;
-            font-weight: 500;
-        }
-        .apple-footer .footer-links a:hover, .apple-footer .footer-contact a:hover {
-            color: white;
-            text-shadow: 0 0 10px var(--brand);
-        }
-        .apple-footer .footer-links a:active { text-shadow: 0 0 10px var(--brand); }
+        .apple-footer .footer-links a, .apple-footer .footer-contact a { color: #d2d2d7; transition: color 0.2s, text-shadow 0.2s; font-weight: 500; }
+        .apple-footer .footer-links a:hover, .apple-footer .footer-contact a:hover { color: white; text-shadow: 0 0 10px var(--brand); }
         .footer-social-icons a { display: inline-flex; align-items: center; justify-content: center; width: 36px; height: 36px; border-radius: 50%; background-color: #2c2c2e; transition: background-color 0.2s, box-shadow 0.2s; }
-        .apple-footer .social-link-icon { color: #d2d2d7; transition: color 0.2s ease-in-out; }
-        .apple-footer .social-link-icon:hover { color: white; }
-        .footer-social-icons a:hover { background-color: #3a3a3c; }
-        .footer-social-icons a:active { box-shadow: 0 0 12px 1px var(--brand); }
-        .apple-footer .copyright-text { color: #86868b; }
+        .apple-footer .social-link-icon { color: #d2d2d7; }
+        #project-details-container .section-title { font-size: 2.5rem; }
+        #project-gallery img { cursor: pointer; transition: opacity 0.3s ease; }
+        #project-gallery img:hover { opacity: 0.8; }
+
+        #lightbox { opacity: 0; visibility: hidden; transition: opacity 0.3s ease-in-out, visibility 0s linear 0.3s; }
+        #lightbox.active { opacity: 1; visibility: visible; transition: opacity 0.3s ease-in-out; }
+        #lightbox-image { transform: scale(0.9); transition: transform 0.3s ease-in-out; }
+        #lightbox.active #lightbox-image { transform: scale(1); }
     </style>
 </head>
 <body class="antialiased">
 
     <nav id="nav" class="nav">
+        <!-- YOUR FULL NAVBAR (WITH ARROWS RESTORED) -->
         <div class="nav-container">
-            <a href="index.html" class="logo-wrapper">
-                <img class="logo-img" src="assets/onespace.png" alt="ONESPACE Graphics logo"/>
-            </a>
+            <a href="index.html" class="logo-wrapper"><img class="logo-img" src="assets/onespace.png" alt="ONESPACE Graphics logo"/></a>
             <div class="menu-wrapper">
                 <menu class="menu">
                     <li><a href="index.html" class="nav-link">Home</a></li>
                     <li class="dropdown">
                         <a href="our-work.html" class="nav-link" aria-current="page">
                             Portfolio
-                            <svg class="dropdown-arrow" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="20" height="20" fill="currentColor">
-                                <path d="M12 15.0001L17.2929 9.70718L18.7071 11.1214L12 17.8285L5.29289 11.1214L6.70711 9.70718L12 15.0001Z"></path>
-                            </svg>
+                            <svg class="dropdown-arrow" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="20" height="20" fill="currentColor"><path d="M12 15.0001L17.2929 9.70718L18.7071 11.1214L12 17.8285L5.29289 11.1214L6.70711 9.70718L12 15.0001Z"></path></svg>
                         </a>
-                        <ul class="dropdown-menu">
-                            <li><a href="our-work.html#portfolio-apps">Apps</a></li>
-                            <li><a href="our-work.html#portfolio-websites">Websites</a></li>
-                            <li><a href="our-work.html#portfolio-designs">Designs</a></li>
-                        </ul>
+                        <ul class="dropdown-menu"><li><a href="#portfolio-apps">Apps</a></li><li><a href="#portfolio-websites">Websites</a></li><li><a href="#portfolio-designs">Designs</a></li></ul>
                     </li>
                     <li class="dropdown">
                         <a href="about.html" class="nav-link">
                             About Us
-                            <svg class="dropdown-arrow" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="20" height="20" fill="currentColor">
-                                <path d="M12 15.0001L17.2929 9.70718L18.7071 11.1214L12 17.8285L5.29289 11.1214L6.70711 9.70718L12 15.0001Z"></path>
-                            </svg>
+                            <svg class="dropdown-arrow" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="20" height="20" fill="currentColor"><path d="M12 15.0001L17.2929 9.70718L18.7071 11.1214L12 17.8285L5.29289 11.1214L6.70711 9.70718L12 15.0001Z"></path></svg>
                         </a>
-                        <ul class="dropdown-menu">
-                            <li><a href="about.html#our-mission">Our Mission</a></li>
-                            <li><a href="about.html#team">Team</a></li>
-                        </ul>
+                        <ul class="dropdown-menu"><li><a href="about.html#our-mission">Our Mission</a></li><li><a href="about.html#team">Team</a></li></ul>
                     </li>
                     <li><a href="services.html" class="nav-link">Services</a></li>
                     <li><a href="why-choose-us.html" class="nav-link">Why Choose Us</a></li>
                     <li><a href="contact.html" class="nav-link">Contact</a></li>
                 </menu>
             </div>
-            <button class="icon-btn close-btn" aria-label="Close Menu">
-                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="currentColor"><path d="M12.0007 10.5865L16.9504 5.63672L18.3646 7.05093L13.4149 12.0007L18.3646 16.9504L16.9504 18.3646L12.0007 13.4149L7.05093 18.3646L5.63672 16.9504L10.5865 12.0007L5.63672 7.05093L12.0007 10.5865Z"></path></svg>
-            </button>
-            <button class="icon-btn" aria-label="Open Menu">
-                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="24" height="24" fill="currentColor"><path d="M3 4H21V6H3V4ZM3 11H21V13H3V11ZM3 18H21V20H3V18Z"></path></svg>
-            </button>
+            <button class="icon-btn close-btn" aria-label="Close Menu"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="currentColor"><path d="M12.0007 10.5865L16.9504 5.63672L18.3646 7.05093L13.4149 12.0007L18.3646 16.9504L16.9504 18.3646L12.0007 13.4149L7.05093 18.3646L5.63672 16.9504L10.5865 12.0007L5.63672 7.05093L12.0007 10.5865Z"></path></svg></button>
+            <button class="icon-btn" aria-label="Open Menu"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="24" height="24" fill="currentColor"><path d="M3 4H21V6H3V4ZM3 11H21V13H3V11ZM3 18H21V20H3V18Z"></path></svg></button>
         </div>
     </nav>
 
-    <main class="main" id="main-content">
-        <section class="hero">
-            <div class="hero-visual">
-                <video class="hero-video" id="video1" muted playsinline>
-                    <source src="https://assets.mixkit.co/videos/preview/mixkit-creative-workplace-with-a-graphic-designer-44473-large.mp4" type="video/mp4"/>
-                </video>
-                <video class="hero-video" id="video2" muted playsinline>
-                    <source src="https://assets.mixkit.co/videos/preview/mixkit-a-man-working-in-a-call-center-at-his-desk-43958-large.mp4" type="video/mp4"/>
-                </video>
-                <video class="hero-video" id="video3" muted playsinline>
-                    <source src="https://assets.mixkit.co/videos/preview/mixkit-a-male-graphic-designer-working-on-his-computer-50797-large.mp4" type="video/mp4"/>
-                </video>
-            </div>
-            <div class="hero-content">
-                <header class="hero-header">
-                    <h1 class="headline1"><span class="text-brand">Our</span> Creative Works</h1>
-                    <p class="hero-intro">
-                        A curated showcase of our latest projects in graphic design, app & web development.
-                    </p>
-                    <div class="hero-actions-container">
-                        <a href="contact.html" class="button-link primary">Let's Connect</a>
-                        <a href="#portfolio-websites" aria-label="Scroll to content" class="button-link secondary">
-                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="currentColor">
-                                <path d="M13 16.1716L18.364 10.8076L19.7782 12.2218L12 20L4.2218 12.2218L5.63602 10.8076L11 16.1716V4H13V16.1716Z"></path>
-                            </svg>
-                        </a>
-                    </div>
-                </header>
-            </div>
-        </section>
+    <main id="main-content">
+        <div id="portfolio-grid-container">
+            <section class="hero">
+                <div class="hero-visual">
+                    <video class="hero-video" id="video1" muted playsinline><source src="https://assets.mixkit.co/videos/preview/mixkit-creative-workplace-with-a-graphic-designer-44473-large.mp4" type="video/mp4"/></video>
+                    <video class="hero-video" id="video2" muted playsinline><source src="https://assets.mixkit.co/videos/preview/mixkit-a-man-working-in-a-call-center-at-his-desk-43958-large.mp4" type="video/mp4"/></video>
+                    <video class="hero-video" id="video3" muted playsinline><source src="https://assets.mixkit.co/videos/preview/mixkit-a-male-graphic-designer-working-on-his-computer-50797-large.mp4" type="video/mp4"/></video>
+                </div>
+                <div class="hero-content">
+                    <header class="hero-header">
+                        <h1 class="headline1"><span class="text-brand">Our</span> Creative Works</h1>
+                        <p class="hero-intro">A curated showcase of our latest projects in graphic design, app & web development.</p>
+                        <div class="hero-actions-container">
+                            <a href="contact.html" class="button-link primary">Let's Connect</a>
+                            <a href="#portfolio-websites" aria-label="Scroll to content" class="button-link secondary"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="currentColor"><path d="M13 16.1716L18.364 10.8076L19.7782 12.2218L12 20L4.2218 12.2218L5.63602 10.8076L11 16.1716V4H13V16.1716Z"></path></svg></a>
+                        </div>
+                    </header>
+                </div>
+            </section>
 
-        <section id="portfolio-websites" class="section-container bg-[#0a0a0a] text-white">
-            <h2 class="section-title">Websites & <span class="text-brand">E-commerce</span></h2>
-            <p class="section-subtitle">
-                From sleek corporate sites to dynamic e-commerce platforms, we build stunning digital experiences that convert.
-            </p>
-            <div class="portfolio-grid">
-                <div class="portfolio-card">
-                    <img src="https://placehold.co/1000x800/86c33d/000?text=Website+Project+1" alt="Website Project 1" class="project-image">
-                    <div class="card-content">
-                        <div>
-                            <h3>Project Name 1</h3>
-                            <p>Web Development</p>
-                        </div>
-                        <a href="#" target="_blank" class="project-link" aria-label="Visit project website">
-                            Visit Site
-                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="currentColor">
-                                <path d="M10 6V8H5V19H16V14H18V20C18 20.5523 17.5523 21 17 21H4C3.44772 21 3 20.5523 3 20V7C3 6.44772 3.44772 6 4 6H10ZM21 3V11H19L19.0001 6.413L11.0711 14.343L9.65685 12.9288L17.5857 5H13V3H21Z"></path>
-                            </svg>
-                        </a>
-                    </div>
+            <section id="portfolio-websites" class="section-container bg-[#0a0a0a] text-white">
+                <h2 class="section-title">Websites & <span class="text-brand">E-commerce</span></h2>
+                <div class="portfolio-grid">
+                    <div class="portfolio-card"><img src="https://placehold.co/1000x800/86c33d/000?text=Website+Project+1" alt="Website Project 1" class="project-image"><div class="card-content"><h3>Project Name 1</h3><p>Web Development</p><a href="#" class="project-link" data-project-id="website1">View Details →</a></div></div>
+                    <div class="portfolio-card"><img src="https://placehold.co/1000x800/86c33d/000?text=E-commerce+Site" alt="E-commerce Website" class="project-image"><div class="card-content"><h3>Project Name 2</h3><p>E-commerce Site</p><a href="#" class="project-link" data-project-id="website2">View Details →</a></div></div>
+                    <div class="portfolio-card"><img src="https://placehold.co/1000x800/86c33d/000?text=Corporate+Website" alt="Corporate Website" class="project-image"><div class="card-content"><h3>Project Name 3</h3><p>Web Design & Development</p><a href="#" class="project-link" data-project-id="website3">View Details →</a></div></div>
                 </div>
-                <div class="portfolio-card">
-                    <img src="https://placehold.co/1000x800/86c33d/000?text=E-commerce+Site" alt="E-commerce Website" class="project-image">
-                    <div class="card-content">
-                        <div>
-                            <h3>Project Name 2</h3>
-                            <p>E-commerce Site</p>
-                        </div>
-                        <a href="#" target="_blank" class="project-link" aria-label="Visit project website">
-                            Visit Site
-                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="currentColor">
-                                <path d="M10 6V8H5V19H16V14H18V20C18 20.5523 17.5523 21 17 21H4C3.44772 21 3 20.5523 3 20V7C3 6.44772 3.44772 6 4 6H10ZM21 3V11H19L19.0001 6.413L11.0711 14.343L9.65685 12.9288L17.5857 5H13V3H21Z"></path>
-                            </svg>
-                        </a>
-                    </div>
-                </div>
-                <div class="portfolio-card">
-                    <img src="https://placehold.co/1000x800/86c33d/000?text=Corporate+Website" alt="Corporate Website" class="project-image">
-                    <div class="card-content">
-                        <div>
-                            <h3>Project Name 3</h3>
-                            <p>Web Design & Development</p>
-                        </div>
-                        <a href="#" target="_blank" class="project-link" aria-label="Visit project website">
-                            Visit Site
-                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="currentColor">
-                                <path d="M10 6V8H5V19H16V14H18V20C18 20.5523 17.5523 21 17 21H4C3.44772 21 3 20.5523 3 20V7C3 6.44772 3.44772 6 4 6H10ZM21 3V11H19L19.0001 6.413L11.0711 14.343L9.65685 12.9288L17.5857 5H13V3H21Z"></path>
-                            </svg>
-                        </a>
-                    </div>
-                </div>
-            </div>
-        </section>
+            </section>
 
-        <section id="portfolio-apps" class="section-container bg-[#0a0a0a] text-white">
-            <h2 class="section-title">Mobile <span class="text-brand">Apps</span></h2>
-            <p class="section-subtitle">
-                We craft intuitive and beautiful mobile applications that provide seamless user experiences.
-            </p>
-            <div class="portfolio-grid">
-                <div class="portfolio-card">
-                    <img src="https://placehold.co/1000x800/86c33d/000?text=App+UI+UX+1" alt="App UI/UX Project 1" class="project-image">
-                    <div class="card-content">
-                        <div>
-                            <h3>App Name 1</h3>
-                            <p>Mobile App Design</p>
-                        </div>
-                        <a href="#" target="_blank" class="project-link" aria-label="View project details">
-                            View Details
-                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="currentColor">
-                                <path d="M10 6V8H5V19H16V14H18V20C18 20.5523 17.5523 21 17 21H4C3.44772 21 3 20.5523 3 20V7C3 6.44772 3.44772 6 4 6H10ZM21 3V11H19L19.0001 6.413L11.0711 14.343L9.65685 12.9288L17.5857 5H13V3H21Z"></path>
-                            </svg>
-                        </a>
-                    </div>
+            <section id="portfolio-apps" class="section-container bg-[#0a0a0a] text-white">
+                <h2 class="section-title">Mobile <span class="text-brand">Apps</span></h2>
+                <div class="portfolio-grid">
+                    <div class="portfolio-card"><img src="https://placehold.co/1000x800/86c33d/000?text=App+UI+UX+1" alt="App UI/UX Project 1" class="project-image"><div class="card-content"><h3>App Name 1</h3><p>Mobile App Design</p><a href="#" class="project-link" data-project-id="app1">View Details →</a></div></div>
+                    <div class="portfolio-card"><img src="https://placehold.co/1000x800/86c33d/000?text=App+UI+UX+2" alt="App UI/UX Project 2" class="project-image"><div class="card-content"><h3>App Name 2</h3><p>App UI/UX</p><a href="#" class="project-link" data-project-id="app2">View Details →</a></div></div>
+                    <div class="portfolio-card"><img src="https://placehold.co/1000x800/86c33d/000?text=App+UI+UX+3" alt="App UI/UX Project 3" class="project-image"><div class="card-content"><h3>App Name 3</h3><p>Mobile App Development</p><a href="#" class="project-link" data-project-id="app3">View Details →</a></div></div>
                 </div>
-                <div class="portfolio-card">
-                    <img src="https://placehold.co/1000x800/86c33d/000?text=App+UI+UX+2" alt="App UI/UX Project 2" class="project-image">
-                    <div class="card-content">
-                        <div>
-                            <h3>App Name 2</h3>
-                            <p>App UI/UX</p>
-                        </div>
-                        <a href="#" target="_blank" class="project-link" aria-label="View project details">
-                            View Details
-                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="currentColor">
-                                <path d="M10 6V8H5V19H16V14H18V20C18 20.5523 17.5523 21 17 21H4C3.44772 21 3 20.5523 3 20V7C3 6.44772 3.44772 6 4 6H10ZM21 3V11H19L19.0001 6.413L11.0711 14.343L9.65685 12.9288L17.5857 5H13V3H21Z"></path>
-                            </svg>
-                        </a>
-                    </div>
-                </div>
-                <div class="portfolio-card">
-                    <img src="https://placehold.co/1000x800/86c33d/000?text=App+UI+UX+3" alt="App UI/UX Project 3" class="project-image">
-                    <div class="card-content">
-                        <div>
-                            <h3>App Name 3</h3>
-                            <p>Mobile App Development</p>
-                        </div>
-                        <a href="#" target="_blank" class="project-link" aria-label="View project details">
-                            View Details
-                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="currentColor">
-                                <path d="M10 6V8H5V19H16V14H18V20C18 20.5523 17.5523 21 17 21H4C3.44772 21 3 20.5523 3 20V7C3 6.44772 3.44772 6 4 6H10ZM21 3V11H19L19.0001 6.413L11.0711 14.343L9.65685 12.9288L17.5857 5H13V3H21Z"></path>
-                            </svg>
-                        </a>
-                    </div>
-                </div>
-            </div>
-        </section>
+            </section>
 
-        <section id="portfolio-designs" class="section-container bg-[#0a0a0a] text-white">
-            <h2 class="section-title">Graphic <span class="text-brand">Designs</span></h2>
-            <p class="section-subtitle">
-                From brand identity to marketing collateral, our designs are crafted to make a lasting impression.
-            </p>
-            <div class="portfolio-grid">
-                <div class="portfolio-card">
-                    <img src="https://placehold.co/1000x800/86c33d/000?text=Brand+Identity+Design" alt="Brand Identity Design" class="project-image">
-                    <div class="card-content">
-                        <div>
-                            <h3>Brand Identity</h3>
-                            <p>Logo & Branding</p>
-                        </div>
-                        <a href="#" target="_blank" class="project-link" aria-label="View project details">
-                            View Details
-                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="currentColor">
-                                <path d="M10 6V8H5V19H16V14H18V20C18 20.5523 17.5523 21 17 21H4C3.44772 21 3 20.5523 3 20V7C3 6.44772 3.44772 6 4 6H10ZM21 3V11H19L19.0001 6.413L11.0711 14.343L9.65685 12.9288L17.5857 5H13V3H21Z"></path>
-                            </svg>
-                        </a>
-                    </div>
+            <section id="portfolio-designs" class="section-container bg-[#0a0a0a] text-white">
+                <h2 class="section-title">Graphic <span class="text-brand">Designs</span></h2>
+                <div class="portfolio-grid">
+                    <div class="portfolio-card"><img src="https://placehold.co/1000x800/86c33d/000?text=Brand+Identity+Design" alt="Brand Identity Design" class="project-image"><div class="card-content"><h3>Brand Identity</h3><p>Logo & Branding</p><a href="#" class="project-link" data-project-id="design1">View Details →</a></div></div>
+                    <div class="portfolio-card"><img src="https://placehold.co/1000x800/86c33d/000?text=Social+Media+Post" alt="Social Media Design" class="project-image"><div class="card-content"><h3>SG Media & Networks</h3><a href="#" class="project-link" data-project-id="design2">View Details →</a></div></div>
+                    <div class="portfolio-card"><img src="https://placehold.co/1000x800/86c33d/000?text=Product+Packaging" alt="Product Packaging Design" class="project-image"><div class="card-content"><h3>Product Packaging</h3><p>Packaging & Label Design</p><a href="#" class="project-link" data-project-id="design3">View Details →</a></div></div>
                 </div>
-                <div class="portfolio-card">
-                    <img src="https://placehold.co/1000x800/86c33d/000?text=Social+Media+Post" alt="Social Media Design" class="project-image">
-                    <div class="card-content">
-                        <div>
-                            <h3>SG Media & Networks</h3>
-                        </div>
-                        <a href="project-detail.html" target="_blank" class="project-link" aria-label="View project details">
-                            View Details
-                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="currentColor">
-                                <path d="M10 6V8H5V19H16V14H18V20C18 20.5523 17.5523 21 17 21H4C3.44772 21 3 20.5523 3 20V7C3 6.44772 3.44772 6 4 6H10ZM21 3V11H19L19.0001 6.413L11.0711 14.343L9.65685 12.9288L17.5857 5H13V3H21Z"></path>
-                            </svg>
-                        </a>
-                    </div>
-                </div>
-                <div class="portfolio-card">
-                    <img src="https://placehold.co/1000x800/86c33d/000?text=Product+Packaging" alt="Product Packaging Design" class="project-image">
-                    <div class="card-content">
-                        <div>
-                            <h3>Product Packaging</h3>
-                            <p>Packaging & Label Design</p>
-                        </div>
-                        <a href="#" target="_blank" class="project-link" aria-label="View project details">
-                            View Details
-                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="currentColor">
-                                <path d="M10 6V8H5V19H16V14H18V20C18 20.5523 17.5523 21 17 21H4C3.44772 21 3 20.5523 3 20V7C3 6.44772 3.44772 6 4 6H10ZM21 3V11H19L19.0001 6.413L11.0711 14.343L9.65685 12.9288L17.5857 5H13V3H21Z"></path>
-                            </svg>
-                        </a>
-                    </div>
-                </div>
-            </div>
-        </section>
+            </section>
+        </div>
 
-    </main>
-
-    <footer class="apple-footer text-center">
-        <div class="container mx-auto max-w-5xl">
-            <div class="mb-6">
-                <a href="index.html" class="inline-block mb-6">
-                    <img src="assets/onespace.png" alt="OneSpace Graphics" class="h-10 w-auto">
-                </a>
-                <div class="footer-links hidden md:flex">
-                    <a href="index.html">Home</a><a href="our-work.html">Portfolio</a><a href="about.html">About Us</a><a href="services.html">Services</a><a href="why-choose-us.html">Why Choose Us</a><a href="contact.html">Contact</a>
-                </div>
-            </div>
-            <div class="flex flex-col md:flex-row justify-between items-center">
-                <div class="text-left mb-6 md:mb-0">
-                    <p class="copyright-text text-sm">© 2025 OneSpace Graphics. All rights reserved.</p>
-                </div>
-                <div class="footer-contact text-right">
-                    <div class="flex justify-end gap-3 mb-2 footer-social-icons">
-                        <a href="#" aria-label="Instagram"><i class="fab fa-instagram text-xl social-link-icon"></i></a>
-                        <a href="#" aria-label="LinkedIn"><i class="fab fa-linkedin-in text-xl social-link-icon"></i></a>
-                        <a href="#" aria-label="Pinterest"><i class="fab fa-pinterest text-xl social-link-icon"></i></a>
-                        <a href="#" aria-label="Facebook"><i class="fab fa-facebook-f text-xl social-link-icon"></i></a>
-                        <a href="mailto:info@onespacegraphics.com" aria-label="Gmail"><i class="fas fa-envelope text-xl social-link-icon"></i></a>
-                    </div>
-                    <a href="tel:+918072423318" class="block">+91 8072423318</a>
-                    <a href="tel:+916369435979" class="block">+91 6369435979</a>
+        <div id="project-details-container" class="section-container hidden">
+            <header class="mb-12 max-w-4xl mx-auto"><h1 id="project-title" class="headline1"></h1><p id="project-category" class="text-brand font-semibold text-xl"></p></header>
+            <figure class="mb-16"><img id="project-main-image" src="" alt="Project Main Image" class="w-full max-w-5xl mx-auto rounded-lg shadow-2xl"></figure>
+            <div class="max-w-4xl mx-auto text-left space-y-12">
+                <section><h2 class="section-title text-left mb-4 !text-4xl">Project Overview</h2><p id="project-overview" class="section-subtitle text-left !m-0 !max-w-none"></p></section>
+                <section><h2 class="section-title text-left mb-4 !text-4xl">Key Features</h2><ul id="project-features" class="list-disc list-inside section-subtitle text-left !m-0 !max-w-none space-y-2"></ul></section>
+                <section><h2 class="section-title text-center mb-8 !text-4xl">Project Gallery</h2><div id="project-gallery" class="grid grid-cols-1 md:grid-cols-2 gap-8"></div></section>
+                <div class="text-center flex flex-col sm:flex-row justify-center items-center gap-4 pt-8">
+                    <a id="project-live-link" href="#" target="_blank" rel="noopener noreferrer" class="button-link primary w-full sm:w-auto">Visit Live Site</a>
+                    <button id="back-to-portfolio" class="button-link secondary-alt w-full sm:w-auto">Back to Portfolio</button>
                 </div>
             </div>
         </div>
+    </main>
+
+    <footer class="apple-footer text-center">
+        <!-- Your Full Footer -->
+        <div class="container mx-auto max-w-5xl"><div class="mb-6"><a href="index.html" class="inline-block mb-6"><img src="assets/onespace.png" alt="OneSpace Graphics" class="h-10 w-auto"></a><div class="footer-links hidden md:flex"><a href="index.html">Home</a><a href="our-work.html">Portfolio</a><a href="about.html">About Us</a><a href="services.html">Services</a><a href="why-choose-us.html">Why Choose Us</a><a href="contact.html">Contact</a></div></div><div class="flex flex-col md:flex-row justify-between items-center"><div class="text-left mb-6 md:mb-0"><p class="copyright-text text-sm">© 2025 ONESPACE Graphics. All rights reserved.</p></div><div class="footer-contact text-right"><div class="flex justify-end gap-3 mb-2 footer-social-icons"><a href="#" aria-label="Instagram"><i class="fab fa-instagram text-xl social-link-icon"></i></a><a href="#" aria-label="LinkedIn"><i class="fab fa-linkedin-in text-xl social-link-icon"></i></a><a href="#" aria-label="Pinterest"><i class="fab fa-pinterest text-xl social-link-icon"></i></a><a href="#" aria-label="Facebook"><i class="fab fa-facebook-f text-xl social-link-icon"></i></a><a href="mailto:info@onespacegraphics.com" aria-label="Gmail"><i class="fas fa-envelope text-xl social-link-icon"></i></a></div><a href="tel:+918072423318" class="block">+91 8072423318</a><a href="tel:+916369435979" class="block">+91 6369435979</a></div></div></div>
     </footer>
+
+    <div id="lightbox" class="fixed inset-0 bg-black bg-opacity-90 z-[200] flex items-center justify-center p-4">
+        <button id="lightbox-close" class="absolute top-4 right-6 text-white text-5xl font-bold hover:text-gray-400 transition z-10">&times;</button>
+        <button id="lightbox-prev" class="absolute left-4 md:left-8 text-white text-5xl font-bold hover:text-gray-400 transition z-10">&#8249;</button>
+        <button id="lightbox-next" class="absolute right-4 md:right-8 text-white text-5xl font-bold hover:text-gray-400 transition z-10">&#8250;</button>
+        <div class="relative w-full h-full flex items-center justify-center"><img id="lightbox-image" src="" alt="Full-screen project image" class="max-w-full max-h-full object-contain"><div id="lightbox-counter" class="absolute bottom-6 text-white text-lg bg-black bg-opacity-50 px-2 rounded-md"></div></div>
+    </div>
 
     <script>
         document.addEventListener('DOMContentLoaded', () => {
-            // Mobile Nav functionality
+            // ORIGINAL SCRIPTS
             const nav = document.getElementById('nav');
             const openBtn = nav.querySelector('.icon-btn[aria-label="Open Menu"]');
             const closeBtn = nav.querySelector('.icon-btn[aria-label="Close Menu"]');
-            openBtn.addEventListener('click', () => { nav.classList.add('open'); });
-            closeBtn.addEventListener('click', () => { nav.classList.remove('open'); });
-
-            // Hero video loop
+            if (openBtn && closeBtn) {
+                openBtn.addEventListener('click', () => { nav.classList.add('open'); });
+                closeBtn.addEventListener('click', () => { nav.classList.remove('open'); });
+            }
             const videos = document.querySelectorAll('.hero-video');
             let currentVideoIndex = 0;
-            const videoDuration = 10000;
-            function playNextVideo() {
-                if (videos.length === 0) return;
-                videos.forEach(video => {
-                    video.classList.remove('active');
-                    video.pause();
-                });
-                const nextVideo = videos[currentVideoIndex];
-                nextVideo.classList.add('active');
-                nextVideo.play().catch(error => { console.warn("Video playback was interrupted:", error); });
-            }
-            function advanceVideo() {
-                currentVideoIndex = (currentVideoIndex + 1) % videos.length;
-                playNextVideo();
-            }
             if (videos.length > 0) {
+                const playNextVideo = () => {
+                    videos[currentVideoIndex].classList.remove('active');
+                    currentVideoIndex = (currentVideoIndex + 1) % videos.length;
+                    const nextVideo = videos[currentVideoIndex];
+                    nextVideo.classList.add('active');
+                    nextVideo.play().catch(e => console.warn("Video play failed:", e));
+                };
                 videos[0].addEventListener('canplaythrough', () => {
-                    playNextVideo();
-                    setInterval(advanceVideo, videoDuration);
+                    videos[0].classList.add('active');
+                    videos[0].play().catch(e => console.warn("Initial play failed:", e));
+                    setInterval(playNextVideo, 10000);
                 }, { once: true });
             }
-
-            // Scroll button functionality
-            const scrollBtn = document.querySelector('.button-link.secondary');
-            if (scrollBtn) {
-                scrollBtn.addEventListener('click', (e) => {
-                    e.preventDefault();
-                    document.querySelector('#portfolio-websites').scrollIntoView({ behavior: 'smooth' });
-                });
-            }
-
-            // Matte gradient motion animation following the cursor
             const body = document.body;
-            document.addEventListener('mousemove', (e) => {
-                const x = (e.clientX / window.innerWidth) * 100;
-                const y = (e.clientY / window.innerHeight) * 100;
-                body.style.setProperty('--cursor-x', `${x}%`);
-                body.style.setProperty('--cursor-y', `${y}%`);
-            });
+            document.addEventListener('mousemove', (e) => { body.style.setProperty('--cursor-x', `${(e.clientX / window.innerWidth) * 100}%`); body.style.setProperty('--cursor-y', `${(e.clientY / window.innerHeight) * 100}%`); });
+            const scrollBtn = document.querySelector('.button-link.secondary');
+            if (scrollBtn) { scrollBtn.addEventListener('click', (e) => { e.preventDefault(); document.querySelector('#portfolio-websites').scrollIntoView({ behavior: 'smooth' }); }); }
+
+            // PORTFOLIO AND LIGHTBOX LOGIC
+            const projectData = {
+                'website1':{title:"Project Name 1",category:"Web Development",mainImage:"https://placehold.co/1200x700/86c33d/000?text=Main+Image+1",overview:"This is the detailed description for Website Project 1...",features:["Fully Responsive Design","Custom CMS Integration"],gallery:["https://placehold.co/1000x800/86c33d/000?text=Gallery+1A","https://placehold.co/1000x800/86c33d/000?text=Gallery+1B","https://placehold.co/1000x800/86c33d/000?text=Gallery+1C"],liveLink:"#"},
+                'website2':{title:"Project Name 2",category:"E-commerce Site",mainImage:"https://placehold.co/1200x700/86c33d/000?text=Main+Image+2",overview:"We developed a robust e-commerce platform for Project Name 2...",features:["Secure Stripe & PayPal Integration","Customer Account Dashboard"],gallery:["https://placehold.co/1000x800/86c33d/000?text=Gallery+2A","https://placehold.co/1000x800/86c33d/000?text=Gallery+2B"],liveLink:"#"},
+                'website3':{title:"Project Name 3",category:"Web Design & Development",mainImage:"https://placehold.co/1200x700/86c33d/000?text=Main+Image+3",overview:"A complete design and development project...",features:["UI/UX Wireframing & Prototyping","Custom-built Theme"],gallery:["https://placehold.co/1000x800/86c33d/000?text=Gallery+3A","https://placehold.co/1000x800/86c33d/000?text=Gallery+3B"],liveLink:"#"},
+                'app1':{title:"App Name 1",category:"Mobile App Design",mainImage:"https://placehold.co/1200x700/86c33d/000?text=App+Image+1",overview:"This project involved a complete UI/UX overhaul...",features:["User Persona Research","Interactive Prototypes"],gallery:["https://placehold.co/1000x800/86c33d/000?text=App+Gallery+1A","https://placehold.co/1000x800/86c33d/000?text=App+Gallery+1B"],liveLink:"#"},
+                'app2':{title:"App Name 2",category:"App UI/UX",mainImage:"https://placehold.co/1200x700/86c33d/000?text=App+Image+2",overview:"A detailed UI/UX project for a new productivity application...",features:["Competitor Analysis","User Journey Mapping"],gallery:["https://placehold.co/1000x800/86c33d/000?text=App+Gallery+2A","https://placehold.co/1000x800/86c33d/000?text=App+Gallery+2B"],liveLink:null},
+                'app3':{title:"App Name 3",category:"Mobile App Development",mainImage:"https://placehold.co/1200x700/86c33d/000?text=App+Image+3",overview:"Full-stack development of a native mobile application...",features:["Native iOS (Swift) & Android (Kotlin)","Firebase Backend"],gallery:["https://placehold.co/1000x800/86c33d/000?text=App+Gallery+3A","https://placehold.co/1000x800/86c33d/000?text=App+Gallery+3B"],liveLink:"#"},
+                'design1':{title:"Brand Identity",category:"Logo & Branding",mainImage:"https://placehold.co/1200x700/86c33d/000?text=Design+Image+1",overview:"We crafted a comprehensive brand identity package...",features:["Logo Design & Variations","Brand Style Guide"],gallery:["https://placehold.co/1000x800/86c33d/000?text=Design+Gallery+1A","https://placehold.co/1000x800/86c33d/000?text=Design+Gallery+1B"],liveLink:null},
+                'design2':{title:"Social Media Kit",category:"Social Media Graphics",mainImage:"https://placehold.co/1200x700/86c33d/000?text=Design+Image+2",overview:"Designed a versatile and engaging social media kit...",features:["Editable Templates (PSD & Canva)","Consistent Brand Aesthetics"],gallery:["https://placehold.co/1000x800/86c33d/000?text=Design+Gallery+2A","https://placehold.co/1000x800/86c33d/000?text=Design+Gallery+2B"],liveLink:null},
+                'design3':{title:"Product Packaging",category:"Packaging & Label Design",mainImage:"https://placehold.co/1200x700/86c33d/000?text=Design+Image+3",overview:"Creative packaging and label design...",features:["Structural Packaging Design","3D Mockup Renders"],gallery:["https://placehold.co/1000x800/86c33d/000?text=Design+Gallery+3A","https://placehold.co/1000x800/86c33d/000?text=Design+Gallery+3B"],liveLink:null}
+            };
+
+            const portfolioContainer = document.getElementById('portfolio-grid-container');
+            const detailsContainer = document.getElementById('project-details-container');
+            const backButton = document.getElementById('back-to-portfolio');
+            let activeProjectId = null;
+
+            portfolioContainer.addEventListener('click', (e) => { const link = e.target.closest('.project-link'); if (link) { e.preventDefault(); showProjectDetails(link.dataset.projectId); } });
+            backButton.addEventListener('click', (e) => { e.preventDefault(); showPortfolioGrid(); });
+
+            function showProjectDetails(projectId) {
+                activeProjectId = projectId;
+                const project = projectData[projectId];
+                if (!project) return;
+                detailsContainer.querySelector('#project-title').textContent = project.title;
+                detailsContainer.querySelector('#project-category').textContent = project.category;
+                detailsContainer.querySelector('#project-main-image').src = project.mainImage;
+                detailsContainer.querySelector('#project-overview').textContent = project.overview;
+                const featuresList = detailsContainer.querySelector('#project-features');
+                featuresList.innerHTML = '';
+                project.features.forEach(text => { const li = document.createElement('li'); li.textContent = text; featuresList.appendChild(li); });
+                const gallery = detailsContainer.querySelector('#project-gallery');
+                gallery.innerHTML = '';
+                project.gallery.forEach((imgSrc, index) => { const img = document.createElement('img'); img.src = imgSrc; img.className = 'w-full h-auto rounded-lg object-cover shadow-lg'; img.dataset.index = index; gallery.appendChild(img); });
+                const liveLink = detailsContainer.querySelector('#project-live-link');
+                project.liveLink ? liveLink.classList.remove('hidden') : liveLink.classList.add('hidden');
+                if (project.liveLink) liveLink.href = project.liveLink;
+                portfolioContainer.classList.add('hidden');
+                detailsContainer.classList.remove('hidden');
+                window.scrollTo(0, 0);
+            }
+            function showPortfolioGrid() { activeProjectId = null; detailsContainer.classList.add('hidden'); portfolioContainer.classList.remove('hidden'); window.scrollTo(0, 0); }
+
+            const lightbox = document.getElementById('lightbox');
+            const lightboxImage = document.getElementById('lightbox-image');
+            const lightboxCounter = document.getElementById('lightbox-counter');
+            const projectGallery = document.getElementById('project-gallery');
+            let currentGalleryImages = [];
+            let currentImageIndex = 0;
+
+            projectGallery.addEventListener('click', e => { if (e.target.tagName === 'IMG' && activeProjectId) { currentGalleryImages = projectData[activeProjectId].gallery; currentImageIndex = parseInt(e.target.dataset.index); openLightbox(); } });
+
+            function openLightbox() { document.body.classList.add('lightbox-open'); updateLightboxImage(); lightbox.classList.add('active'); document.addEventListener('keydown', handleKeydown); }
+            function closeLightbox() { document.body.classList.remove('lightbox-open'); lightbox.classList.remove('active'); document.removeEventListener('keydown', handleKeydown); }
+            function updateLightboxImage() { lightboxImage.src = currentGalleryImages[currentImageIndex]; lightboxCounter.textContent = `${currentImageIndex + 1} / ${currentGalleryImages.length}`; }
+            function showNextImage() { currentImageIndex = (currentImageIndex + 1) % currentGalleryImages.length; updateLightboxImage(); }
+            function showPrevImage() { currentImageIndex = (currentImageIndex - 1 + currentGalleryImages.length) % currentGalleryImages.length; updateLightboxImage(); }
+            function handleKeydown(e) { if (e.key === 'Escape') closeLightbox(); if (e.key === 'ArrowRight') showNextImage(); if (e.key === 'ArrowLeft') showPrevImage(); }
+
+            document.getElementById('lightbox-close').addEventListener('click', closeLightbox);
+            document.getElementById('lightbox-next').addEventListener('click', showNextImage);
+            document.getElementById('lightbox-prev').addEventListener('click', showPrevImage);
         });
     </script>
 </body>
 </html>
-
-
-
