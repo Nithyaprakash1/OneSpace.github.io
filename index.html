@@ -113,13 +113,13 @@
             .nav.open .menu { display: flex; flex-direction: column; gap: 1.5rem; }
         }
         .close-btn { display: none; }
-        .dropdown { position: relative; }
+        .dropdown { position: relative; padding-bottom: 1rem; /* Invisible space to bridge the gap */ margin-bottom: -1rem; }
         .dropdown-menu {
-            display: none;
             opacity: 0;
-            transition: opacity 1.2s ease-in-out, transform 1.2s ease-in-out, visibility 1.2s ease-in-out;
             transform: translateY(10px);
             visibility: hidden;
+            pointer-events: none;
+            transition: opacity 0.4s ease, transform 0.4s ease, visibility 0.4s;
             position: absolute;
             top: 100%;
             left: 0;
@@ -128,14 +128,13 @@
             border-radius: 0.5rem;
             box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
             padding: 0.5rem 0;
-            margin-top: 0.5rem;
             z-index: 10;
         }
         .dropdown:hover .dropdown-menu {
-            display: block;
             opacity: 1;
-            visibility: visible;
             transform: translateY(0);
+            visibility: visible;
+            pointer-events: auto;
         }
         .dropdown-menu a { display: block; padding: 0.75rem 1rem; color: var(--text-invert); text-decoration: none; transition: background-color 0.2s ease; text-align: left; }
         .dropdown-menu a:hover { background-color: color-mix(in oklch, var(--brand), black 10%); }
@@ -323,8 +322,7 @@
         .testimonial-card blockquote { font-style: italic; font-size: 1.125rem; color: #e5e7eb; margin-bottom: 1rem; position: relative; }
         .testimonial-card blockquote::before { content: '“'; font-size: 4rem; color: var(--brand); position: absolute; top: -1.5rem; left: -1.5rem; opacity: 0.2; line-height: 1; }
         .testimonial-card .client-info { display: flex; align-items: center; gap: 1rem; margin-top: 1.5rem; }
-        .testimonial-card .client-logo { width: 120px; height: auto; display: block; filter: grayscale(100%); transition: filter 0.3s ease; }
-        .testimonial-card:hover .client-logo { filter: grayscale(0%); }
+        .testimonial-card .client-logo { width: 120px; height: auto; display: block; }
         .testimonial-card .client-details { text-align: left; }
         .testimonial-card .client-name { font-weight: bold; font-size: 1.125rem; }
         .testimonial-card .client-title { color: #9ca3af; font-size: 0.875rem; }
