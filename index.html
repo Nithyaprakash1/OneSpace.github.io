@@ -154,44 +154,44 @@
         .section-title { font-size: clamp(2.5rem, 6vw, 3rem); font-weight: 800; margin-bottom: 1rem; color: var(--text-1); }
         .section-subtitle { font-size: 1.125rem; color: #9ca3af; max-width: 60rem; margin-inline: auto; margin-bottom: 4rem; line-height: 1.7; }
 
-        /* --- UPDATED: Clients Section with infinite loop animation --- */
+        /* --- UPDATED: Clients Section --- */
         .client-logos-section {
             background-color: var(--surface-invert);
             padding: 4rem 1rem;
         }
-
         .logo-slider-container {
             overflow: hidden;
             width: 100%;
             -webkit-mask: linear-gradient(90deg, transparent, white 20%, white 80%, transparent);
             mask: linear-gradient(90deg, transparent, white 20%, white 80%, transparent);
         }
-
         .logo-track {
             display: flex;
-            width: calc((150px + 2rem) * 16); /* (Width + Margin) * Total Logos (8 originals + 8 clones) */
+            width: calc((150px + 2rem) * 16); /* (Width + Margin) * Total Logos */
             animation: scroll 16s linear infinite;
         }
-
         .logo-item {
             flex-shrink: 0;
             width: 150px;
             margin: 0 1rem;
         }
-
         .logo-item img {
             width: 100%;
             height: auto;
             display: block;
         }
-
         @keyframes scroll {
-            from {
-                transform: translateX(0);
-            }
-            to {
-                 /* Move by the width of the original 8 logos */
-                transform: translateX(calc(-1 * (150px + 2rem) * 8));
+            from { transform: translateX(0); }
+            to { transform: translateX(calc(-1 * (150px + 2rem) * 8)); }
+        }
+        /* Constrain client background on mobile */
+        @media (max-width: 767px) {
+            .client-logos-section {
+                margin-left: 1rem;
+                margin-right: 1rem;
+                border-radius: 1rem;
+                padding-top: 3rem;
+                padding-bottom: 3rem;
             }
         }
         /* --- End Clients Section --- */
@@ -306,23 +306,32 @@
             color: var(--brand);
         }
 
-        /* --- UPDATED: Testimonial Card Styles --- */
+        /* --- UPDATED: Testimonial Section & Card Styles --- */
+        #testimonials-section {
+            background-color: var(--surface-invert);
+        }
+        #testimonials-section .section-title {
+            color: var(--text-invert);
+        }
+        #testimonials-section .section-subtitle {
+            color: #4b5563;
+        }
+
         .testimonial-card {
+            background: #f9fafb; /* Light Grey BG */
             min-height: 380px;
             display: flex;
             flex-direction: column;
             justify-content: center;
-            background: rgba(255, 255, 255, 0.05);
             padding: 2.5rem;
             border-radius: 1rem;
             text-align: left;
-            border: 1px solid rgba(255, 255, 255, 0.1);
-            transition: transform 0.3s ease, background 0.3s ease, box-shadow 0.3s ease;
+            border: 1px solid #e5e7eb;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
         }
         .testimonial-card:hover {
             transform: translateY(-10px);
-            background: rgba(255, 255, 255, 0.1);
-            box-shadow: 0 10px 20px rgba(0,0,0,0.2);
+            box-shadow: 0 10px 20px rgba(0,0,0,0.07);
         }
         .testimonial-header {
             display: flex;
@@ -337,23 +346,40 @@
             object-fit: cover;
             border: 2px solid var(--brand);
         }
+        .testimonial-card .client-details {
+             text-align: left;
+        }
         .testimonial-card .client-name {
             font-weight: bold;
             font-size: 1.125rem;
             margin: 0;
+            color: #1f2937;
         }
         .testimonial-card .client-title {
-            color: #9ca3af;
+            color: #6b7280;
             font-size: 0.9rem;
             margin: 0;
         }
         .testimonial-card blockquote {
             font-size: 1.1rem;
-            color: #e5e7eb;
+            color: #374151;
             margin: 0;
             line-height: 1.6;
         }
+        /* Make slider buttons visible on white bg */
+        #testimonials-section .slider-btn {
+            background-color: rgba(0, 0, 0, 0.05);
+            color: #374151;
+            border: 1px solid rgba(0,0,0,0.1);
+        }
+        #testimonials-section .slider-btn:hover {
+            background-color: var(--brand);
+            border-color: var(--brand);
+            color: white;
+            transform: translateY(-50%) scale(1.1);
+        }
         /* --- End of Testimonial Styles --- */
+
 
         .apple-footer { background-color: black; color: #424245; font-size: 0.9rem; padding: 3rem 1.5rem; border-top: 1px solid #222; }
         .apple-footer .footer-links { display: flex; justify-content: center; flex-wrap: wrap; gap: 1.5rem; padding-bottom: 1.5rem; border-bottom: 1px solid #424245; margin-bottom: 1.5rem; }
@@ -448,7 +474,7 @@
             </div>
        </section>
        <section id="why-choose-us-section" class="section-container bg-black text-white"><h2 class="section-title">Why <span class="text-brand">Choose ONESPACE?</span></h2><p class="section-subtitle">We combine innovative design with strategic thinking to deliver impactful results that help your brand thrive.</p><div class="why-choose-us-grid"><div class="why-choose-us-card card-animation"><i class="fas fa-brain icon"></i><h3>Strategic Approach</h3><p>We solve problems. Every project is rooted in a deep understanding of your goals and audience to ensure measurable success.</p></div><div class="why-choose-us-card card-animation"><i class="fas fa-palette icon"></i><h3>Creative Excellence</h3><p>Our creatives are dedicated to pushing boundaries and delivering visually stunning work that captures attention and tells a compelling story.</p></div><div class="why-choose-us-card card-animation"><i class="fas fa-handshake icon"></i><h3>Client-Focused</h3><p>Your vision is our priority. We believe in collaborative partnerships, transparent communication, and a seamless process.</p></div></div></section>
-       <section id="testimonials-section" class="section-container bg-[#0a0a0a] text-white">
+       <section id="testimonials-section" class="section-container">
            <h2 class="section-title">What Our <span class="text-brand">Clients Say</span></h2>
            <p class="section-subtitle">Hear from the businesses and individuals who have trusted us to bring their creative visions to life.</p>
            <div class="slider-wrapper" id="testimonial-slider">
@@ -574,41 +600,61 @@
 
                 const track = slider.querySelector('.slider-track');
                 const slides = Array.from(track.children);
+                const slideCount = slides.length;
+
+                if (slideCount <= 1) {
+                    if(slider.querySelector('.next')) slider.querySelector('.next').style.display = 'none';
+                    if(slider.querySelector('.prev')) slider.querySelector('.prev').style.display = 'none';
+                    return;
+                }
 
                 // Clone slides to create a seamless loop
                 slides.forEach(slide => {
                     const clone = slide.cloneNode(true);
+                    clone.setAttribute('aria-hidden', 'true');
                     track.appendChild(clone);
                 });
 
                 const nextButton = slider.querySelector('.next');
                 const prevButton = slider.querySelector('.prev');
-                if (slides.length <= 1) {
-                    if (nextButton) nextButton.style.display = 'none';
-                    if (prevButton) prevButton.style.display = 'none';
-                    return;
-                }
-
                 let currentIndex = 0;
                 let slideInterval;
-                const updateSlidePosition = () => {
-                    track.style.transition = 'transform 0.5s ease-in-out';
-                    track.style.transform = 'translateX(' + (-currentIndex * 100) + '%)';
+
+                const updateSlidePosition = (animate = true) => {
+                    if (animate) {
+                        track.style.transition = 'transform 0.5s ease-in-out';
+                    } else {
+                        track.style.transition = 'none';
+                    }
+                    track.style.transform = `translateX(-${currentIndex * 100}%)`;
                 };
 
                 const moveToNextSlide = () => {
                     currentIndex++;
                     updateSlidePosition();
 
-                    // Reset to the beginning without animation for a seamless loop
-                    if (currentIndex === slides.length) {
+                    if (currentIndex === slideCount) {
                        setTimeout(() => {
-                           track.style.transition = 'none';
                            currentIndex = 0;
-                           track.style.transform = 'translateX(0)';
-                       }, 500); // Wait for the transition to finish
+                           updateSlidePosition(false);
+                       }, 500);
                     }
                 };
+
+                const moveToPrevSlide = () => {
+                    if (currentIndex === 0) {
+                        currentIndex = slideCount;
+                        updateSlidePosition(false);
+                        setTimeout(() => {
+                            currentIndex--;
+                            updateSlidePosition();
+                        }, 50);
+                    } else {
+                        currentIndex--;
+                        updateSlidePosition();
+                    }
+                };
+
 
                 const startSlideShow = () => {
                     stopSlideShow();
@@ -622,27 +668,20 @@
                 if (nextButton) {
                     nextButton.addEventListener('click', () => {
                         moveToNextSlide();
-                        stopSlideShow();
-                        startSlideShow();
+                        stopSlideShow(); // Optional: stop auto-slide on manual control
                     });
                 }
                 if (prevButton) {
                     prevButton.addEventListener('click', () => {
-                        if (currentIndex === 0) {
-                            track.style.transition = 'none';
-                            currentIndex = slides.length;
-                            track.style.transform = 'translateX(' + (-currentIndex * 100) + '%)';
-                        }
-                        setTimeout(() => {
-                           track.style.transition = 'transform 0.5s ease-in-out';
-                           currentIndex--;
-                           updateSlidePosition();
-                        }, 50);
-
-                        stopSlideShow();
-                        startSlideShow();
+                        moveToPrevSlide();
+                        stopSlideShow(); // Optional: stop auto-slide on manual control
                     });
                 }
+
+                // Restart slideshow on hover out
+                slider.addEventListener('mouseenter', stopSlideShow);
+                slider.addEventListener('mouseleave', startSlideShow);
+
                 startSlideShow();
             }
 
@@ -656,6 +695,8 @@
                 let maxHeight = 0;
                 slides.forEach(slide => {
                     slide.style.minHeight = 'auto'; // Reset before calculating
+                });
+                slides.forEach(slide => {
                     maxHeight = Math.max(maxHeight, slide.clientHeight);
                 });
 
@@ -667,14 +708,15 @@
             initializeSlider('work-slider', 5000);
             initializeSlider('testimonial-slider', 7000);
 
-            window.addEventListener('load', () => {
-                syncSliderHeights('testimonial-slider');
-            });
-
+            let resizeTimer;
             window.addEventListener('resize', () => {
-                syncSliderHeights('testimonial-slider');
+                clearTimeout(resizeTimer);
+                resizeTimer = setTimeout(() => {
+                     syncSliderHeights('testimonial-slider');
+                }, 250);
             });
-            // --- End of Slider Functionality ---
+            window.addEventListener('load', () => syncSliderHeights('testimonial-slider'));
+
         });
     </script>
 </body>
