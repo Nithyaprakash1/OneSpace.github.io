@@ -63,7 +63,7 @@
         .nav-link[aria-current="page"] { color: var(--brand); text-shadow: 0 0 10px var(--brand); }
         .icon-btn { display: none; color: var(--text-1); width: 2rem; height: 2rem; background-color: transparent; border: none; cursor: pointer; }
         @media (max-width: 1056px) { .menu-wrapper { display: none; } .nav:not(.open) .icon-btn[aria-label="Open Menu"] { display: block; } .nav.open .menu-wrapper { display: flex; flex-direction: column; position: fixed; top: 0; right: 0; height: 100vh; width: 300px; background-color: rgba(0, 0, 0, 0.95); backdrop-filter: blur(12px); justify-content: flex-start; padding-top: 5rem; transform: translateX(0); transition: transform 0.3s ease-in-out; } .nav:not(.open) .menu-wrapper { transform: translateX(100%); } .nav.open .close-btn { display: block; position: absolute; top: 2rem; right: 2rem; color: white; } .nav.open .menu { display: flex; flex-direction: column; gap: 1.5rem; } }
-        
+
         /* --- UPDATED: Dropdown Menu Animation --- */
         .dropdown { position: relative; padding-bottom: 1rem; margin-bottom: -1rem; }
         .dropdown-menu {
@@ -110,38 +110,36 @@
 
         /* --- UPDATED: Client Logos Section --- */
         .client-logos-section {
-            background-color: #0a0a0a;
-            padding: 4rem 0;
-            overflow: hidden;
-            position: relative;
+            background-color: var(--surface-invert);
+            padding: 4rem 1rem;
+        }
+        .client-logos-section .section-title {
+             color: var(--text-invert);
         }
         .logo-slider-container {
-            display: flex;
-            width: fit-content; /* Important for animation calculation */
-            animation: marquee 40s linear infinite;
+            overflow: hidden;
+            width: 100%;
+            -webkit-mask: linear-gradient(90deg, transparent, white 20%, white 80%, transparent);
+            mask: linear-gradient(90deg, transparent, white 20%, white 80%, transparent);
         }
-        .logo-slider-container:hover { animation-play-state: paused; }
-        .logo-item {
-            background-color: white;
-            border-radius: 0.75rem;
-            padding: 1rem;
-            margin: 0 1.5rem;
+        .logo-track {
             display: flex;
-            align-items: center;
-            justify-content: center;
+            width: calc((150px + 2rem) * 16);
+            animation: scroll 16s linear infinite;
+        }
+        .logo-item {
             flex-shrink: 0;
-            height: 90px;
-            width: 180px; /* Give items a fixed width */
-            box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+            width: 150px;
+            margin: 0 1rem;
         }
         .logo-item img {
-            max-height: 50px;
-            width: auto;
-            max-width: 100%;
+            width: 100%;
+            height: auto;
+            display: block;
         }
-        @keyframes marquee {
+        @keyframes scroll {
             from { transform: translateX(0); }
-            to { transform: translateX(-50%); }
+            to { transform: translateX(calc(-1 * (150px + 2rem) * 8)); }
         }
 
         /* --- UPDATED: Testimonials Section --- */
@@ -225,12 +223,8 @@
                     <li><a href="contact.html" class="nav-link">Contact</a></li>
                 </menu>
             </div>
-            <button class="icon-btn close-btn" aria-label="Close Menu">
-                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="currentColor"><path d="M12.0007 10.5865L16.9504 5.63672L18.3646 7.05093L13.4149 12.0007L18.3646 16.9504L16.9504 18.3646L12.0007 13.4149L7.05093 18.3646L5.63672 16.9504L10.5865 12.0007L5.63672 7.05093L7.05093 5.63672L12.0007 10.5865Z"></path></svg>
-            </button>
-            <button class="icon-btn" aria-label="Open Menu">
-                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="24" height="24" fill="currentColor"><path d="M3 4H21V6H3V4ZM3 11H21V13H3V11ZM3 18H21V20H3V18Z"></path></svg>
-            </button>
+            <button class="icon-btn close-btn" aria-label="Close Menu"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="currentColor"><path d="M12.0007 10.5865L16.9504 5.63672L18.3646 7.05093L13.4149 12.0007L18.3646 16.9504L16.9504 18.3646L12.0007 13.4149L7.05093 18.3646L5.63672 16.9504L10.5865 12.0007L5.63672 7.05093L7.05093 5.63672L12.0007 10.5865Z"></path></svg></button>
+            <button class="icon-btn" aria-label="Open Menu"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="24" height="24" fill="currentColor"><path d="M3 4H21V6H3V4ZM3 11H21V13H3V11ZM3 18H21V20H3V18Z"></path></svg></button>
         </div>
     </nav>
 
@@ -273,7 +267,7 @@
         </section>
 
         <section id="testimonials-section" class="section-container">
-            <h2 class="section-title">What Our <span class="text-brand">Clients</span> Say</h2>
+            <h2 class="section-title">What Our <span class="text-brand">Clients Say</span></h2>
             <p class="section-subtitle">Hear from the businesses we've helped grow and succeed.</p>
             <div class="testimonial-slider-container" id="testimonial-slider">
                 <div class="testimonial-slider-inner">
@@ -282,17 +276,16 @@
                             <img class="author-avatar" src="assets/Kpr.png" alt="K.P Ramaswamy">
                             <div>
                                 <p class="author-name">K.P Ramaswamy</p>
-                                <p class="author-title">Chairman of KPR</p>
+                                <p class="author-title">Chairman of KPRCAS</p>
                             </div>
                         </div>
-                        <blockquote>"Onespace Graphics did an outstanding job handling the complete branding for Yuganta-25 at KPRCAS... their team brought creativity, precision, and professionalism to every element... the results exceeded our expectations."</blockquote>
+                        <blockquote>"Onespace Graphics did an outstanding job... their team brought creativity, precision, and professionalism to every element. The visuals were vibrant, cohesive, and truly captured the spirit of our cultural event... the results exceeded our expectations."</blockquote>
                     </div>
                     <div class="testimonial-card">
                          <div class="testimonial-header">
                             <img class="author-avatar" src="assets/SRCAS.png" alt="SRCAS">
                             <div>
-                                <p class="author-name">SRCAS</p>
-                                <p class="author-title">Arts & Science College</p>
+                                <p class="author-name">Sri Ramakrishna College of Arts & Science</p>
                             </div>
                         </div>
                         <blockquote>"Onespace Graphics has been instrumental in developing three high-quality apps... Each app was delivered with excellent functionality, smooth user experience, and a clean, professional design. We’re thrilled with the results!"</blockquote>
@@ -319,23 +312,25 @@
         <section id="clients-section" class="client-logos-section">
             <h2 class="section-title text-2xl font-semibold mb-8 text-center">Our <span class="text-brand">Valuable Clients</span></h2>
             <div class="logo-slider-container">
-                <div class="logo-item"><img src="assets/SRCAS.svg" alt="SRCAS Logo"></div>
-                <div class="logo-item"><img src="assets/KPRCAS.svg" alt="KPRCAS Logo"></div>
-                <div class="logo-item"><img src="assets/FelicitaTiles.svg" alt="Felicita Tiles Logo"></div>
-                <div class="logo-item"><img src="assets/SGMediaWorks.svg" alt="SG Media Works Logo"></div>
-                <div class="logo-item"><img src="assets/ABWOALogo.png" alt="ABWOA Logo"></div>
-                <div class="logo-item"><img src="assets/DooDeelogo.png" alt="DooDee logo"></div>
-                <div class="logo-item"><img src="assets/PrasanaCarsLogo.png" alt="Prasana Cars Logo"></div>
-                <div class="logo-item"><img src="assets/shoespotlogo.png" alt="Shoe Spot Logo"></div>
-                <!-- Cloned Set -->
-                <div class="logo-item"><img src="assets/SRCAS.svg" alt="SRCAS Logo"></div>
-                <div class="logo-item"><img src="assets/KPRCAS.svg" alt="KPRCAS Logo"></div>
-                <div class="logo-item"><img src="assets/FelicitaTiles.svg" alt="Felicita Tiles Logo"></div>
-                <div class="logo-item"><img src="assets/SGMediaWorks.svg" alt="SG Media Works Logo"></div>
-                <div class="logo-item"><img src="assets/ABWOALogo.png" alt="ABWOA Logo"></div>
-                <div class="logo-item"><img src="assets/DooDeelogo.png" alt="DooDee logo"></div>
-                <div class="logo-item"><img src="assets/PrasanaCarsLogo.png" alt="Prasana Cars Logo"></div>
-                <div class="logo-item"><img src="assets/shoespotlogo.png" alt="Shoe Spot Logo"></div>
+                <div class="logo-track">
+                    <div class="logo-item"><img src="assets/SRCAS.svg" alt="SRCAS Logo"></div>
+                    <div class="logo-item"><img src="assets/KPRCAS.svg" alt="KPRCAS Logo"></div>
+                    <div class="logo-item"><img src="assets/FelicitaTiles.svg" alt="Felicita Tiles Logo"></div>
+                    <div class="logo-item"><img src="assets/SGMediaWorks.svg" alt="SG Media Works Logo"></div>
+                    <div class="logo-item"><img src="assets/ABWOALogo.png" alt="ABWOA Logo"></div>
+                    <div class="logo-item"><img src="assets/DooDeelogo.png" alt="DooDee logo"></div>
+                    <div class="logo-item"><img src="assets/PrasanaCarsLogo.png" alt="Prasana Cars Logo"></div>
+                    <div class="logo-item"><img src="assets/shoespotlogo.png" alt="Shoe Spot Logo"></div>
+                    <!-- Cloned Set for seamless loop -->
+                    <div class="logo-item"><img src="assets/SRCAS.svg" alt="SRCAS Logo"></div>
+                    <div class="logo-item"><img src="assets/KPRCAS.svg" alt="KPRCAS Logo"></div>
+                    <div class="logo-item"><img src="assets/FelicitaTiles.svg" alt="Felicita Tiles Logo"></div>
+                    <div class="logo-item"><img src="assets/SGMediaWorks.svg" alt="SG Media Works Logo"></div>
+                    <div class="logo-item"><img src="assets/ABWOALogo.png" alt="ABWOA Logo"></div>
+                    <div class="logo-item"><img src="assets/DooDeelogo.png" alt="DooDee logo"></div>
+                    <div class="logo-item"><img src="assets/PrasanaCarsLogo.png" alt="Prasana Cars Logo"></div>
+                    <div class="logo-item"><img src="assets/shoespotlogo.png" alt="Shoe Spot Logo"></div>
+                </div>
             </div>
         </section>
 
