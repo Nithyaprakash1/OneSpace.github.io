@@ -154,27 +154,29 @@
         .section-title { font-size: clamp(2.5rem, 6vw, 3rem); font-weight: 800; margin-bottom: 1rem; color: var(--text-1); }
         .section-subtitle { font-size: 1.125rem; color: #9ca3af; max-width: 60rem; margin-inline: auto; margin-bottom: 4rem; line-height: 1.7; }
 
-        /* Clients Section with animation */
+        /* --- UPDATED: Clients Section with infinite loop animation --- */
         .client-logos-section {
             background-color: var(--surface-invert);
             padding: 4rem 1rem;
         }
 
         .logo-slider-container {
-            display: flex;
-            justify-content: flex-start;
-            align-items: center;
             overflow: hidden;
             width: 100%;
             -webkit-mask: linear-gradient(90deg, transparent, white 20%, white 80%, transparent);
             mask: linear-gradient(90deg, transparent, white 20%, white 80%, transparent);
         }
 
+        .logo-track {
+            display: flex;
+            width: calc((150px + 2rem) * 16); /* (Width + Margin) * Total Logos */
+            animation: scroll 16s linear infinite;
+        }
+
         .logo-item {
             flex-shrink: 0;
             width: 150px;
             margin: 0 1rem;
-            animation: scroll 12s linear infinite;
         }
 
         .logo-item img {
@@ -188,10 +190,11 @@
                 transform: translateX(0);
             }
             to {
-                transform: translateX(-100%);
+                 /* Move by the width of the original 8 logos */
+                transform: translateX(calc(-1 * (150px + 2rem) * 8));
             }
         }
-        /* End Clients Section */
+        /* --- End Clients Section --- */
 
         .slider-wrapper { position: relative; max-width: 1200px; margin: 0 auto; overflow: hidden; }
         .slider-track { display: flex; transition: transform 0.5s ease-in-out; align-items: center; }
@@ -397,21 +400,26 @@
        <section id="clients-section" class="client-logos-section">
             <h2 class="section-title text-2xl font-semibold mb-8 text-center" style="color: black;">Our <span class="text-brand">Valuable Clients</span></h2>
             <div class="logo-slider-container">
-                <div class="logo-item"><img src="assets/SRCAS.svg" alt="SRCAS Logo"></div>
-                <div class="logo-item"><img src="assets/KPRCAS.svg" alt="KPRCAS Logo"></div>
-                <div class="logo-item"><img src="assets/FelicitaTiles.svg" alt="Felicita Tiles Logo"></div>
-                <div class="logo-item"><img src="assets/SGMediaWorks.svg" alt="SG Media Works Logo"></div>
-                <div class="logo-item"><img src="assets/ABWOALogo.png" alt="ABWOA Logo"></div>
-                <div class="logo-item"><img src="assets/DooDeelogo.png" alt="DooDee logo"></div>
-                <div class="logo-item"><img src="assets/PrasanaCarsLogo.png" alt="Prasana Cars Logo"></div>
-                <!-- Cloned Logos for seamless animation -->
-                <div class="logo-item"><img src="assets/SRCAS.svg" alt="SRCAS Logo"></div>
-                <div class="logo-item"><img src="assets/KPRCAS.svg" alt="KPRCAS Logo"></div>
-                <div class="logo-item"><img src="assets/FelicitaTiles.svg" alt="Felicita Tiles Logo"></div>
-                <div class="logo-item"><img src="assets/SGMediaWorks.svg" alt="SG Media Works Logo"></div>
-                <div class="logo-item"><img src="assets/ABWOALogo.png" alt="ABWOA Logo"></div>
-                <div class="logo-item"><img src="assets/DooDeelogo.png" alt="DooDee logo"></div>
-                <div class="logo-item"><img src="assets/PrasanaCarsLogo.png" alt="Prasana Cars Logo"></div>
+                <div class="logo-track">
+                    <!-- Original Set -->
+                    <div class="logo-item"><img src="assets/SRCAS.svg" alt="SRCAS Logo"></div>
+                    <div class="logo-item"><img src="assets/KPRCAS.svg" alt="KPRCAS Logo"></div>
+                    <div class="logo-item"><img src="assets/FelicitaTiles.svg" alt="Felicita Tiles Logo"></div>
+                    <div class="logo-item"><img src="assets/SGMediaWorks.svg" alt="SG Media Works Logo"></div>
+                    <div class="logo-item"><img src="assets/ABWOALogo.png" alt="ABWOA Logo"></div>
+                    <div class="logo-item"><img src="assets/DooDeelogo.png" alt="DooDee logo"></div>
+                    <div class="logo-item"><img src="assets/PrasanaCarsLogo.png" alt="Prasana Cars Logo"></div>
+                    <div class="logo-item"><img src="assets/shoespotlogo.png" alt="Shoe Spot Logo"></div>
+                    <!-- Cloned Set for seamless loop -->
+                    <div class="logo-item"><img src="assets/SRCAS.svg" alt="SRCAS Logo"></div>
+                    <div class="logo-item"><img src="assets/KPRCAS.svg" alt="KPRCAS Logo"></div>
+                    <div class="logo-item"><img src="assets/FelicitaTiles.svg" alt="Felicita Tiles Logo"></div>
+                    <div class="logo-item"><img src="assets/SGMediaWorks.svg" alt="SG Media Works Logo"></div>
+                    <div class="logo-item"><img src="assets/ABWOALogo.png" alt="ABWOA Logo"></div>
+                    <div class="logo-item"><img src="assets/DooDeelogo.png" alt="DooDee logo"></div>
+                    <div class="logo-item"><img src="assets/PrasanaCarsLogo.png" alt="Prasana Cars Logo"></div>
+                    <div class="logo-item"><img src="assets/shoespotlogo.png" alt="Shoe Spot Logo"></div>
+                </div>
             </div>
        </section>
        <section id="why-choose-us-section" class="section-container bg-black text-white"><h2 class="section-title">Why <span class="text-brand">Choose ONESPACE?</span></h2><p class="section-subtitle">We combine innovative design with strategic thinking to deliver impactful results that help your brand thrive.</p><div class="why-choose-us-grid"><div class="why-choose-us-card card-animation"><i class="fas fa-brain icon"></i><h3>Strategic Approach</h3><p>We solve problems. Every project is rooted in a deep understanding of your goals and audience to ensure measurable success.</p></div><div class="why-choose-us-card card-animation"><i class="fas fa-palette icon"></i><h3>Creative Excellence</h3><p>Our creatives are dedicated to pushing boundaries and delivering visually stunning work that captures attention and tells a compelling story.</p></div><div class="why-choose-us-card card-animation"><i class="fas fa-handshake icon"></i><h3>Client-Focused</h3><p>Your vision is our priority. We believe in collaborative partnerships, transparent communication, and a seamless process.</p></div></div></section>
