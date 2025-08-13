@@ -200,7 +200,7 @@
         /* --- General Section & Card Styles --- */
         .section-container { padding: 6rem 1rem; text-align: center; }
         .section-title { font-size: clamp(2.5rem, 6vw, 3rem); font-weight: 800; margin-bottom: 1rem; color: var(--text-1); }
-        .section-subtitle { font-size: 1.125rem; color: #9ca3af; max-w: 56rem; margin-inline: auto; margin-bottom: 4rem; line-height: 1.7; }
+        .section-subtitle { font-size: 1.125rem; color: #9ca3af; max-width: 56rem; margin-inline: auto; margin-bottom: 4rem; line-height: 1.7; }
 
         /* --- Services Card Grid --- */
         .services-grid {
@@ -261,19 +261,19 @@
         .client-logos-section::after { right: 0; background: linear-gradient(to left, black, rgba(0,0,0,0)); }
         .logo-slider-container {
             display: flex;
-            animation: marquee 30s linear infinite; /* Slower animation for larger logos */
+            animation: marquee 30s linear infinite;
         }
         .logo-slider-container:hover { animation-play-state: paused; }
         .logo-item {
             display: flex;
             align-items: center;
             justify-content: center;
-            padding: 0 4rem; /* More space between logos */
+            padding: 0 4rem;
             flex-shrink: 0;
             height: 100px;
         }
         .logo-item img {
-            max-height: 180px; /* Increased logo size */
+            max-height: 180px;
             width: auto;
             transition: transform 0.3s ease;
         }
@@ -521,42 +521,32 @@
             <div class="testimonial-slider-container" id="testimonial-slider">
                 <div class="testimonial-slider-inner">
                     <div class="testimonial-card">
-                        <blockquote>"OneSpace Graphics completely transformed our brand identity. The new logo and marketing materials are modern, professional, and perfectly capture our company's mission. Their team was a pleasure to work with, and their attention to detail was exceptional."</blockquote>
+                        <blockquote>"Onespace Graphics did an outstanding job handling the complete branding for Yuganta-25 at KPRCAS. From conceptualization to execution, their team brought creativity, precision, and professionalism to every element. The visuals were vibrant, cohesive, and truly captured the spirit of our cultural event. Working with them made the entire process seamless, and the results exceeded our expectations."</blockquote>
                         <div class="author-info">
-                            <img class="author-avatar" src="https://placehold.co/50x50/374151/e5e7eb?text=J" alt="John Doe">
+                            <img class="author-avatar" src="assets/Kpr.png" alt="K.P Ramaswamy">
                             <div>
-                                <p class="author-name">John Doe</p>
-                                <p class="author-title">CEO, Innovate Solutions</p>
+                                <p class="author-name">K.P Ramaswamy</p>
+                                <p class="author-title">Chairman of KPR</p>
                             </div>
                         </div>
                     </div>
                     <div class="testimonial-card">
-                        <blockquote>"We hired OneSpace to design our new e-commerce website, and the results exceeded our expectations. The user experience is seamless, and the design is stunning. We've seen a significant increase in conversions since the launch."</blockquote>
+                        <blockquote>"Onespace Graphics has been instrumental in developing three high-quality apps for Sri Ramakrishna College of Arts & Science. Each app was delivered with excellent functionality, smooth user experience, and a clean, professional design. Their team was responsive, detail-oriented, and ensured that our vision was perfectly translated into the final product. We’re thrilled with the results and look forward to working with them on future projects!"</blockquote>
                         <div class="author-info">
-                            <img class="author-avatar" src="https://placehold.co/50x50/111827/e5e7eb?text=A" alt="Alice Williams">
+                            <img class="author-avatar" src="assets/SRCAS.png" alt="SRCAS">
                             <div>
-                                <p class="author-name">Alice Williams</p>
-                                <p class="author-title">Marketing Director, Global Gear Co.</p>
+                                <p class="author-name">SRCAS</p>
+                                <p class="author-title">Arts & Science College</p>
                             </div>
                         </div>
                     </div>
                     <div class="testimonial-card">
-                        <blockquote>"The team at OneSpace is top-notch. Their content creation for our social media campaigns was fresh and engaging, and they handled all aspects of our media planning with professionalism and expertise. Highly recommend their services!"</blockquote>
+                        <blockquote>"Onespace Graphics turned our ideas into reality for SG Productions! Their team brought energy, creativity, and flawless execution to the table. Every detail was crafted with care, making the final output truly stand out. Working with them was seamless, inspiring, and absolutely worth it!"</blockquote>
                         <div class="author-info">
-                            <img class="author-avatar" src="https://placehold.co/50x50/4b5563/e5e7eb?text=S" alt="Sarah Chen">
+                            <img class="author-avatar" src="assets/SGMediaWorks.svg" alt="Sathiyamurthy">
                             <div>
-                                <p class="author-name">Sarah Chen</p>
-                                <p class="author-title">Founder, TechWave</p>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="testimonial-card">
-                        <blockquote>"Working with OneSpace was a fantastic experience. They delivered high-quality design work on time and within budget. The new brand guidelines have been a game-changer for our internal and external communications."</blockquote>
-                        <div class="author-info">
-                            <img class="author-avatar" src="https://placehold.co/50x50/1f2937/e5e7eb?text=M" alt="Michael Brown">
-                            <div>
-                                <p class="author-name">Michael Brown</p>
-                                <p class="author-title">Creative Lead, BrandSphere</p>
+                                <p class="author-name">Sathiyamurthy</p>
+                                <p class="author-title">Founder of SG Productions</p>
                             </div>
                         </div>
                     </div>
@@ -570,16 +560,25 @@
         </section>
 
         <section id="clients-section" class="client-logos-section">
-            <h2 class="section-title text-2xl font-semibold mb-8 text-center">Our <span class="text-brand">Clients</span></h2>
+            <h2 class="section-title text-2xl font-semibold mb-8 text-center">Our <span class="text-brand">Valuable Clients</span></h2>
             <div class="logo-slider-container">
+                <!-- Duplicated for seamless loop -->
                 <div class="logo-item"><img src="assets/SRCAS.svg" alt="SRCAS Logo"></div>
                 <div class="logo-item"><img src="assets/KPRCAS.svg" alt="KPRCAS Logo"></div>
                 <div class="logo-item"><img src="assets/FelicitaTiles.svg" alt="Felicita Tiles Logo"></div>
                 <div class="logo-item"><img src="assets/SGMediaWorks.svg" alt="SG Media Works Logo"></div>
+                <div class="logo-item"><img src="assets/ABWOALogo.png" alt="ABWOA Logo"></div>
+                <div class="logo-item"><img src="assets/DooDeelogo.png" alt="DooDee logo"></div>
+                <div class="logo-item"><img src="assets/PrasanaCarsLogo.png" alt="Prasana Cars Logo"></div>
+                <div class="logo-item"><img src="assets/shoespotlogo.png" alt="Shoe Spot Logo"></div>
                 <div class="logo-item"><img src="assets/SRCAS.svg" alt="SRCAS Logo"></div>
                 <div class="logo-item"><img src="assets/KPRCAS.svg" alt="KPRCAS Logo"></div>
                 <div class="logo-item"><img src="assets/FelicitaTiles.svg" alt="Felicita Tiles Logo"></div>
                 <div class="logo-item"><img src="assets/SGMediaWorks.svg" alt="SG Media Works Logo"></div>
+                <div class="logo-item"><img src="assets/ABWOALogo.png" alt="ABWOA Logo"></div>
+                <div class="logo-item"><img src="assets/DooDeelogo.png" alt="DooDee logo"></div>
+                <div class="logo-item"><img src="assets/PrasanaCarsLogo.png" alt="Prasana Cars Logo"></div>
+                <div class="logo-item"><img src="assets/shoespotlogo.png" alt="Shoe Spot Logo"></div>
             </div>
         </section>
 
@@ -716,4 +715,3 @@
     </script>
 </body>
 </html>
-
