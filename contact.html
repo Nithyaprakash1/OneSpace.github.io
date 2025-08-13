@@ -1,575 +1,576 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Contact Us - OneSpace Graphics</title>
-    <link rel="icon" type="image/x-icon" href="assets/onespacegraphics.ico">
-    <script src="https://cdn.tailwindcss.com"></script>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css" crossorigin="anonymous" referrerpolicy="no-referrer" />
-    <style>
-        :root {
-            --brand: #86c33d;
-            --surface-1: #0A0A0A;
-            --surface-invert: white;
-            --text-1: white;
-            --text-invert: black;
-            --headline1-font-size: clamp(2.5rem, 5vw, 4.5rem);
-            --nav-block-size: 100px;
-            --space-md: 1rem;
-            --space-lg: 1.75rem;
-            --border-thin: 1px;
-        }
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Contact Us - OneSpace Graphics</title>
+  <link rel="icon" type="image/x-icon" href="assets/onespacegraphics.ico">
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css" crossorigin="anonymous" referrerpolicy="no-referrer" />
+  <style>
+    :root {
+      --brand: #86c33d;
+      --surface-1: #0A0A0A;
+      --surface-invert: white;
+      --text-1: white;
+      --text-invert: black;
+      --headline1-font-size: clamp(2.5rem, 5vw, 4.5rem);
+      --nav-block-size: 100px;
+      --space-md: 1rem;
+      --space-lg: 1.75rem;
+      --border-thin: 1px;
+    }
 
-        body {
-            font-family: 'Inter', sans-serif;
-            -webkit-font-smoothing: antialiased;
-            background-color: var(--surface-1);
-            color: var(--text-1);
-            min-height: 100vh;
-            display: flex;
-            flex-direction: column;
-            overflow-x: hidden;
-            position: relative;
-            cursor: default;
-        }
+    body {
+      font-family: 'Inter', sans-serif;
+      -webkit-font-smoothing: antialiased;
+      background-color: var(--surface-1);
+      color: var(--text-1);
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      overflow-x: hidden;
+      position: relative;
+      cursor: default;
+    }
 
-        /* Matte Gradient Cursor Effect */
-        #cursor-gradient {
-            position: fixed;
-            top: 0;
-            left: 0;
-            pointer-events: none;
-            width: 800px;
-            height: 800px;
-            border-radius: 50%;
-            background: radial-gradient(circle, rgba(134, 195, 61, 0.25) 0%, rgba(134, 195, 61, 0) 60%);
-            filter: blur(120px);
-            z-index: -1;
-            transition: transform 0.15s ease-out;
-        }
-
-
-        #main-content { flex-grow: 1; }
-        .text-brand { color: var(--brand); }
-
-        .button-link {
-            display: inline-block;
-            text-decoration: none;
-            font-weight: 700;
-            font-size: 1.1rem;
-            padding: 0.8em 2em;
-            border-radius: 9999px;
-            transition: background-color 0.3s ease, transform 0.2s ease;
-            cursor: pointer;
-            border: none;
-        }
-        .button-link.primary {
-            background-color: var(--brand);
-            color: var(--text-invert);
-        }
-        .button-link.primary:hover {
-            background-color: color-mix(in oklch, var(--brand), black 15%);
-            transform: scale(1.05);
-        }
-        .button-link.secondary {
-            background-color: transparent;
-            color: var(--text-1);
-            border: 2px solid var(--brand);
-            padding: 0.8em 1em;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            width: 60px;
-            height: 60px;
-            border-radius: 50%;
-            transition: background-color 0.3s ease, transform 0.2s ease, box-shadow 0.3s ease;
-        }
-        .button-link.secondary:hover {
-            background-color: var(--brand);
-            color: var(--text-invert);
-            box-shadow: 0 0 15px var(--brand);
-            transform: scale(1.05);
-        }
-
-        .nav {
-            display: grid;
-            place-items: center;
-            position: fixed;
-            width: 100%;
-            z-index: 100;
-            background-color: rgba(0, 0, 0, 0.8);
-            backdrop-filter: blur(8px);
-        }
-        .nav-container {
-            display: grid;
-            grid-auto-flow: column;
-            justify-content: space-between;
-            place-items: center;
-            min-height: var(--nav-block-size);
-            width: min(100%, 1656px);
-            padding: 0 var(--space-lg);
-        }
-        .logo-wrapper { justify-self: start; width: 4rem; }
-        .logo-img { width: 100%; height: auto; display: block; }
-        .menu-wrapper { display: grid; grid-auto-flow: column; place-items: center; gap: var(--space-lg); }
-        .menu { display: grid; grid-auto-flow: column; gap: var(--space-lg); list-style: none; padding: 0; margin: 0; }
-        .nav-link { text-decoration: none; color: var(--text-1); font-size: 1rem; padding: 0.5rem 0; transition: color 0.3s, text-shadow 0.2s; display: flex; align-items: center; gap: 0.25rem; }
-        .nav-link:hover { color: var(--brand); }
-        .nav-link:active { text-shadow: 0 0 10px var(--brand); }
-        .nav-link[aria-current="page"] { color: var(--brand); text-shadow: 0 0 10px var(--brand); }
-        .icon-btn { display: none; color: var(--text-1); width: 2rem; height: 2rem; background-color: transparent; border: none; cursor: pointer; }
-
-        @media (max-width: 1056px) {
-            .menu-wrapper { display: none; }
-            .nav:not(.open) .icon-btn[aria-label="Open Menu"] { display: block; }
-            .nav:not(.open) .close-btn { display: none; }
-            .nav.open .menu-wrapper {
-                display: flex;
-                flex-direction: column;
-                position: fixed;
-                top: 0;
-                right: 0;
-                height: 100vh;
-                width: 300px;
-                background-color: rgba(0, 0, 0, 0.95);
-                backdrop-filter: blur(12px);
-                justify-content: flex-start;
-                padding-top: 5rem;
-                transform: translateX(0);
-                transition: transform 0.3s ease-in-out;
-            }
-            .nav:not(.open) .menu-wrapper { transform: translateX(100%); }
-            .nav.open .icon-btn[aria-label="Open Menu"] { display: none; }
-            .nav.open .close-btn {
-                display: block;
-                position: absolute;
-                top: 2rem;
-                right: 2rem;
-                color: white;
-            }
-            .nav.open .menu { display: flex; flex-direction: column; gap: 1.5rem; }
-        }
-        .close-btn { display: none; }
-
-        .dropdown { position: relative; }
-        .dropdown-menu {
-            display: none; opacity: 0; transform: translateY(10px);
-            transition: opacity 0.3s ease-in-out, transform 0.3s ease-in-out, visibility 0.3s ease-in-out;
-            visibility: hidden; position: absolute; top: 100%; left: 0;
-            background-color: var(--brand); min-width: 150px; border-radius: 0.5rem;
-            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); padding: 0.5rem 0;
-            margin-top: 0.5rem; z-index: 10;
-        }
-        .dropdown:hover .dropdown-menu { display: block; opacity: 1; visibility: visible; transform: translateY(0); }
-        .dropdown-menu a {
-            display: block; padding: 0.75rem 1rem; color: var(--text-invert); text-decoration: none;
-            transition: background-color 0.2s ease; text-align: left;
-        }
-        .dropdown-menu a:hover { background-color: color-mix(in oklch, var(--brand), black 10%); }
-        .dropdown-arrow { transition: transform 0.2s ease-in-out; color: white; }
-        .dropdown:hover .dropdown-arrow { transform: rotate(180deg); }
-
-        .hero { position: relative; min-height: 60vh; display: grid; place-items: center; text-align: center; padding-top: var(--nav-block-size); background-image: linear-gradient(-45deg, #0a0a0a, #121812, #0a0a0a, #86c33d); background-size: 200% 200%; background-position: center; animation: gradient-animation 15s ease infinite; }
-        .hero-content { position: relative; z-index: 1; padding: var(--space-md); max-width: 900px; }
-        .headline1 { font-size: var(--headline1-font-size); font-weight: 800; color: white; margin-bottom: 1rem; line-height: 1.2; }
-        .hero-intro { font-size: 1.25rem; color: #e5e7eb; max-width: 700px; margin: 0 auto 2.5rem; line-height: 1.6; }
-        @keyframes gradient-animation {
-            0% { background-position: 0% 50%; }
-            50% { background-position: 100% 50%; }
-            100% { background-position: 0% 50%; }
-        }
-
-        .section-container { padding: 6rem 1rem; text-align: center; }
-        .section-title { font-size: 3rem; font-weight: 800; margin-bottom: 1rem; color: var(--text-1); }
-        .section-subtitle { font-size: 1.125rem; color: #9ca3af; max-width: 56rem; margin-inline: auto; margin-bottom: 4rem; line-height: 1.7; }
-        
-        /* Responsive Adjustments */
-        @media (max-width: 768px) {
-            .section-title { font-size: 2.5rem; }
-            .section-subtitle { font-size: 1rem; }
-        }
-
-        @media (max-width: 640px) {
-            .hero {
-                min-height: 70vh; /* Taller hero on phones */
-            }
-            .hero-intro {
-                font-size: 1.1rem; /* Better font size for mobile */
-                max-width: 95%;
-            }
-        }
+    /* Matte Gradient Cursor Effect */
+    #cursor-gradient {
+      position: fixed;
+      top: 0;
+      left: 0;
+      pointer-events: none;
+      width: 800px;
+      height: 800px;
+      border-radius: 50%;
+      background: radial-gradient(circle, rgba(134, 195, 61, 0.25) 0%, rgba(134, 195, 61, 0) 60%);
+      filter: blur(120px);
+      z-index: -1;
+      transition: transform 0.15s ease-out;
+    }
 
 
-        /* New Responsive Contact Card Styles */
-        .contact-card-container {
-            max-width: 50rem;
-            margin: 0 auto 2.5rem;
-            padding: 1.5rem;
-            background-color: rgba(255, 255, 255, 0.05);
-            border: 1px solid rgba(255, 255, 255, 0.1);
-            border-radius: 1.5rem;
-            backdrop-filter: blur(5px);
-            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
-            transform-style: preserve-3d;
-            transition: transform 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275);
-        }
-        .contact-card {
-            display: flex;
-            flex-direction: column; /* Stacks items vertically by default */
-            justify-content: center;
-            align-items: center;
-            gap: 1.5rem;
-        }
-        @media (min-width: 640px) { /* On screens wider than 640px, switch to a row layout */
-            .contact-card {
-                flex-direction: row;
-                align-items: stretch;
-            }
-        }
-        .contact-card-item {
-            flex: 1;
-            width: 100%; /* Ensures full width on mobile */
-            padding: 1.5rem;
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-            align-items: center;
-            text-align: center;
-        }
-        .contact-card-item h3 {
-            font-size: 1.5rem;
-            font-weight: 700;
-            color: white;
-            margin-top: 1rem;
-            margin-bottom: 0.5rem;
-        }
-        .contact-card-item p {
-            font-size: 1rem;
-            color: #d1d5db;
-        }
-        .card-separator {
-            width: 100%;
-            height: 1px;
-            background-color: rgba(255, 255, 255, 0.1);
-        }
-        @media (min-width: 640px) { /* On screens wider than 640px, change separator orientation */
-            .card-separator {
-                width: 1px;
-                height: auto;
-            }
-        }
-        .contact-card-item svg {
-            width: 3.5rem;
-            height: 3.5rem;
-            color: var(--brand);
-        }
+    #main-content { flex-grow: 1; }
+    .text-brand { color: var(--brand); }
 
-        .social-icons-hero-wrapper {
-            display: flex;
-            justify-content: center;
-            gap: 1.5rem;
-            margin-bottom: 2.5rem;
-        }
-        .social-icon-btn {
-            display: inline-flex;
-            align-items: center;
-            justify-content: center;
-            width: 3.5rem;
-            height: 3.5rem;
-            border-radius: 50%;
-            background-color: transparent;
-            border: 2px solid rgba(134, 195, 61, 0.5);
-            color: var(--brand);
-            font-size: 1.5rem;
-            transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
-        }
-        .social-icon-btn:hover {
-            background-color: var(--brand);
-            color: var(--text-invert);
-            box-shadow: 0 0 25px var(--brand);
-            transform: translateY(-5px) scale(1.1);
-        }
+    .button-link {
+      display: inline-block;
+      text-decoration: none;
+      font-weight: 700;
+      font-size: 1.1rem;
+      padding: 0.8em 2em;
+      border-radius: 9999px;
+      transition: background-color 0.3s ease, transform 0.2s ease;
+      cursor: pointer;
+      border: none;
+    }
+    .button-link.primary {
+      background-color: var(--brand);
+      color: var(--text-invert);
+    }
+    .button-link.primary:hover {
+      background-color: color-mix(in oklch, var(--brand), black 15%);
+      transform: scale(1.05);
+    }
+    .button-link.secondary {
+      background-color: transparent;
+      color: var(--text-1);
+      border: 2px solid var(--brand);
+      padding: 0.8em 1em;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      width: 60px;
+      height: 60px;
+      border-radius: 50%;
+      transition: background-color 0.3s ease, transform 0.2s ease, box-shadow 0.3s ease;
+    }
+    .button-link.secondary:hover {
+      background-color: var(--brand);
+      color: var(--text-invert);
+      box-shadow: 0 0 15px var(--brand);
+      transform: scale(1.05);
+    }
 
-        .contact-form {
-            background-color: rgba(255, 255, 255, 0.05);
-            border: 1px solid rgba(255, 255, 255, 0.1);
-            border-radius: 1rem;
-            padding: 3rem;
-            max-width: 800px;
-            margin: 0 auto;
-            text-align: left;
-            backdrop-filter: blur(5px);
-            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
-            transform-style: preserve-3d;
-            transition: transform 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275);
-        }
-        .form-group { margin-bottom: 1.5rem; }
-        .form-label { display: block; margin-bottom: 0.5rem; color: #e5e7eb; font-weight: 500; }
-        .form-input, .form-textarea {
-            width: 100%; padding: 0.75rem; border-radius: 0.5rem;
-            border: 1px solid rgba(255, 255, 255, 0.2);
-            background-color: rgba(0, 0, 0, 0.3); color: white;
-            font-size: 1rem; transition: border-color 0.3s, box-shadow 0.3s;
-        }
-        .form-input:focus, .form-textarea:focus {
-            outline: none; border-color: var(--brand);
-            box-shadow: 0 0 0 3px rgba(134, 195, 61, 0.5), 0 0 15px rgba(134, 195, 61, 0.5);
-        }
-        .form-textarea { min-height: 150px; resize: vertical; }
-        .submit-button {
-            width: 100%; padding: 1rem; background-color: var(--brand);
-            color: var(--text-invert); font-weight: 700; font-size: 1.1rem;
-            border-radius: 0.5rem; border: none; cursor: pointer;
-            transition: background-color 0.3s, transform 0.2s, box-shadow 0.3s;
-        }
-        .submit-button:hover {
-            background-color: color-mix(in oklch, var(--brand), black 15%);
-            transform: translateY(-2px); box-shadow: 0 5px 15px rgba(134, 195, 61, 0.4);
-        }
+    .nav {
+      display: grid;
+      place-items: center;
+      position: fixed;
+      width: 100%;
+      z-index: 100;
+      background-color: rgba(0, 0, 0, 0.8);
+      backdrop-filter: blur(8px);
+    }
+    .nav-container {
+      display: grid;
+      grid-auto-flow: column;
+      justify-content: space-between;
+      place-items: center;
+      min-height: var(--nav-block-size);
+      width: min(100%, 1656px);
+      padding: 0 var(--space-lg);
+    }
+    .logo-wrapper { justify-self: start; width: 4rem; }
+    .logo-img { width: 100%; height: auto; display: block; }
+    .menu-wrapper { display: grid; grid-auto-flow: column; place-items: center; gap: var(--space-lg); }
+    .menu { display: grid; grid-auto-flow: column; gap: var(--space-lg); list-style: none; padding: 0; margin: 0; }
+    .nav-link { text-decoration: none; color: var(--text-1); font-size: 1rem; padding: 0.5rem 0; transition: color 0.3s, text-shadow 0.2s; display: flex; align-items: center; gap: 0.25rem; }
+    .nav-link:hover { color: var(--brand); }
+    .nav-link:active { text-shadow: 0 0 10px var(--brand); }
+    .nav-link[aria-current="page"] { color: var(--brand); text-shadow: 0 0 10px var(--brand); }
+    .icon-btn { display: none; color: var(--text-1); width: 2rem; height: 2rem; background-color: transparent; border: none; cursor: pointer; }
 
-        .apple-footer { background-color: black; color: #424245; font-size: 0.9rem; padding: 3rem 1.5rem; }
-        .apple-footer .footer-links { display: flex; justify-content: center; flex-wrap: wrap; gap: 1.5rem; padding-bottom: 1.5rem; border-bottom: 1px solid #424245; margin-bottom: 1.5rem; }
-        .apple-footer .footer-links a, .apple-footer .footer-contact a {
-            color: #d2d2d7; transition: color 0.2s, text-shadow 0.2s; font-weight: 500;
-        }
-        .apple-footer .footer-links a:hover, .apple-footer .footer-contact a:hover {
-            color: white; text-shadow: 0 0 10px var(--brand);
-        }
-        .apple-footer .footer-links a:active { text-shadow: 0 0 10px var(--brand); }
-        .footer-social-icons a { display: inline-flex; align-items: center; justify-content: center; width: 36px; height: 36px; border-radius: 50%; background-color: #2c2c2e; transition: background-color 0.2s, box-shadow 0.2s, transform 0.3s; }
-        .apple-footer .social-link-icon { color: #d2d2d7; transition: color 0.2s ease-in-out; }
-        .footer-social-icons a:hover { transform: scale(1.1); }
-        .apple-footer .social-link-icon:hover { color: white; }
-        .apple-footer .social-link-icon:active { box-shadow: 0 0 12px 1px var(--brand); }
-        .apple-footer .copyright-text { color: #86868b; }
+    @media (max-width: 1056px) {
+      .menu-wrapper { display: none; }
+      .nav:not(.open) .icon-btn[aria-label="Open Menu"] { display: block; }
+      .nav:not(.open) .close-btn { display: none; }
+      .nav.open .menu-wrapper {
+        display: flex;
+        flex-direction: column;
+        position: fixed;
+        top: 0;
+        right: 0;
+        height: 100vh;
+        width: 300px;
+        background-color: rgba(0, 0, 0, 0.95);
+        backdrop-filter: blur(12px);
+        justify-content: flex-start;
+        padding-top: 5rem;
+        transform: translateX(0);
+        transition: transform 0.3s ease-in-out;
+      }
+      .nav:not(.open) .menu-wrapper { transform: translateX(100%); }
+      .nav.open .icon-btn[aria-label="Open Menu"] { display: none; }
+      .nav.open .close-btn {
+        display: block;
+        position: absolute;
+        top: 2rem;
+        right: 2rem;
+        color: white;
+      }
+      .nav.open .menu { display: flex; flex-direction: column; gap: 1.5rem; }
+    }
+    .close-btn { display: none; }
 
-        /* Staggered Animation Base State */
-        .animated-child {
-            opacity: 0;
-            transform: translateY(30px);
-            transition: opacity 0.6s cubic-bezier(0.175, 0.885, 0.32, 1.275), transform 0.6s cubic-bezier(0.175, 0.885, 0.32, 1.275);
-            will-change: opacity, transform;
-        }
+    .dropdown { position: relative; }
+    .dropdown-menu {
+      display: none; opacity: 0; transform: translateY(10px);
+      transition: opacity 0.3s ease-in-out, transform 0.3s ease-in-out, visibility 0.3s ease-in-out;
+      visibility: hidden; position: absolute; top: 100%; left: 0;
+      background-color: var(--brand); min-width: 150px; border-radius: 0.5rem;
+      box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); padding: 0.5rem 0;
+      margin-top: 0.5rem; z-index: 10;
+    }
+    .dropdown:hover .dropdown-menu { display: block; opacity: 1; visibility: visible; transform: translateY(0); }
+    .dropdown-menu a {
+      display: block; padding: 0.75rem 1rem; color: var(--text-invert); text-decoration: none;
+      transition: background-color 0.2s ease; text-align: left;
+    }
+    .dropdown-menu a:hover { background-color: color-mix(in oklch, var(--brand), black 10%); }
+    .dropdown-arrow { transition: transform 0.2s ease-in-out; color: white; }
+    .dropdown:hover .dropdown-arrow { transform: rotate(180deg); }
 
-        .animated-child.is-visible {
-            opacity: 1;
-            transform: translateY(0);
-        }
+    .hero { position: relative; min-height: 60vh; display: grid; place-items: center; text-align: center; padding-top: var(--nav-block-size); background-image: linear-gradient(-45deg, #0a0a0a, #121812, #0a0a0a, #86c33d); background-size: 200% 200%; background-position: center; animation: gradient-animation 15s ease infinite; }
+    .hero-content { position: relative; z-index: 1; padding: var(--space-md); max-width: 900px; }
+    .headline1 { font-size: var(--headline1-font-size); font-weight: 800; color: white; margin-bottom: 1rem; line-height: 1.2; }
+    .hero-intro { font-size: 1.25rem; color: #e5e7eb; max-width: 700px; margin: 0 auto 2.5rem; line-height: 1.6; }
+    @keyframes gradient-animation {
+      0% { background-position: 0% 50%; }
+      50% { background-position: 100% 50%; }
+      100% { background-position: 0% 50%; }
+    }
 
-    </style>
+    .section-container { padding: 6rem 1rem; text-align: center; }
+    .section-title { font-size: 3rem; font-weight: 800; margin-bottom: 1rem; color: var(--text-1); }
+    .section-subtitle { font-size: 1.125rem; color: #9ca3af; max-width: 56rem; margin-inline: auto; margin-bottom: 4rem; line-height: 1.7; }
+   
+    /* Responsive Adjustments */
+    @media (max-width: 768px) {
+      .section-title { font-size: 2.5rem; }
+      .section-subtitle { font-size: 1rem; }
+    }
+
+    @media (max-width: 640px) {
+      .hero {
+        min-height: 70vh; /* Taller hero on phones */
+      }
+      .hero-intro {
+        font-size: 1.1rem; /* Better font size for mobile */
+        max-width: 95%;
+      }
+    }
+
+
+    /* New Responsive Contact Card Styles */
+    .contact-card-container {
+      max-width: 50rem;
+      margin: 0 auto 2.5rem;
+      padding: 1.5rem;
+      background-color: rgba(255, 255, 255, 0.05);
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      border-radius: 1.5rem;
+      backdrop-filter: blur(5px);
+      box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
+      transform-style: preserve-3d;
+      transition: transform 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+    }
+    .contact-card {
+      display: flex;
+      flex-direction: column; /* Stacks items vertically by default */
+      justify-content: center;
+      align-items: center;
+      gap: 1.5rem;
+    }
+    @media (min-width: 640px) { /* On screens wider than 640px, switch to a row layout */
+      .contact-card {
+        flex-direction: row;
+        align-items: stretch;
+      }
+    }
+    .contact-card-item {
+      flex: 1;
+      width: 100%; /* Ensures full width on mobile */
+      padding: 1.5rem;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      text-align: center;
+    }
+    .contact-card-item h3 {
+      font-size: 1.5rem;
+      font-weight: 700;
+      color: white;
+      margin-top: 1rem;
+      margin-bottom: 0.5rem;
+    }
+    .contact-card-item p {
+      font-size: 1rem;
+      color: #d1d5db;
+    }
+    .card-separator {
+      width: 100%;
+      height: 1px;
+      background-color: rgba(255, 255, 255, 0.1);
+    }
+    @media (min-width: 640px) { /* On screens wider than 640px, change separator orientation */
+      .card-separator {
+        width: 1px;
+        height: auto;
+      }
+    }
+    .contact-card-item svg {
+      width: 3.5rem;
+      height: 3.5rem;
+      color: var(--brand);
+    }
+
+    .social-icons-hero-wrapper {
+      display: flex;
+      justify-content: center;
+      gap: 1.5rem;
+      margin-bottom: 2.5rem;
+    }
+    .social-icon-btn {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      width: 3.5rem;
+      height: 3.5rem;
+      border-radius: 50%;
+      background-color: transparent;
+      border: 2px solid rgba(134, 195, 61, 0.5);
+      color: var(--brand);
+      font-size: 1.5rem;
+      transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+    }
+    .social-icon-btn:hover {
+      background-color: var(--brand);
+      color: var(--text-invert);
+      box-shadow: 0 0 25px var(--brand);
+      transform: translateY(-5px) scale(1.1);
+    }
+
+    .contact-form {
+      background-color: rgba(255, 255, 255, 0.05);
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      border-radius: 1rem;
+      padding: 3rem;
+      max-width: 800px;
+      margin: 0 auto;
+      text-align: left;
+      backdrop-filter: blur(5px);
+      box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
+      transform-style: preserve-3d;
+      transition: transform 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+    }
+    .form-group { margin-bottom: 1.5rem; }
+    .form-label { display: block; margin-bottom: 0.5rem; color: #e5e7eb; font-weight: 500; }
+    .form-input, .form-textarea {
+      width: 100%; padding: 0.75rem; border-radius: 0.5rem;
+      border: 1px solid rgba(255, 255, 255, 0.2);
+      background-color: rgba(0, 0, 0, 0.3); color: white;
+      font-size: 1rem; transition: border-color 0.3s, box-shadow 0.3s;
+    }
+    .form-input:focus, .form-textarea:focus {
+      outline: none; border-color: var(--brand);
+      box-shadow: 0 0 0 3px rgba(134, 195, 61, 0.5), 0 0 15px rgba(134, 195, 61, 0.5);
+    }
+    .form-textarea { min-height: 150px; resize: vertical; }
+    .submit-button {
+      width: 100%; padding: 1rem; background-color: var(--brand);
+      color: var(--text-invert); font-weight: 700; font-size: 1.1rem;
+      border-radius: 0.5rem; border: none; cursor: pointer;
+      transition: background-color 0.3s, transform 0.2s, box-shadow 0.3s;
+    }
+    .submit-button:hover {
+      background-color: color-mix(in oklch, var(--brand), black 15%);
+      transform: translateY(-2px); box-shadow: 0 5px 15px rgba(134, 195, 61, 0.4);
+    }
+
+    .apple-footer { background-color: black; color: #424245; font-size: 0.9rem; padding: 3rem 1.5rem; }
+    .apple-footer .footer-links { display: flex; justify-content: center; flex-wrap: wrap; gap: 1.5rem; padding-bottom: 1.5rem; border-bottom: 1px solid #424245; margin-bottom: 1.5rem; }
+    .apple-footer .footer-links a, .apple-footer .footer-contact a {
+      color: #d2d2d7; transition: color 0.2s, text-shadow 0.2s; font-weight: 500;
+    }
+    .apple-footer .footer-links a:hover, .apple-footer .footer-contact a:hover {
+      color: white; text-shadow: 0 0 10px var(--brand);
+    }
+    .apple-footer .footer-links a:active { text-shadow: 0 0 10px var(--brand); }
+    .footer-social-icons a { display: inline-flex; align-items: center; justify-content: center; width: 36px; height: 36px; border-radius: 50%; background-color: #2c2c2e; transition: background-color 0.2s, box-shadow 0.2s, transform 0.3s; }
+    .apple-footer .social-link-icon { color: #d2d2d7; transition: color 0.2s ease-in-out; }
+    .footer-social-icons a:hover { transform: scale(1.1); }
+    .apple-footer .social-link-icon:hover { color: white; }
+    .apple-footer .social-link-icon:active { box-shadow: 0 0 12px 1px var(--brand); }
+    .apple-footer .copyright-text { color: #86868b; }
+
+    /* Staggered Animation Base State */
+    .animated-child {
+      opacity: 0;
+      transform: translateY(30px);
+      transition: opacity 0.6s cubic-bezier(0.175, 0.885, 0.32, 1.275), transform 0.6s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+      will-change: opacity, transform;
+    }
+
+    .animated-child.is-visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+  </style>
 </head>
 <body class="antialiased">
-    <div id="cursor-gradient"></div>
+  <div id="cursor-gradient"></div>
 
-    <nav id="nav" class="nav">
-        <div class="nav-container">
-            <a href="index.html" class="logo-wrapper">
-                <img class="logo-img" src="assets/onespace.png" alt="OneSpace Graphics logo"/>
+  <nav id="nav" class="nav">
+    <div class="nav-container">
+      <a href="index.html" class="logo-wrapper">
+        <img class="logo-img" src="assets/onespace.png" alt="OneSpace Graphics logo"/>
+      </a>
+      <div class="menu-wrapper">
+        <menu class="menu">
+          <li><a href="index.html" class="nav-link">Home</a></li>
+          <li class="dropdown">
+            <a href="our-work.html" class="nav-link">
+              Portfolio
+              <svg class="dropdown-arrow" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="20" height="20" fill="currentColor"><path d="M12 15.0001L17.2929 9.70718L18.7071 11.1214L12 17.8285L5.29289 11.1214L6.70711 9.70718L12 15.0001Z"></path></svg>
             </a>
-            <div class="menu-wrapper">
-                <menu class="menu">
-                    <li><a href="index.html" class="nav-link">Home</a></li>
-                    <li class="dropdown">
-                        <a href="our-work.html" class="nav-link">
-                            Portfolio
-                            <svg class="dropdown-arrow" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="20" height="20" fill="currentColor"><path d="M12 15.0001L17.2929 9.70718L18.7071 11.1214L12 17.8285L5.29289 11.1214L6.70711 9.70718L12 15.0001Z"></path></svg>
-                        </a>
-                        <ul class="dropdown-menu">
-                            <li><a href="our-work.html#app-projects">Apps</a></li>
-                            <li><a href="our-work.html#website-projects">Websites</a></li>
-                            <li><a href="our-work.html#design-projects">Designs</a></li>
-                        </ul>
-                    </li>
-                    <li class="dropdown">
-                        <a href="about.html" class="nav-link">
-                            About Us
-                            <svg class="dropdown-arrow" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="20" height="20" fill="currentColor"><path d="M12 15.0001L17.2929 9.70718L18.7071 11.1214L12 17.8285L5.29289 11.1214L6.70711 9.70718L12 15.0001Z"></path></svg>
-                        </a>
-                        <ul class="dropdown-menu">
-                            <li><a href="about.html#mission-section">Our Mission</a></li>
-                            <li><a href="about.html#team-section">Team</a></li>
-                        </ul>
-                    </li>
-                    <li><a href="services.html" class="nav-link">Services</a></li>
-                    <li><a href="why-choose-us.html" class="nav-link">Why Choose Us</a></li>
-                    <li><a href="contact.html" class="nav-link" aria-current="page">Contact</a></li>
-                </menu>
-            </div>
-            <button class="icon-btn close-btn" aria-label="Close Menu">
-                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="currentColor"><path d="M12.0007 10.5865L16.9504 5.63672L18.3646 7.05093L13.4149 12.0007L18.3646 16.9504L16.9504 18.3646L12.0007 13.4149L7.05093 18.3646L5.63672 16.9504L10.5865 12.0007L5.63672 7.05093L7.05093 5.63672L12.0007 10.5865Z"></path></svg>
-            </button>
-            <button class="icon-btn" aria-label="Open Menu">
-                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="24" height="24" fill="currentColor"><path d="M3 4H21V6H3V4ZM3 11H21V13H3V11ZM3 18H21V20H3V18Z"></path></svg>
-            </button>
-        </div>
-    </nav>
-
-    <main class="main" id="main-content">
-        <section class="hero animation-container">
-            <div class="hero-content">
-                <h1 class="headline1 animated-child">Get in <span class="text-brand">touch with us</span></h1>
-                <p class="hero-intro animated-child">
-                    We'd love to hear from you! Whether you have questions, need support, or want to discuss a project, feel free to reach out.
-                </p>
-                <div class="social-icons-hero-wrapper animated-child">
-                    <a href="https://www.instagram.com/onespace_graphics" aria-label="Instagram" class="social-icon-btn"><i class="fab fa-instagram"></i></a>
-                    <a href="https://linkedin.com/company/onespacegraphics" aria-label="LinkedIn" class="social-icon-btn"><i class="fab fa-linkedin-in"></i></a>
-                    <a href="https://pinterest.com/onespacegraphics" aria-label="Pinterest" class="social-icon-btn"><i class="fab fa-pinterest-p"></i></a>
-                    <a href="https://facebook.com/onespacegraphics" aria-label="Facebook" class="social-icon-btn"><i class="fab fa-facebook-f"></i></a>
-                    <a href="mailto:onespacegraphicdesigns@gmail.com" aria-label="Gmail" class="social-icon-btn"><i class="fas fa-envelope"></i></a>
-                </div>
-            </div>
-        </section>
-
-       <section class="section-container">
-    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 animation-container">
-        <div class="contact-card-container animated-child" data-tilt-element>
-            <div class="contact-card">
-                <div class="contact-card-item">
-                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor">
-                        <path d="M20 4H4C2.89543 4 2 4.89543 2 6V18C2 19.1046 2.89543 20 4 20H20C21.1046 20 22 19.1046 22 18V6C22 4.89543 21.1046 4 20 4ZM20 6L12 11.25L4 6H20ZM20 18H4V8L12 13.25L20 8V18Z"></path>
-                    </svg>
-                    <h3>Email Address</h3>
-                    <p>onespacegraphicdesigns@gmail.com</p>
-                </div>
-                <div class="card-separator"></div>
-                <div class="contact-card-item">
-                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor">
-                        <path d="M6.62 10.79c1.44 2.83 3.76 5.14 6.59 6.59l2.2-2.2c.27-.27.67-.36 1.02-.24 1.12.37 2.33.57 3.57.57.55 0 1 .45 1 1V20c0 .55-.45 1-1 1-9.39 0-17-7.61-17-17 0-.55.45-1 1-1h3.5c.55 0 1 .45 1 1 0 1.25.2 2.45.57 3.57.11.35.03.74-.25 1.02l-2.2 2.2z"></path>
-                    </svg>
-                    <h3>Phone Numbers</h3>
-                    <p>+91 8610630998, +91 6369435979</p>
-                </div>
-            </div>
-        </div>
-        <h2 class="section-title text-4xl mb-4 animated-child">Send us a <span class="text-brand">Message</span></h2>
-        <p class="section-subtitle mb-8 animated-child">
-            Fill out the form below and we'll get back to you as soon as possible.
-        </p>
-        <form action="#" class="contact-form animated-child" data-tilt-element>
-            <div class="form-group">
-                <label for="name" class="form-label">Full Name</label>
-                <input type="text" id="name" name="name" class="form-input" required>
-            </div>
-            <div class="form-group">
-                <label for="email" class="form-label">Email Address</label>
-                <input type="email" id="email" name="email" class="form-input" required>
-            </div>
-            <div class="form-group">
-                <label for="message" class="form-label">Your Message</label>
-                <textarea id="message" name="message" class="form-textarea" required></textarea>
-            </div>
-            <button type="submit" class="submit-button">Send Message</button>
-        </form>
+            <ul class="dropdown-menu">
+              <li><a href="our-work.html#app-projects">Apps</a></li>
+              <li><a href="our-work.html#website-projects">Websites</a></li>
+              <li><a href="our-work.html#design-projects">Designs</a></li>
+            </ul>
+          </li>
+          <li class="dropdown">
+            <a href="about.html" class="nav-link">
+              About Us
+              <svg class="dropdown-arrow" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="20" height="20" fill="currentColor"><path d="M12 15.0001L17.2929 9.70718L18.7071 11.1214L12 17.8285L5.29289 11.1214L6.70711 9.70718L12 15.0001Z"></path></svg>
+            </a>
+            <ul class="dropdown-menu">
+              <li><a href="about.html#mission-section">Our Mission</a></li>
+              <li><a href="about.html#team-section">Team</a></li>
+            </ul>
+          </li>
+          <li><a href="services.html" class="nav-link">Services</a></li>
+          <li><a href="why-choose-us.html" class="nav-link">Why Choose Us</a></li>
+          <li><a href="contact.html" class="nav-link" aria-current="page">Contact</a></li>
+        </menu>
+      </div>
+      <button class="icon-btn close-btn" aria-label="Close Menu">
+        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="currentColor"><path d="M12.0007 10.5865L16.9504 5.63672L18.3646 7.05093L13.4149 12.0007L18.3646 16.9504L16.9504 18.3646L12.0007 13.4149L7.05093 18.3646L5.63672 16.9504L10.5865 12.0007L5.63672 7.05093L7.05093 5.63672L12.0007 10.5865Z"></path></svg>
+      </button>
+      <button class="icon-btn" aria-label="Open Menu">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="24" height="24" fill="currentColor"><path d="M3 4H21V6H3V4ZM3 11H21V13H3V11ZM3 18H21V20H3V18Z"></path></svg>
+      </button>
     </div>
-</section>
-    </main>
+  </nav>
 
-    <footer class="apple-footer text-center">
-        <div class="container mx-auto max-w-5xl">
-            <div class="mb-6">
-                <a href="index.html" class="inline-block mb-6">
-                    <img class="h-10 w-auto" src="assets/onespace.png" alt="OneSpace Graphics">
-                </a>
-                <div class="footer-links hidden md:flex">
-                    <a href="index.html">Home</a><a href="our-work.html">Portfolio</a><a href="about.html">About Us</a><a href="services.html">Services</a><a href="why-choose-us.html">Why Choose Us</a><a href="contact.html">Contact</a>
-                </div>
-            </div>
-            <div class="flex flex-col md:flex-row justify-between items-center">
-                <div class="text-center md:text-left mb-6 md:mb-0">
-                    <p class="copyright-text text-sm">© 2025 OneSpace Graphics. All rights reserved.</p>
-                </div>
-                <div class="footer-contact text-center md:text-right">
-                    <div class="flex justify-center md:justify-end gap-3 mb-2 footer-social-icons">
-                        <a href="https://www.instagram.com/onespace_graphics" aria-label="Instagram"><i class="fab fa-instagram text-xl social-link-icon"></i></a>
-                        <a href="https://linkedin.com/company/onespacegraphics" aria-label="LinkedIn"><i class="fab fa-linkedin-in text-xl social-link-icon"></i></a>
-                        <a href="https://pinterest.com/onespacegraphics" aria-label="Pinterest"><i class="fab fa-pinterest text-xl social-link-icon"></i></a>
-                        <a href="https://facebook.com/onespacegraphics" aria-label="Facebook"><i class="fab fa-facebook-f text-xl social-link-icon"></i></a>
-                        <a href="mailto:onespacegraphicdesigns@gmail.com" aria-label="Gmail"><i class="fas fa-envelope text-xl social-link-icon"></i></a>
-                    </div>
-                    <a href="tel:+918610630998" class="block">+91 8610630998</a>
-                </div>
-            </div>
+  <main class="main" id="main-content">
+    <section class="hero animation-container">
+      <div class="hero-content">
+        <h1 class="headline1 animated-child">Get in <span class="text-brand">touch with us</span></h1>
+        <p class="hero-intro animated-child">
+          We'd love to hear from you! Whether you have questions, need support, or want to discuss a project, feel free to reach out.
+        </p>
+        <div class="social-icons-hero-wrapper animated-child">
+          <a href="https://www.instagram.com/onespace_graphics" aria-label="Instagram" class="social-icon-btn"><i class="fab fa-instagram"></i></a>
+          <a href="https://linkedin.com/company/onespacegraphics" aria-label="LinkedIn" class="social-icon-btn"><i class="fab fa-linkedin-in"></i></a>
+          <a href="https://pinterest.com/onespacegraphics" aria-label="Pinterest" class="social-icon-btn"><i class="fab fa-pinterest-p"></i></a>
+          <a href="https://facebook.com/onespacegraphics" aria-label="Facebook" class="social-icon-btn"><i class="fab fa-facebook-f"></i></a>
+          <a href="mailto:onespacegraphicdesigns@gmail.com" aria-label="Gmail" class="social-icon-btn"><i class="fas fa-envelope"></i></a>
         </div>
-    </footer>
+      </div>
+    </section>
 
-    <script>
-        document.addEventListener('DOMContentLoaded', () => {
-            const nav = document.getElementById('nav');
-            const openBtn = nav.querySelector('.icon-btn[aria-label="Open Menu"]');
-            const closeBtn = nav.querySelector('.icon-btn[aria-label="Close Menu"]');
+   <section class="section-container">
+  <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 animation-container">
+    <div class="contact-card-container animated-child" data-tilt-element>
+      <div class="contact-card">
+        <div class="contact-card-item">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor">
+            <path d="M20 4H4C2.89543 4 2 4.89543 2 6V18C2 19.1046 2.89543 20 4 20H20C21.1046 20 22 19.1046 22 18V6C22 4.89543 21.1046 4 20 4ZM20 6L12 11.25L4 6H20ZM20 18H4V8L12 13.25L20 8V18Z"></path>
+          </svg>
+          <h3>Email Address</h3>
+          <p>onespacegraphicdesigns@gmail.com</p>
+        </div>
+        <div class="card-separator"></div>
+        <div class="contact-card-item">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor">
+            <path d="M6.62 10.79c1.44 2.83 3.76 5.14 6.59 6.59l2.2-2.2c.27-.27.67-.36 1.02-.24 1.12.37 2.33.57 3.57.57.55 0 1 .45 1 1V20c0 .55-.45 1-1 1-9.39 0-17-7.61-17-17 0-.55.45-1 1-1h3.5c.55 0 1 .45 1 1 0 1.25.2 2.45.57 3.57.11.35.03.74-.25 1.02l-2.2 2.2z"></path>
+          </svg>
+          <h3>Phone Numbers</h3>
+          <p>+91 8610630998, +91 6369435979</p>
+        </div>
+      </div>
+    </div>
+    <h2 class="section-title text-4xl mb-4 animated-child">Send us a <span class="text-brand">Message</span></h2>
+    <p class="section-subtitle mb-8 animated-child">
+      Fill out the form below and we'll get back to you as soon as possible.
+    </p>
+    <form action="#" class="contact-form animated-child" data-tilt-element>
+      <div class="form-group">
+        <label for="name" class="form-label">Full Name</label>
+        <input type="text" id="name" name="name" class="form-input" required>
+      </div>
+      <div class="form-group">
+        <label for="email" class="form-label">Email Address</label>
+        <input type="email" id="email" name="email" class="form-input" required>
+      </div>
+      <div class="form-group">
+        <label for="message" class="form-label">Your Message</label>
+        <textarea id="message" name="message" class="form-textarea" required></textarea>
+      </div>
+      <button type="submit" class="submit-button">Send Message</button>
+    </form>
+  </div>
+</section>
+  </main>
 
-            if (openBtn) { openBtn.addEventListener('click', () => { nav.classList.add('open'); }); }
-            if (closeBtn) { closeBtn.addEventListener('click', () => { nav.classList.remove('open'); }); }
+  <footer class="apple-footer text-center">
+    <div class="container mx-auto max-w-5xl">
+      <div class="mb-6">
+        <a href="index.html" class="inline-block mb-6">
+          <img class="h-10 w-auto" src="assets/onespace.png" alt="OneSpace Graphics">
+        </a>
+        <div class="footer-links hidden md:flex">
+          <a href="index.html">Home</a><a href="our-work.html">Portfolio</a><a href="about.html">About Us</a><a href="services.html">Services</a><a href="why-choose-us.html">Why Choose Us</a><a href="contact.html">Contact</a>
+        </div>
+      </div>
+      <div class="flex flex-col md:flex-row justify-between items-center">
+        <div class="text-center md:text-left mb-6 md:mb-0">
+          <p class="copyright-text text-sm">© 2025 OneSpace Graphics. All rights reserved.</p>
+        </div>
+        <div class="footer-contact text-center md:text-right">
+          <div class="flex justify-center md:justify-end gap-3 mb-2 footer-social-icons">
+            <a href="https://www.instagram.com/onespace_graphics" aria-label="Instagram"><i class="fab fa-instagram text-xl social-link-icon"></i></a>
+            <a href="https://linkedin.com/company/onespacegraphics" aria-label="LinkedIn"><i class="fab fa-linkedin-in text-xl social-link-icon"></i></a>
+            <a href="https://pinterest.com/onespacegraphics" aria-label="Pinterest"><i class="fab fa-pinterest text-xl social-link-icon"></i></a>
+            <a href="https://facebook.com/onespacegraphics" aria-label="Facebook"><i class="fab fa-facebook-f text-xl social-link-icon"></i></a>
+            <a href="mailto:onespacegraphicdesigns@gmail.com" aria-label="Gmail"><i class="fas fa-envelope text-xl social-link-icon"></i></a>
+          </div>
+          <a href="tel:+918610630998" class="block">+91 8610630998</a>
+          <a href="tel:+916369435979" class="block">+91 6369435979</a>
+        </div>
+      </div>
+    </div>
+  </footer>
 
-            // --- Matte Gradient Cursor ---
-            const gradient = document.getElementById('cursor-gradient');
-            document.addEventListener('mousemove', (e) => {
-                // By getting the element's half-width/height, we can center it on the cursor
-                const x = e.clientX;
-                const y = e.clientY;
-                const gradientHalfWidth = gradient.offsetWidth / 2;
-                const gradientHalfHeight = gradient.offsetHeight / 2;
+  <script>
+    document.addEventListener('DOMContentLoaded', () => {
+      const nav = document.getElementById('nav');
+      const openBtn = nav.querySelector('.icon-btn[aria-label="Open Menu"]');
+      const closeBtn = nav.querySelector('.icon-btn[aria-label="Close Menu"]');
 
-                // The transform now correctly centers the gradient on the mouse pointer
-                gradient.style.transform = `translate(${x - gradientHalfWidth}px, ${y - gradientHalfHeight}px)`;
+      if (openBtn) { openBtn.addEventListener('click', () => { nav.classList.add('open'); }); }
+      if (closeBtn) { closeBtn.addEventListener('click', () => { nav.classList.remove('open'); }); }
+
+      // --- Matte Gradient Cursor ---
+      const gradient = document.getElementById('cursor-gradient');
+      document.addEventListener('mousemove', (e) => {
+        // By getting the element's half-width/height, we can center it on the cursor
+        const x = e.clientX;
+        const y = e.clientY;
+        const gradientHalfWidth = gradient.offsetWidth / 2;
+        const gradientHalfHeight = gradient.offsetHeight / 2;
+
+        // The transform now correctly centers the gradient on the mouse pointer
+        gradient.style.transform = `translate(${x - gradientHalfWidth}px, ${y - gradientHalfHeight}px)`;
+      });
+
+      // --- Staggered Scroll Animation ---
+      const animationContainers = document.querySelectorAll('.animation-container');
+      const observerOptions = {
+        root: null,
+        rootMargin: '0px',
+        threshold: 0.2
+      };
+
+      const observer = new IntersectionObserver((entries, observer) => {
+        entries.forEach(entry => {
+          if (entry.isIntersecting) {
+            const container = entry.target;
+            const children = container.querySelectorAll('.animated-child');
+            children.forEach((child, index) => {
+             setTimeout(() => {
+                child.classList.add('is-visible');
+             }, index * 150);
             });
-
-            // --- Staggered Scroll Animation ---
-            const animationContainers = document.querySelectorAll('.animation-container');
-            const observerOptions = {
-                root: null,
-                rootMargin: '0px',
-                threshold: 0.2
-            };
-
-            const observer = new IntersectionObserver((entries, observer) => {
-                entries.forEach(entry => {
-                    if (entry.isIntersecting) {
-                        const container = entry.target;
-                        const children = container.querySelectorAll('.animated-child');
-                        children.forEach((child, index) => {
-                           setTimeout(() => {
-                                child.classList.add('is-visible');
-                           }, index * 150);
-                        });
-                        observer.unobserve(container);
-                    }
-                });
-            }, observerOptions);
-
-            animationContainers.forEach(container => {
-                observer.observe(container);
-            });
-
-            // --- 3D Tilt Effect ---
-            const tiltElements = document.querySelectorAll('[data-tilt-element]');
-
-            tiltElements.forEach(element => {
-                const maxTilt = 8; // Reduced for a more subtle effect
-
-                element.addEventListener('mousemove', (e) => {
-                    const rect = element.getBoundingClientRect();
-                    const x = e.clientX - rect.left;
-                    const y = e.clientY - rect.top;
-
-                    const width = element.offsetWidth;
-                    const height = element.offsetHeight;
-
-                    const tiltX = (y / height - 0.5) * maxTilt * -1; // Invert for natural feel
-                    const tiltY = (x / width - 0.5) * maxTilt;
-
-                    element.style.transform = `perspective(1000px) rotateX(${tiltX}deg) rotateY(${tiltY}deg) scale3d(1.02, 1.02, 1.02)`;
-                });
-
-                element.addEventListener('mouseleave', () => {
-                    element.style.transform = 'perspective(1000px) rotateX(0deg) rotateY(0deg) scale3d(1, 1, 1)';
-                });
-            });
-
+            observer.unobserve(container);
+          }
         });
-    </script>
+      }, observerOptions);
+
+      animationContainers.forEach(container => {
+        observer.observe(container);
+      });
+
+      // --- 3D Tilt Effect ---
+      const tiltElements = document.querySelectorAll('[data-tilt-element]');
+
+      tiltElements.forEach(element => {
+        const maxTilt = 8; // Reduced for a more subtle effect
+
+        element.addEventListener('mousemove', (e) => {
+          const rect = element.getBoundingClientRect();
+          const x = e.clientX - rect.left;
+          const y = e.clientY - rect.top;
+
+          const width = element.offsetWidth;
+          const height = element.offsetHeight;
+
+          const tiltX = (y / height - 0.5) * maxTilt * -1; // Invert for natural feel
+          const tiltY = (x / width - 0.5) * maxTilt;
+
+          element.style.transform = `perspective(1000px) rotateX(${tiltX}deg) rotateY(${tiltY}deg) scale3d(1.02, 1.02, 1.02)`;
+        });
+
+        element.addEventListener('mouseleave', () => {
+          element.style.transform = 'perspective(1000px) rotateX(0deg) rotateY(0deg) scale3d(1, 1, 1)';
+        });
+      });
+
+    });
+  </script>
 </body>
 </html>
