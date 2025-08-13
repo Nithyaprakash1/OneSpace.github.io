@@ -308,7 +308,7 @@
             const body = document.body;
             document.addEventListener('mousemove', (e) => { body.style.setProperty('--cursor-x', `${(e.clientX / window.innerWidth) * 100}%`); body.style.setProperty('--cursor-y', `${(e.clientY / window.innerHeight) * 100}%`); });
             const scrollBtn = document.querySelector('.button-link.secondary');
-            if (scrollBtn) { scrollBtn.addEventListener('click', (e) => { e.preventDefault(); document.querySelector('#portfolio-websites').scrollIntoView({ behavior: 'smooth' }); }); }
+            if (scrollBtn) { scrollBtn.addEventListener('click', (e) => { e.preventDefault(); document.querySelector('#portfolio-designs').scrollIntoView({ behavior: 'smooth' }); }); }
 
             // PORTFOLIO AND LIGHTBOX LOGIC
             const projectData = {
@@ -377,6 +377,7 @@
     </script>
 </body>
 </html>
+
 
 
 
