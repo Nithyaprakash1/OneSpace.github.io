@@ -169,7 +169,7 @@
 
         .logo-track {
             display: flex;
-            width: calc((150px + 2rem) * 16); /* (Width + Margin) * Total Logos */
+            width: calc((150px + 2rem) * 16); /* (Width + Margin) * Total Logos (8 originals + 8 clones) */
             animation: scroll 16s linear infinite;
         }
 
@@ -306,6 +306,7 @@
             color: var(--brand);
         }
 
+        /* --- UPDATED: Testimonial Card Styles --- */
         .testimonial-card {
             min-height: 380px;
             display: flex;
@@ -314,6 +315,7 @@
             background: rgba(255, 255, 255, 0.05);
             padding: 2.5rem;
             border-radius: 1rem;
+            text-align: left;
             border: 1px solid rgba(255, 255, 255, 0.1);
             transition: transform 0.3s ease, background 0.3s ease, box-shadow 0.3s ease;
         }
@@ -322,13 +324,36 @@
             background: rgba(255, 255, 255, 0.1);
             box-shadow: 0 10px 20px rgba(0,0,0,0.2);
         }
-        .testimonial-card blockquote { font-style: italic; font-size: 1.125rem; color: #e5e7eb; margin-bottom: 1rem; position: relative; }
-        .testimonial-card blockquote::before { content: '“'; font-size: 4rem; color: var(--brand); position: absolute; top: -1.5rem; left: -1.5rem; opacity: 0.2; line-height: 1; }
-        .testimonial-card .client-info { display: flex; align-items: center; gap: 1rem; margin-top: 1.5rem; }
-        .testimonial-card .client-logo { width: 120px; height: auto; display: block; }
-        .testimonial-card .client-details { text-align: left; }
-        .testimonial-card .client-name { font-weight: bold; font-size: 1.125rem; }
-        .testimonial-card .client-title { color: #9ca3af; font-size: 0.875rem; }
+        .testimonial-header {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            margin-bottom: 1.5rem;
+        }
+        .testimonial-card .client-logo {
+            width: 55px;
+            height: 55px;
+            border-radius: 50%;
+            object-fit: cover;
+            border: 2px solid var(--brand);
+        }
+        .testimonial-card .client-name {
+            font-weight: bold;
+            font-size: 1.125rem;
+            margin: 0;
+        }
+        .testimonial-card .client-title {
+            color: #9ca3af;
+            font-size: 0.9rem;
+            margin: 0;
+        }
+        .testimonial-card blockquote {
+            font-size: 1.1rem;
+            color: #e5e7eb;
+            margin: 0;
+            line-height: 1.6;
+        }
+        /* --- End of Testimonial Styles --- */
 
         .apple-footer { background-color: black; color: #424245; font-size: 0.9rem; padding: 3rem 1.5rem; border-top: 1px solid #222; }
         .apple-footer .footer-links { display: flex; justify-content: center; flex-wrap: wrap; gap: 1.5rem; padding-bottom: 1.5rem; border-bottom: 1px solid #424245; margin-bottom: 1.5rem; }
@@ -423,7 +448,52 @@
             </div>
        </section>
        <section id="why-choose-us-section" class="section-container bg-black text-white"><h2 class="section-title">Why <span class="text-brand">Choose ONESPACE?</span></h2><p class="section-subtitle">We combine innovative design with strategic thinking to deliver impactful results that help your brand thrive.</p><div class="why-choose-us-grid"><div class="why-choose-us-card card-animation"><i class="fas fa-brain icon"></i><h3>Strategic Approach</h3><p>We solve problems. Every project is rooted in a deep understanding of your goals and audience to ensure measurable success.</p></div><div class="why-choose-us-card card-animation"><i class="fas fa-palette icon"></i><h3>Creative Excellence</h3><p>Our creatives are dedicated to pushing boundaries and delivering visually stunning work that captures attention and tells a compelling story.</p></div><div class="why-choose-us-card card-animation"><i class="fas fa-handshake icon"></i><h3>Client-Focused</h3><p>Your vision is our priority. We believe in collaborative partnerships, transparent communication, and a seamless process.</p></div></div></section>
-       <section id="testimonials-section" class="section-container bg-[#0a0a0a] text-white"><h2 class="section-title">What Our <span class="text-brand">Clients Say</span></h2><p class="section-subtitle">Hear from the businesses and individuals who have trusted us to bring their creative visions to life.</p><div class="slider-wrapper" id="testimonial-slider"><div class="slider-track"><div class="slider-slide card-animation"><div class="testimonial-card"><blockquote>"Onespace Graphics did an outstanding job handling the complete branding for Yuganta-25 at KPRCAS. From conceptualization to execution, their team brought creativity, precision, and professionalism to every element. The visuals were vibrant, cohesive, and truly captured the spirit of our cultural event. Working with them made the entire process seamless, and the results exceeded our expectations."</blockquote><div class="client-info"><img src="assets/Kpr.png" alt="KPR" class="client-logo"><div class="client-details"><span class="client-name">K.P Ramaswamy</span><span class="client-title">Chairman of KPR</span></div></div></div></div><div class="slider-slide card-animation"><div class="testimonial-card"><blockquote>"Onespace Graphics has been instrumental in developing three high-quality apps for Sri Ramakrishna College of Arts & Science. Each app was delivered with excellent functionality, smooth user experience, and a clean, professional design. Their team was responsive, detail-oriented, and ensured that our vision was perfectly translated into the final product. We’re thrilled with the results and look forward to working with them on future projects!"</blockquote><div class="client-info"><img src="assets/SRCAS.png" alt="SRCAS" class="client-logo"><div class="client-details"><span class="client-name">SRCAS</span><span class="client-title"></span></div></div></div></div><div class="slider-slide card-animation"><div class="testimonial-card"><blockquote>"Onespace Graphics turned our ideas into reality for SG Productions! Their team brought energy, creativity, and flawless execution to the table. Every detail was crafted with care, making the final output truly stand out. Working with them was seamless, inspiring, and absolutely worth it!"</blockquote><div class="client-info"><img src="assets/SGMediaWorks.svg" alt="SG Productions" class="client-logo"><div class="client-details"><span class="client-name">Sathiyamurthy</span><span class="client-title">Founder of SG Productions</span></div></div></div></div></div><button class="slider-btn prev"><i class="fas fa-chevron-left"></i></button><button class="slider-btn next"><i class="fas fa-chevron-right"></i></button></div></section>
+       <section id="testimonials-section" class="section-container bg-[#0a0a0a] text-white">
+           <h2 class="section-title">What Our <span class="text-brand">Clients Say</span></h2>
+           <p class="section-subtitle">Hear from the businesses and individuals who have trusted us to bring their creative visions to life.</p>
+           <div class="slider-wrapper" id="testimonial-slider">
+               <div class="slider-track">
+                   <div class="slider-slide card-animation">
+                       <div class="testimonial-card">
+                           <div class="testimonial-header">
+                               <img src="assets/Kpr.png" alt="KPR" class="client-logo">
+                               <div class="client-details">
+                                   <h4 class="client-name">K.P Ramaswamy</h4>
+                                   <p class="client-title">Chairman of KPR</p>
+                               </div>
+                           </div>
+                           <blockquote>"Onespace Graphics did an outstanding job handling the complete branding for Yuganta-25 at KPRCAS. From conceptualization to execution, their team brought creativity, precision, and professionalism to every element. The visuals were vibrant, cohesive, and truly captured the spirit of our cultural event. Working with them made the entire process seamless, and the results exceeded our expectations."</blockquote>
+                       </div>
+                   </div>
+                   <div class="slider-slide card-animation">
+                       <div class="testimonial-card">
+                           <div class="testimonial-header">
+                               <img src="assets/SRCAS.png" alt="SRCAS" class="client-logo">
+                               <div class="client-details">
+                                   <h4 class="client-name">SRCAS</h4>
+                                   <p class="client-title">Arts & Science College</p>
+                               </div>
+                           </div>
+                           <blockquote>"Onespace Graphics has been instrumental in developing three high-quality apps for Sri Ramakrishna College of Arts & Science. Each app was delivered with excellent functionality, smooth user experience, and a clean, professional design. Their team was responsive, detail-oriented, and ensured that our vision was perfectly translated into the final product. We’re thrilled with the results and look forward to working with them on future projects!"</blockquote>
+                       </div>
+                   </div>
+                   <div class="slider-slide card-animation">
+                       <div class="testimonial-card">
+                           <div class="testimonial-header">
+                               <img src="assets/SGMediaWorks.svg" alt="SG Productions" class="client-logo">
+                               <div class="client-details">
+                                   <h4 class="client-name">Sathiyamurthy</h4>
+                                   <p class="client-title">Founder of SG Productions</p>
+                               </div>
+                           </div>
+                           <blockquote>"Onespace Graphics turned our ideas into reality for SG Productions! Their team brought energy, creativity, and flawless execution to the table. Every detail was crafted with care, making the final output truly stand out. Working with them was seamless, inspiring, and absolutely worth it!"</blockquote>
+                       </div>
+                   </div>
+               </div>
+               <button class="slider-btn prev"><i class="fas fa-chevron-left"></i></button>
+               <button class="slider-btn next"><i class="fas fa-chevron-right"></i></button>
+           </div>
+       </section>
     </main>
 
     <footer class="apple-footer text-center">
@@ -522,12 +592,22 @@
                 let currentIndex = 0;
                 let slideInterval;
                 const updateSlidePosition = () => {
+                    track.style.transition = 'transform 0.5s ease-in-out';
                     track.style.transform = 'translateX(' + (-currentIndex * 100) + '%)';
                 };
 
                 const moveToNextSlide = () => {
-                    currentIndex = (currentIndex + 1) % slides.length;
+                    currentIndex++;
                     updateSlidePosition();
+
+                    // Reset to the beginning without animation for a seamless loop
+                    if (currentIndex === slides.length) {
+                       setTimeout(() => {
+                           track.style.transition = 'none';
+                           currentIndex = 0;
+                           track.style.transform = 'translateX(0)';
+                       }, 500); // Wait for the transition to finish
+                    }
                 };
 
                 const startSlideShow = () => {
@@ -548,8 +628,17 @@
                 }
                 if (prevButton) {
                     prevButton.addEventListener('click', () => {
-                        currentIndex = (currentIndex - 1 + slides.length) % slides.length;
-                        updateSlidePosition();
+                        if (currentIndex === 0) {
+                            track.style.transition = 'none';
+                            currentIndex = slides.length;
+                            track.style.transform = 'translateX(' + (-currentIndex * 100) + '%)';
+                        }
+                        setTimeout(() => {
+                           track.style.transition = 'transform 0.5s ease-in-out';
+                           currentIndex--;
+                           updateSlidePosition();
+                        }, 50);
+
                         stopSlideShow();
                         startSlideShow();
                     });
@@ -566,6 +655,7 @@
 
                 let maxHeight = 0;
                 slides.forEach(slide => {
+                    slide.style.minHeight = 'auto'; // Reset before calculating
                     maxHeight = Math.max(maxHeight, slide.clientHeight);
                 });
 
