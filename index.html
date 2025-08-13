@@ -308,17 +308,12 @@
 
         /* --- UPDATED: Testimonial Section & Card Styles --- */
         #testimonials-section {
-            background-color: var(--surface-invert);
+            background-color: var(--surface-1); /* Black BG */
         }
-        #testimonials-section .section-title {
-            color: var(--text-invert);
-        }
-        #testimonials-section .section-subtitle {
-            color: #4b5563;
-        }
+        /* Title and subtitle colors are handled by default section styles now */
 
         .testimonial-card {
-            background: #f9fafb; /* Light Grey BG */
+            background: var(--surface-invert); /* White BG */
             min-height: 380px;
             display: flex;
             flex-direction: column;
@@ -331,7 +326,7 @@
         }
         .testimonial-card:hover {
             transform: translateY(-10px);
-            box-shadow: 0 10px 20px rgba(0,0,0,0.07);
+            box-shadow: 0 10px 20px rgba(0,0,0,0.25);
         }
         .testimonial-header {
             display: flex;
@@ -365,18 +360,6 @@
             color: #374151;
             margin: 0;
             line-height: 1.6;
-        }
-        /* Make slider buttons visible on white bg */
-        #testimonials-section .slider-btn {
-            background-color: rgba(0, 0, 0, 0.05);
-            color: #374151;
-            border: 1px solid rgba(0,0,0,0.1);
-        }
-        #testimonials-section .slider-btn:hover {
-            background-color: var(--brand);
-            border-color: var(--brand);
-            color: white;
-            transform: translateY(-50%) scale(1.1);
         }
         /* --- End of Testimonial Styles --- */
 
@@ -485,7 +468,7 @@
                                <img src="assets/Kpr.png" alt="KPR" class="client-logo">
                                <div class="client-details">
                                    <h4 class="client-name">K.P Ramaswamy</h4>
-                                   <p class="client-title">Chairman of KPR</p>
+                                   <p class="client-title">Chairman of KPRCAS</p>
                                </div>
                            </div>
                            <blockquote>"Onespace Graphics did an outstanding job handling the complete branding for Yuganta-25 at KPRCAS. From conceptualization to execution, their team brought creativity, precision, and professionalism to every element. The visuals were vibrant, cohesive, and truly captured the spirit of our cultural event. Working with them made the entire process seamless, and the results exceeded our expectations."</blockquote>
