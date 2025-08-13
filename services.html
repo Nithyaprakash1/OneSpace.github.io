@@ -15,11 +15,11 @@
             --surface-invert: white;
             --text-1: white;
             --text-invert: black;
+            --text-2: #6b7280; /* Muted grey text */
             --headline1-font-size: clamp(2.5rem, 5vw, 4.5rem);
             --nav-block-size: 100px;
             --space-md: 1rem;
             --space-lg: 1.75rem;
-            --border-thin: 1px;
         }
 
         body {
@@ -34,7 +34,6 @@
             position: relative;
         }
 
-        /* Blurry green gradient background effect */
         .blur-orb {
             position: fixed; width: 500px; height: 500px; border-radius: 50%;
             background: radial-gradient(circle, rgba(134, 195, 61, 0.3), transparent 70%);
@@ -45,117 +44,34 @@
         @keyframes move-orb1 { 0% { transform: translate(0, 0); } 100% { transform: translate(100vw, 50vh); } }
         @keyframes move-orb2 { 0% { transform: translate(0, 0); } 100% { transform: translate(-80vw, -40vh); } }
 
-
         #main-content { flex-grow: 1; }
         .text-brand { color: var(--brand); }
 
-        /* --- Button Styles --- */
-        .button-link {
-            display: inline-block;
-            text-decoration: none;
-            font-weight: 700;
-            font-size: 1.1rem;
-            padding: 0.8em 2em;
-            border-radius: 9999px;
-            transition: background-color 0.3s ease, transform 0.2s ease;
-            cursor: pointer;
-            border: none;
-        }
-        .button-link.primary {
-            background-color: var(--brand);
-            color: var(--text-invert);
-        }
-        .button-link.primary:hover {
-            background-color: color-mix(in oklch, var(--brand), black 15%);
-            transform: scale(1.05);
-        }
-        .button-link.secondary {
-            background-color: transparent;
-            color: var(--text-1);
-            border: 2px solid var(--brand);
-            padding: 0;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            width: 60px;
-            height: 60px;
-            border-radius: 50%;
-            transition: background-color 0.3s ease, transform 0.2s ease, box-shadow 0.3s ease;
-        }
-        .button-link.secondary:hover {
-            background-color: var(--brand);
-            color: var(--text-invert);
-            box-shadow: 0 0 15px var(--brand);
-            transform: scale(1.05);
-        }
+        .button-link { display: inline-block; text-decoration: none; font-weight: 700; font-size: 1.1rem; padding: 0.8em 2em; border-radius: 9999px; transition: all 0.3s ease; cursor: pointer; border: none; }
+        .button-link.primary { background-color: var(--brand); color: var(--text-invert); }
+        .button-link.primary:hover { background-color: color-mix(in oklch, var(--brand), black 15%); transform: scale(1.05); }
+        .button-link.secondary { background-color: transparent; color: var(--text-1); border: 2px solid var(--brand); padding: 0; display: flex; align-items: center; justify-content: center; width: 60px; height: 60px; border-radius: 50%; transition: all 0.3s ease; }
+        .button-link.secondary:hover { background-color: var(--brand); color: var(--text-invert); box-shadow: 0 0 15px var(--brand); transform: scale(1.05); }
 
-        /* --- Navigation --- */
-        .nav {
-            display: grid;
-            place-items: center;
-            position: fixed;
-            width: 100%;
-            z-index: 100;
-            background-color: rgba(0, 0, 0, 0.8);
-            backdrop-filter: blur(8px);
-        }
-        .nav-container {
-            display: grid;
-            grid-auto-flow: column;
-            justify-content: space-between;
-            place-items: center;
-            min-height: var(--nav-block-size);
-            width: min(100%, 1656px);
-            padding: 0 var(--space-lg);
-        }
+        .nav { display: grid; place-items: center; position: fixed; width: 100%; z-index: 100; background-color: rgba(0, 0, 0, 0.8); backdrop-filter: blur(8px); }
+        .nav-container { display: grid; grid-auto-flow: column; justify-content: space-between; place-items: center; min-height: var(--nav-block-size); width: min(100%, 1656px); padding: 0 var(--space-lg); }
         .logo-wrapper { justify-self: start; width: 4rem; }
-        .logo-img { width: 100%; height: auto; display: block; }
         .menu-wrapper { display: grid; grid-auto-flow: column; place-items: center; gap: var(--space-lg); }
         .menu { display: grid; grid-auto-flow: column; gap: var(--space-lg); list-style: none; padding: 0; margin: 0; }
         .nav-link { text-decoration: none; color: var(--text-1); font-size: 1rem; padding: 0.5rem 0; transition: color 0.3s, text-shadow 0.2s; display: flex; align-items: center; gap: 0.25rem; }
         .nav-link:hover { color: var(--brand); }
-        .nav-link:active { text-shadow: 0 0 10px var(--brand); }
         .nav-link[aria-current="page"] { color: var(--brand); text-shadow: 0 0 10px var(--brand); }
         .icon-btn { display: none; color: var(--text-1); width: 2rem; height: 2rem; background-color: transparent; border: none; cursor: pointer; }
-
-        @media (max-width: 1056px) {
-            .menu-wrapper { display: none; }
-            .nav:not(.open) .icon-btn[aria-label="Open Menu"] { display: block; }
-            .nav:not(.open) .close-btn { display: none; }
-            .nav.open .menu-wrapper {
-                display: flex;
-                flex-direction: column;
-                position: fixed;
-                top: 0;
-                right: 0;
-                height: 100vh;
-                width: 300px;
-                background-color: rgba(0, 0, 0, 0.95);
-                backdrop-filter: blur(12px);
-                justify-content: flex-start;
-                padding-top: 5rem;
-                transform: translateX(0);
-                transition: transform 0.3s ease-in-out;
-            }
-            .nav:not(.open) .menu-wrapper { transform: translateX(100%); }
-            .nav.open .icon-btn[aria-label="Open Menu"] { display: none; }
-            .nav.open .close-btn {
-                display: block;
-                position: absolute;
-                top: 2rem;
-                right: 2rem;
-                color: white;
-            }
-            .nav.open .menu { display: flex; flex-direction: column; gap: 1.5rem; }
-        }
-        .close-btn { display: none; }
-        .dropdown { position: relative; }
+        @media (max-width: 1056px) { .menu-wrapper { display: none; } .nav:not(.open) .icon-btn[aria-label="Open Menu"] { display: block; } .nav.open .menu-wrapper { display: flex; flex-direction: column; position: fixed; top: 0; right: 0; height: 100vh; width: 300px; background-color: rgba(0, 0, 0, 0.95); backdrop-filter: blur(12px); justify-content: flex-start; padding-top: 5rem; transform: translateX(0); transition: transform 0.3s ease-in-out; } .nav:not(.open) .menu-wrapper { transform: translateX(100%); } .nav.open .close-btn { display: block; position: absolute; top: 2rem; right: 2rem; color: white; } .nav.open .menu { display: flex; flex-direction: column; gap: 1.5rem; } }
+        
+        /* --- UPDATED: Dropdown Menu Animation --- */
+        .dropdown { position: relative; padding-bottom: 1rem; margin-bottom: -1rem; }
         .dropdown-menu {
-            display: none;
             opacity: 0;
             transform: translateY(10px);
-            transition: opacity 0.3s ease-in-out, transform 0.3s ease-in-out, visibility 0.3s ease-in-out;
             visibility: hidden;
+            pointer-events: none;
+            transition: opacity 0.5s ease, transform 0.5s ease, visibility 0.5s;
             position: absolute;
             top: 100%;
             left: 0;
@@ -164,157 +80,106 @@
             border-radius: 0.5rem;
             box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
             padding: 0.5rem 0;
-            margin-top: 0.5rem;
             z-index: 10;
         }
-        .dropdown:hover .dropdown-menu {
-            display: block;
-            opacity: 1;
-            visibility: visible;
-            transform: translateY(0);
-        }
-        .dropdown-menu a {
-            display: block;
-            padding: 0.75rem 1rem;
-            color: var(--text-invert);
-            text-decoration: none;
-            transition: background-color 0.2s ease;
-            text-align: left;
-        }
+        .dropdown:hover .dropdown-menu { opacity: 1; transform: translateY(0); visibility: visible; pointer-events: auto; }
+        .dropdown-menu a { display: block; padding: 0.75rem 1rem; color: var(--text-invert); text-decoration: none; transition: background-color 0.2s ease; text-align: left; }
         .dropdown-menu a:hover { background-color: color-mix(in oklch, var(--brand), black 10%); }
         .dropdown-arrow { transition: transform 0.2s ease-in-out; color: white; }
         .dropdown:hover .dropdown-arrow { transform: rotate(180deg); }
 
-        /* --- Hero Section --- */
         .hero { position: relative; display: grid; place-items: center; text-align: center; padding-top: var(--nav-block-size); }
         .hero-content { position: relative; z-index: 1; padding: var(--space-md); max-width: 900px; }
         .headline1 { font-size: var(--headline1-font-size); font-weight: 800; color: white; margin-bottom: 1rem; line-height: 1.2; }
         .hero-intro { font-size: 1.25rem; color: #e5e7eb; max-width: 700px; margin-bottom: 2.5rem; line-height: 1.6; }
         .hero-actions-container { display: flex; align-items: center; justify-content: center; gap: 1rem; margin-top: 2.5rem; }
-        .hero-services {
-            background-image: linear-gradient(135deg, rgba(0,0,0,1) 0%, rgba(134,195,61,0.2) 100%);
-            height: 60vh;
-            min-height: 400px;
-        }
+        .hero-services { background-image: linear-gradient(135deg, rgba(0,0,0,1) 0%, rgba(134,195,61,0.2) 100%); height: 60vh; min-height: 400px; }
 
-        /* --- General Section & Card Styles --- */
         .section-container { padding: 6rem 1rem; text-align: center; }
         .section-title { font-size: clamp(2.5rem, 6vw, 3rem); font-weight: 800; margin-bottom: 1rem; color: var(--text-1); }
         .section-subtitle { font-size: 1.125rem; color: #9ca3af; max-width: 56rem; margin-inline: auto; margin-bottom: 4rem; line-height: 1.7; }
 
-        /* --- Services Card Grid --- */
-        .services-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-            gap: 2rem;
-            max-width: 1200px;
-            margin: 0 auto;
-            text-align: left;
-        }
-        .service-card {
-            background: rgba(255, 255, 255, 0.05);
-            padding: 2.5rem 2rem;
-            border-radius: 1rem;
-            display: flex;
-            flex-direction: column;
-            border: 1px solid rgba(255, 255, 255, 0.1);
-            transition: transform 0.3s ease, background 0.3s ease, box-shadow 0.3s ease;
-            position: relative;
-            overflow: hidden;
-        }
-        .service-card:hover {
-            transform: translateY(-10px);
-            background: rgba(255, 255, 255, 0.1);
-            box-shadow: 0 10px 20px rgba(0,0,0,0.2);
-        }
+        .services-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 2rem; max-width: 1200px; margin: 0 auto; text-align: left; }
+        .service-card { background: rgba(255, 255, 255, 0.05); padding: 2.5rem 2rem; border-radius: 1rem; display: flex; flex-direction: column; border: 1px solid rgba(255, 255, 255, 0.1); transition: all 0.3s ease; position: relative; overflow: hidden; }
+        .service-card:hover { transform: translateY(-10px); background: rgba(255, 255, 255, 0.1); box-shadow: 0 10px 20px rgba(0,0,0,0.2); }
         .service-card .icon { font-size: 3rem; color: var(--brand); margin-bottom: 1.5rem; }
         .service-card h3 { font-size: 1.5rem; font-weight: 700; margin-bottom: 1rem; }
         .service-card ul { list-style: none; padding: 0; margin: 0; color: #d1d5db; flex-grow: 1; }
         .service-card li { position: relative; padding-left: 1.5rem; margin-bottom: 0.75rem; }
-        .service-card li::before {
-            content: "✓";
-            position: absolute;
-            left: 0;
-            top: 2px;
-            color: var(--brand);
-            font-size: 1rem;
-            font-weight: bold;
-        }
+        .service-card li::before { content: "✓"; position: absolute; left: 0; top: 2px; color: var(--brand); font-size: 1rem; font-weight: bold; }
 
-        /* --- Client Logos Slider Section --- */
+        /* --- UPDATED: Client Logos Section --- */
         .client-logos-section {
+            background-color: #0a0a0a;
             padding: 4rem 0;
             overflow: hidden;
             position: relative;
-            background: rgba(10, 10, 10, 0.5);
         }
-        .client-logos-section::before,
-        .client-logos-section::after {
-            content: '';
-            position: absolute;
-            top: 0;
-            width: 15%;
-            height: 100%;
-            z-index: 2;
-        }
-        .client-logos-section::before { left: 0; background: linear-gradient(to right, black, rgba(0,0,0,0)); }
-        .client-logos-section::after { right: 0; background: linear-gradient(to left, black, rgba(0,0,0,0)); }
         .logo-slider-container {
             display: flex;
-            animation: marquee 30s linear infinite;
+            width: fit-content; /* Important for animation calculation */
+            animation: marquee 40s linear infinite;
         }
         .logo-slider-container:hover { animation-play-state: paused; }
         .logo-item {
+            background-color: white;
+            border-radius: 0.75rem;
+            padding: 1rem;
+            margin: 0 1.5rem;
             display: flex;
             align-items: center;
             justify-content: center;
-            padding: 0 4rem;
             flex-shrink: 0;
-            height: 100px;
+            height: 90px;
+            width: 180px; /* Give items a fixed width */
+            box-shadow: 0 4px 10px rgba(0,0,0,0.1);
         }
         .logo-item img {
-            max-height: 180px;
+            max-height: 50px;
             width: auto;
-            transition: transform 0.3s ease;
+            max-width: 100%;
         }
-        .logo-item:hover img { transform: scale(1.1); }
         @keyframes marquee {
-            0% { transform: translateX(0); }
-            100% { transform: translateX(-50%); }
+            from { transform: translateX(0); }
+            to { transform: translateX(-50%); }
         }
 
-        /* --- Testimonials Section (Slider) --- */
+        /* --- UPDATED: Testimonials Section --- */
+        #testimonials-section {
+            background-color: #0a0a0a;
+        }
         .testimonial-slider-container { max-width: 1000px; margin: 0 auto; position: relative; overflow: hidden; }
         .testimonial-slider-inner { display: flex; transition: transform 0.5s ease-in-out; }
         .testimonial-card {
             flex: 0 0 100%;
-            background: rgba(255, 255, 255, 0.05);
+            background: var(--surface-invert);
             padding: 2.5rem;
             border-radius: 1rem;
-            border: 1px solid rgba(255, 255, 255, 0.1);
             text-align: left;
-            position: relative;
             box-sizing: border-box;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
         }
-        .testimonial-card blockquote { font-style: italic; font-size: 1.125rem; color: #e5e7eb; margin-bottom: 1rem; position: relative; }
-        .testimonial-card blockquote::before { content: '“'; font-size: 4rem; color: var(--brand); position: absolute; top: -1.5rem; left: -1.5rem; opacity: 0.2; line-height: 1; }
-        .testimonial-card .author-info { display: flex; align-items: center; gap: 1rem; margin-top: 1.5rem; }
-        .testimonial-card .author-avatar { width: 50px; height: 50px; border-radius: 50%; object-fit: cover; border: 2px solid var(--brand); }
-        .testimonial-card .author-name { font-weight: 700; color: white; font-size: 1.1rem; }
-        .testimonial-card .author-title { font-size: 0.9rem; color: #9ca3af; }
+        .testimonial-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 25px rgba(0,0,0,0.1);
+        }
+        .testimonial-header { display: flex; align-items: center; gap: 1rem; margin-bottom: 1.5rem; }
+        .author-avatar { width: 55px; height: 55px; border-radius: 50%; object-fit: cover; border: 2px solid var(--brand); }
+        .author-name { font-weight: bold; font-size: 1.125rem; margin: 0; color: var(--text-invert); }
+        .author-title { color: var(--text-2); font-size: 0.9rem; margin: 0; }
+        .testimonial-card blockquote { font-size: 1.1rem; color: #374151; margin: 0; line-height: 1.6; }
         .slider-nav { display: flex; justify-content: center; gap: 1rem; margin-top: 2rem; align-items: center; }
         .slider-btn { background-color: transparent; border: 2px solid var(--brand); color: var(--brand); padding: 0.5rem; width: 40px; height: 40px; border-radius: 50%; cursor: pointer; transition: all 0.3s ease; }
-        .slider-btn:hover { background-color: var(--brand); color: var(--text-invert); box-shadow: 0 0 10px var(--brand); }
+        .slider-btn:hover { background-color: var(--brand); color: white; box-shadow: 0 0 10px var(--brand); }
         .slider-dots { display: flex; gap: 0.5rem; }
         .dot { width: 10px; height: 10px; border-radius: 50%; background-color: #374151; cursor: pointer; transition: all 0.3s ease; }
         .dot.active { background-color: var(--brand); transform: scale(1.2); }
 
-        /* --- Footer --- */
         .apple-footer { background-color: black; color: #424245; font-size: 0.9rem; padding: 3rem 1.5rem; border-top: 1px solid #222;}
         .apple-footer .footer-links { display: flex; justify-content: center; flex-wrap: wrap; gap: 1.5rem; padding-bottom: 1.5rem; border-bottom: 1px solid #424245; margin-bottom: 1.5rem; }
         .apple-footer .footer-links a, .apple-footer .footer-contact a { color: #d2d2d7; text-decoration: none; transition: color 0.3s, text-shadow 0.3s; font-weight: 500; }
         .apple-footer .footer-links a:hover, .apple-footer .footer-contact a:hover { color: white; text-shadow: 0 0 8px var(--brand); }
-        .footer-social-icons a { display: inline-flex; align-items: center; justify-content: center; width: 40px; height: 40px; border-radius: 50%; background-color: #2c2c2e; transition: background-color 0.3s, box-shadow 0.3s, transform 0.3s; }
+        .footer-social-icons a { display: inline-flex; align-items: center; justify-content: center; width: 40px; height: 40px; border-radius: 50%; background-color: #2c2c2e; transition: all 0.3s; }
         .footer-social-icons a:hover { transform: translateY(-3px); box-shadow: 0 0 15px var(--brand); }
         .apple-footer .social-link-icon { color: #d2d2d7; transition: color 0.2s ease-in-out; }
         .apple-footer .social-link-icon:hover { color: white; }
@@ -392,162 +257,55 @@
                 From concept to launch, we provide end-to-end solutions that are tailored to your unique needs and goals.
             </p>
             <div class="services-grid">
-                <div class="service-card">
-                    <i class="fas fa-bullseye icon"></i>
-                    <h3>Brand Strategy & Identity</h3>
-                    <ul>
-                        <li>Brand positioning & messaging</li>
-                        <li>Brand naming & story development</li>
-                        <li>Visual identity systems</li>
-                        <li>Logo design & brand guidelines</li>
-                    </ul>
-                </div>
-                <div class="service-card">
-                    <i class="fas fa-paint-brush icon"></i>
-                    <h3>Graphic Design</h3>
-                    <ul>
-                        <li>Marketing collateral (brochures, flyers, posters)</li>
-                        <li>Packaging design</li>
-                        <li>Corporate presentations</li>
-                        <li>Business cards & stationery</li>
-                    </ul>
-                </div>
-                <div class="service-card">
-                    <i class="fas fa-code icon"></i>
-                    <h3>Web Design & Development</h3>
-                    <ul>
-                        <li>Custom website design</li>
-                        <li>Responsive UI/UX design</li>
-                        <li>Landing pages & microsites</li>
-                        <li>Website maintenance & optimization</li>
-                    </ul>
-                </div>
-                <div class="service-card">
-                    <i class="fas fa-mobile-alt icon"></i>
-                    <h3>App Development</h3>
-                    <ul>
-                        <li>iOS & Android native app development</li>
-                        <li>Cross-platform app solutions</li>
-                        <li>UI/UX for mobile applications</li>
-                        <li>App maintenance & updates</li>
-                    </ul>
-                </div>
-                <div class="service-card">
-                    <i class="fas fa-chart-line icon"></i>
-                    <h3>Digital Marketing</h3>
-                    <ul>
-                        <li>Social media strategy & management</li>
-                        <li>Search engine optimization (SEO)</li>
-                        <li>Pay-per-click (PPC) advertising</li>
-                        <li>Email marketing campaigns</li>
-                    </ul>
-                </div>
-                <div class="service-card">
-                    <i class="fas fa-ad icon"></i>
-                    <h3>Media Planning & Advertising</h3>
-                    <ul>
-                        <li>Campaign planning & execution</li>
-                        <li>Online & offline media buying</li>
-                        <li>Targeted ad placements</li>
-                        <li>Performance tracking & analytics</li>
-                    </ul>
-                </div>
-                <div class="service-card">
-                    <i class="fas fa-splotch icon"></i>
-                    <h3>Event Branding & Activation</h3>
-                    <ul>
-                        <li>Event concept & visual design</li>
-                        <li>Branded merchandise</li>
-                        <li>Stage & environmental graphics</li>
-                        <li>Corporate event support</li>
-                    </ul>
-                </div>
-                <div class="service-card">
-                    <i class="fas fa-feather-alt icon"></i>
-                    <h3>Content Creation</h3>
-                    <ul>
-                        <li>Copywriting & storytelling</li>
-                        <li>Promotional videos</li>
-                        <li>Motion graphics & animation</li>
-                    </ul>
-                </div>
-                <div class="service-card">
-                    <i class="fas fa-plane-up icon"></i>
-                    <h3>Aerial Videography & Drone Services</h3>
-                    <ul>
-                        <li>Aerial Product Showcases</li>
-                        <li>Drone Lifestyle Shoots</li>
-                        <li>Corporate & Brand Aerials</li>
-                        <li>Social Media Drone Content</li>
-                    </ul>
-                </div>
-                <div class="service-card">
-                    <i class="fas fa-camera icon"></i>
-                    <h3>Professional Photography</h3>
-                    <ul>
-                        <li>Product Photography</li>
-                        <li>Lifestyle Shoots</li>
-                        <li>Brand & Corporate Photography</li>
-                        <li>Social Media Content Photography</li>
-                    </ul>
-                </div>
-                <div class="service-card">
-                    <i class="fas fa-bullhorn icon"></i>
-                    <h3>Public Relations</h3>
-                    <ul>
-                        <li>Brand reputation management</li>
-                        <li>Press release creation & distribution</li>
-                        <li>Media outreach</li>
-                        <li>Influencer collaborations</li>
-                    </ul>
-                </div>
-                <div class="service-card">
-                    <i class="fas fa-handshake-simple icon"></i>
-                    <h3>Influencer Marketing</h3>
-                    <ul>
-                        <li>Handpicked influencers that match your vibe</li>
-                        <li>Platform-focused storytelling (Reels, Shorts, Tweets & more)</li>
-                        <li>Product drops, unboxings, and buzz-worthy collabs</li>
-                        <li>Transparent reporting & real engagement metrics</li>
-                        <li>End-to-end campaign management</li>
-                    </ul>
-                </div>
+                <div class="service-card"><i class="fas fa-bullseye icon"></i><h3>Brand Strategy & Identity</h3><ul><li>Brand positioning & messaging</li><li>Brand naming & story development</li><li>Visual identity systems</li><li>Logo design & brand guidelines</li></ul></div>
+                <div class="service-card"><i class="fas fa-paint-brush icon"></i><h3>Graphic Design</h3><ul><li>Marketing collateral (brochures, flyers, posters)</li><li>Packaging design</li><li>Corporate presentations</li><li>Business cards & stationery</li></ul></div>
+                <div class="service-card"><i class="fas fa-code icon"></i><h3>Web Design & Development</h3><ul><li>Custom website design</li><li>Responsive UI/UX design</li><li>Landing pages & microsites</li><li>Website maintenance & optimization</li></ul></div>
+                <div class="service-card"><i class="fas fa-mobile-alt icon"></i><h3>App Development</h3><ul><li>iOS & Android native app development</li><li>Cross-platform app solutions</li><li>UI/UX for mobile applications</li><li>App maintenance & updates</li></ul></div>
+                <div class="service-card"><i class="fas fa-chart-line icon"></i><h3>Digital Marketing</h3><ul><li>Social media strategy & management</li><li>Search engine optimization (SEO)</li><li>Pay-per-click (PPC) advertising</li><li>Email marketing campaigns</li></ul></div>
+                <div class="service-card"><i class="fas fa-ad icon"></i><h3>Media Planning & Advertising</h3><ul><li>Campaign planning & execution</li><li>Online & offline media buying</li><li>Targeted ad placements</li><li>Performance tracking & analytics</li></ul></div>
+                <div class="service-card"><i class="fas fa-splotch icon"></i><h3>Event Branding & Activation</h3><ul><li>Event concept & visual design</li><li>Branded merchandise</li><li>Stage & environmental graphics</li><li>Corporate event support</li></ul></div>
+                <div class="service-card"><i class="fas fa-feather-alt icon"></i><h3>Content Creation</h3><ul><li>Copywriting & storytelling</li><li>Promotional videos</li><li>Motion graphics & animation</li></ul></div>
+                <div class="service-card"><i class="fas fa-plane-up icon"></i><h3>Aerial Videography & Drone Services</h3><ul><li>Aerial Product Showcases</li><li>Drone Lifestyle Shoots</li><li>Corporate & Brand Aerials</li><li>Social Media Drone Content</li></ul></div>
+                <div class="service-card"><i class="fas fa-camera icon"></i><h3>Professional Photography</h3><ul><li>Product Photography</li><li>Lifestyle Shoots</li><li>Brand & Corporate Photography</li><li>Social Media Content Photography</li></ul></div>
+                <div class="service-card"><i class="fas fa-bullhorn icon"></i><h3>Public Relations</h3><ul><li>Brand reputation management</li><li>Press release creation & distribution</li><li>Media outreach</li><li>Influencer collaborations</li></ul></div>
+                <div class="service-card"><i class="fas fa-handshake-simple icon"></i><h3>Influencer Marketing</h3><ul><li>Handpicked influencers that match your vibe</li><li>Platform-focused storytelling (Reels, Shorts, Tweets & more)</li><li>Product drops, unboxings, and buzz-worthy collabs</li><li>Transparent reporting & real engagement metrics</li><li>End-to-end campaign management</li></ul></div>
             </div>
         </section>
 
-        <section id="testimonials-section" class="section-container bg-[#0a0a0a] text-white">
+        <section id="testimonials-section" class="section-container">
             <h2 class="section-title">What Our <span class="text-brand">Clients</span> Say</h2>
             <p class="section-subtitle">Hear from the businesses we've helped grow and succeed.</p>
             <div class="testimonial-slider-container" id="testimonial-slider">
                 <div class="testimonial-slider-inner">
                     <div class="testimonial-card">
-                        <blockquote>"Onespace Graphics did an outstanding job handling the complete branding for Yuganta-25 at KPRCAS. From conceptualization to execution, their team brought creativity, precision, and professionalism to every element. The visuals were vibrant, cohesive, and truly captured the spirit of our cultural event. Working with them made the entire process seamless, and the results exceeded our expectations."</blockquote>
-                        <div class="author-info">
+                        <div class="testimonial-header">
                             <img class="author-avatar" src="assets/Kpr.png" alt="K.P Ramaswamy">
                             <div>
                                 <p class="author-name">K.P Ramaswamy</p>
-                                <p class="author-title">Chairman of KPRCAS</p>
+                                <p class="author-title">Chairman of KPR</p>
                             </div>
                         </div>
+                        <blockquote>"Onespace Graphics did an outstanding job handling the complete branding for Yuganta-25 at KPRCAS... their team brought creativity, precision, and professionalism to every element... the results exceeded our expectations."</blockquote>
                     </div>
                     <div class="testimonial-card">
-                        <blockquote>"Onespace Graphics has been instrumental in developing three high-quality apps for Sri Ramakrishna College of Arts & Science. Each app was delivered with excellent functionality, smooth user experience, and a clean, professional design. Their team was responsive, detail-oriented, and ensured that our vision was perfectly translated into the final product. We’re thrilled with the results and look forward to working with them on future projects!"</blockquote>
-                        <div class="author-info">
+                         <div class="testimonial-header">
                             <img class="author-avatar" src="assets/SRCAS.png" alt="SRCAS">
                             <div>
-                                <p class="author-name">Sri Ramakrishna College of Arts & Science</p>
+                                <p class="author-name">SRCAS</p>
+                                <p class="author-title">Arts & Science College</p>
                             </div>
                         </div>
+                        <blockquote>"Onespace Graphics has been instrumental in developing three high-quality apps... Each app was delivered with excellent functionality, smooth user experience, and a clean, professional design. We’re thrilled with the results!"</blockquote>
                     </div>
                     <div class="testimonial-card">
-                        <blockquote>"Onespace Graphics turned our ideas into reality for SG Productions! Their team brought energy, creativity, and flawless execution to the table. Every detail was crafted with care, making the final output truly stand out. Working with them was seamless, inspiring, and absolutely worth it!"</blockquote>
-                        <div class="author-info">
+                        <div class="testimonial-header">
                             <img class="author-avatar" src="assets/SGMediaWorks.svg" alt="Sathiyamurthy">
                             <div>
                                 <p class="author-name">Sathiyamurthy</p>
                                 <p class="author-title">Founder of SG Productions</p>
                             </div>
                         </div>
+                        <blockquote>"Onespace Graphics turned our ideas into reality for SG Productions! Their team brought energy, creativity, and flawless execution to the table. Working with them was seamless, inspiring, and absolutely worth it!"</blockquote>
                     </div>
                 </div>
             </div>
@@ -561,7 +319,6 @@
         <section id="clients-section" class="client-logos-section">
             <h2 class="section-title text-2xl font-semibold mb-8 text-center">Our <span class="text-brand">Valuable Clients</span></h2>
             <div class="logo-slider-container">
-                <!-- Duplicated for seamless loop -->
                 <div class="logo-item"><img src="assets/SRCAS.svg" alt="SRCAS Logo"></div>
                 <div class="logo-item"><img src="assets/KPRCAS.svg" alt="KPRCAS Logo"></div>
                 <div class="logo-item"><img src="assets/FelicitaTiles.svg" alt="Felicita Tiles Logo"></div>
@@ -570,6 +327,7 @@
                 <div class="logo-item"><img src="assets/DooDeelogo.png" alt="DooDee logo"></div>
                 <div class="logo-item"><img src="assets/PrasanaCarsLogo.png" alt="Prasana Cars Logo"></div>
                 <div class="logo-item"><img src="assets/shoespotlogo.png" alt="Shoe Spot Logo"></div>
+                <!-- Cloned Set -->
                 <div class="logo-item"><img src="assets/SRCAS.svg" alt="SRCAS Logo"></div>
                 <div class="logo-item"><img src="assets/KPRCAS.svg" alt="KPRCAS Logo"></div>
                 <div class="logo-item"><img src="assets/FelicitaTiles.svg" alt="Felicita Tiles Logo"></div>
@@ -623,14 +381,12 @@
 
     <script>
         document.addEventListener('DOMContentLoaded', () => {
-            // --- Mobile Nav ---
             const nav = document.getElementById('nav');
             const openBtn = nav.querySelector('.icon-btn[aria-label="Open Menu"]');
             const closeBtn = nav.querySelector('.icon-btn[aria-label="Close Menu"]');
             if (openBtn) { openBtn.addEventListener('click', () => nav.classList.add('open')); }
             if (closeBtn) { closeBtn.addEventListener('click', () => nav.classList.remove('open')); }
 
-            // --- Hero Scroll Button ---
             const scrollBtn = document.querySelector('.hero-actions-container .button-link.secondary');
             if (scrollBtn) {
                 scrollBtn.addEventListener('click', (e) => {
@@ -639,7 +395,6 @@
                 });
             }
 
-            // --- Testimonial Slider ---
             const sliderContainer = document.getElementById('testimonial-slider');
             if (sliderContainer) {
                 const sliderInner = sliderContainer.querySelector('.testimonial-slider-inner');
@@ -657,7 +412,6 @@
                 let currentSlide = 0;
                 let autoSlideInterval;
 
-                // Create dots
                 for (let i = 0; i < totalCards; i++) {
                     const dot = document.createElement('span');
                     dot.classList.add('dot');
@@ -699,19 +453,10 @@
                 sliderContainer.addEventListener('mouseenter', stopAutoSlide);
                 sliderContainer.addEventListener('mouseleave', startAutoSlide);
 
-                // Initial setup
                 moveToSlide(0);
                 startAutoSlide();
-
-                // Adjust on resize
-                 window.addEventListener('resize', () => {
-                    stopAutoSlide();
-                    updateSlider();
-                    startAutoSlide();
-                });
             }
         });
     </script>
 </body>
 </html>
-
